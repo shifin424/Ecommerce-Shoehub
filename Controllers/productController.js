@@ -1,7 +1,6 @@
 const products = require('../model/productSchema');
 const categories = require('../model/categorySchema');
-
-
+const fs = require('fs')
 
 
 
@@ -37,7 +36,7 @@ const addProduct = async (req, res, next) => {
                 size: req.body.size
             })
              product.save()
-             res.redirect('/productdetails')
+             res.redirect('/admin/productDetails')
           
         } catch (err) {
             next(err)
@@ -77,14 +76,29 @@ const postEditProduct = async (req, res, next) => {
             }
             
         })
-        const directorypath = "public/"+req.body.image1
-        fs.unlink(directorypath,(err)=>{
+        const directorypath1 = "public/"+req.body.image1
+        const directorypath2 = "public/"+req.body.image2
+        const directorypath3 = "public/"+req.body.image3
+        
+        fs.unlink(directorypath1,(err)=>{
             if(err){
                 throw err;
             }
-            console.log("Delete image successfully");
+            console.log("Delete image1 successfully");
         })
-        res.redirect('/productDetails')
+        fs.unlink(directorypath2,(err)=>{
+            if(err){
+                throw err;
+            }
+            console.log("Delete image2 successfully");
+        })
+        fs.unlink(directorypath3,(err)=>{
+            if(err){
+                throw err;
+            }
+            console.log("Delete image3 successfully");
+        })
+        res.redirect('/admin/productdetails')
         
 
     } catch (err) {
@@ -122,7 +136,7 @@ const deleteProduct = async (req, res, next) => {
     try {
         const id = req.params.id;
         await products.updateOne({ _id: id }, { $set: { delete: true } })
-        res.redirect('/admin/productDetails')
+        res.redirect('/admin/productdetails')
     } catch (err) {
         next(err)
     }
