@@ -1,0 +1,90 @@
+
+<%- include ("../partials/headerBtsrp.ejs") -%> 
+
+    <div  class="container mt-5">
+        <div class="d-flex justify-content-center align-items-center container">
+            <form action="/otp" method="post">
+            <div class="card py-5 px-3 ">
+                <div class="d-flex align-items-center justify-content-center">
+                    <h5 class="m-0 text-success">Email verification</h5>
+                </div>
+                
+                <h6 class="mobile-text mt-3">Enter the otp received in your mail</h6>
+                <div class="text-center" id="timeshower"><span id="timer"></span></div>
+                <div class="d-flex flex-row mt-4">
+                     <% if (locals.userData) { %>
+                      <input type="hidden" name="username" id="userName" class="form-control" value="<%= userData.username %> ">
+                      <input type="hidden" name="email" id="email" class="form-control" value="<%= userData.email %> ">
+                      <input type="hidden" name="phonenumber" id="phoneNumber" class="form-control" value="<%= userData.phonenumber %> ">
+                      <input type="hidden" name="password" id="password" class="form-control" value="<%= userData.password %> ">
+                     <% } %> 
+                    <input type="text" name="otp" id="otp" class="form-control" />
+                </div>
+            <% if(locals.invalid){ %>
+     <p class="text-danger"><%=invalid%></p>
+         <% } %>
+                           
+                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" value="Submit" class="btn btn-success btn-lg mt-3">Submit</button>
+                  </div>
+                </form>
+                
+                <div class="text-center mt-0"><span class="d-block mobile-text">Thank you for joining our family</span>
+                    <span class="font-weight-bold text-danger cursor">ShoeHub</span></div>
+                    <form action="/resend" method="post" class="text-center">
+                        <% if (locals.userData) { %>
+                            <input type="hidden" name="username" id="userName" class="form-control" value="<%= userData.username %> ">
+                            <input type="hidden" name="email" id="email" class="form-control" value="<%= userData.email %> ">
+                            <input type="hidden" name="phonenumber" id="phoneNumber" class="form-control" value="<%= userData.phonenumber %> ">
+                            <input type="hidden" name="password" id="password" class="form-control" value="<%= userData.password %> ">
+                           <% } %> 
+
+                    <!-- <a href="" type="submit"  class="btn btn-sm btn-outline-primary text-center">Resend</a> -->
+                    <button type="submit" value="Submit" id="resend" class="d-none btn btn-sm btn-outline-primary">Resend</button>
+
+                    </form>
+
+            </div>
+
+            
+
+        </div>
+    </div>
+
+
+
+    
+<script>
+    let timerOn = true;
+
+function timer(remaining) {
+  var m = Math.floor(remaining / 60);
+  var s = remaining % 60;
+  
+  m = m < 10 ? '0' + m : m;
+  s = s < 10 ? '0' + s : s;
+  document.getElementById('timer').innerHTML = m + ':' + s;
+  remaining -= 1;
+  
+  if(remaining >= 0 && timerOn) {
+    setTimeout(function() {
+        timer(remaining);
+    }, 1000);
+    return;
+  }
+
+  
+  
+if(remaining <= 0 ) {
+    // alert(remaining);
+    document.getElementById('timeshower').classList.add("d-none")   
+    document.getElementById('resend').classList.remove("d-none")   
+
+}
+  // Do timeout stuff here
+}
+
+timer(60);
+</script>
+    <%- include ("../partials/footerBtsrp.ejs") -%> 
+   

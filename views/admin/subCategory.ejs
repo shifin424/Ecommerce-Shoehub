@@ -1,0 +1,102 @@
+<%- include ('../partials/adminSidebar.ejs') -%> 
+
+<div style="padding:5rem;margin-top: 5rem;" class="col py-3">
+    <div class="d-flex align-items-center justify-content-center">
+      <h1 class="text-decoration-underline">SubCategories</h1>
+    </div>
+    
+    <form action="/admin/addSubCategory" method="post" id="form" class="mt-5">
+      <input type="text" name="name" placeholder="Add new subCategory" required>
+      <button type="submit" class="btn btn-success" >Submit</button>
+    </form>
+ 
+        
+
+        <div class="d-flex align-items-center justify-content-center">
+          <% if(locals.editSubCategoryExist){%>
+            <p class="text-danger">
+              <%=editSubCategoryExist%>
+            </p>
+            <% } %>
+        </div>
+    <table class="table" id="table">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">SubCategory</th>
+          <th scope="col">Delete</th>
+          
+        </tr>
+      </thead>
+
+      <tbody>
+        <% count=1 %>
+          <% subCategory.forEach((subctgry)=>{ %>
+            <tr>
+              <td>
+                <%= count %>
+              </td>
+              <td>
+                <%= subctgry.subcategory_name %>
+              </td>
+             
+            <td>
+
+              
+               <!-- Button trigger modal -->
+               
+               <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+               data-bs-target="#exampleModal-<%=subctgry._id%>">
+               Delete
+             </button>
+             
+             <!-- Modal -->
+             <div class="modal fade" id="exampleModal-<%=subctgry._id%>" tabindex="-1"
+               aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <h1 class="modal-title fs-5" id="exampleModalLabel">Delete confirmation</h1>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                   </div>
+                   <% if(subctgry.delete==false){ %>
+                   <div class="modal-body">
+                     Are you sure you want to restore this subCategory <%= subctgry.subcategory_name%>?
+                   </div>
+                   <% } else { %>
+                    <div class="modal-body">
+                      Are you sure you want to delete this category <%= subctgry.subcategory_name%>?
+                    </div>
+                    <% } %>
+                   <div class="modal-footer">
+                  
+                      <button type="button" class="btn btn-secondary"
+                      data-bs-dismiss="modal">Close</button>
+                      <a href="/admin/deleteSubCategory<%=subctgry._id%>">
+                      <button type="button" class="btn btn-danger" >Delete</button></a>
+                     
+                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     <a href="/admin/deleteCategory/<%=subctgry._id%>"><button type="button"
+                         class="btn btn-danger">Delete</button></a> -->
+                   </div>
+                 </div>
+               </div>
+             </div>
+            </td>
+          </tr>
+         
+    <% count++ %>
+     <% }) %>
+    </tbody>   
+    </table>
+  </div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+crossorigin="anonymous"></script>
+<script>
+  $("#menu-btn").click(function () {
+    $("#menu").toggleClass("active");
+  });
+</script>

@@ -1,0 +1,31 @@
+
+<%- include("../partials/headerBtsrp.ejs") -%> 
+
+
+    <section class="d-flex mt-5" style="justify-content: center;">
+        <div class="card text-center" style="width: 350px; ">
+            <div class="card-header h5 text-white bg-danger">Otp Verification</div>
+            <div class="card-body px-5">
+                    <p class="alert bg-light text-danger" style="border-style:dashed;border-color: brown;"> </p>
+          
+                    <h5> Enter your otp </h5>
+                    <p class="card-text py-2">
+                       we'll send you a four digit otp on your mail
+                    </p>       
+               
+                
+                <form action="/forgotNewPassword" method="post">
+                <div class="form-outline">
+                   <input type="hidden" name="email" value="">
+                    <input type="number" id="otp-reset" placeholder="Enter your otp" name="otp" class="form-control my-3" required/>
+                    <!-- <label class="form-label "  for="typeotp">Otp input</label> -->
+                </div>
+                <a href="/forgot-New-password"><button type="submit"  class="btn btn-danger w-100">Confirm</button></a>
+            </form>
+               
+            </div>
+        </div>
+        </section>
+
+
+<%- include("../partials/footerBtsrp.ejs") -%> 

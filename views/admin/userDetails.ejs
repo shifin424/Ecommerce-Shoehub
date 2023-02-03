@@ -1,0 +1,86 @@
+
+<%- include ("../partials/adminSidebar.ejs") -%> 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+
+   
+
+    </div>
+      <div class="col py-3 mt-5">
+
+        <div class="d-flex align-items-center justify-content-center">
+          <h1 class="text-decoration-underline">User details</h1>
+        </div>
+        <table class="table mt-5" id="tabledata">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">name</th>
+              <th scope="col">email</th>
+              <th scope="col">Mobile</th>
+              <th scope="col">Controlls</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <% let count=1 %>
+              <% users.forEach((user)=>{ %>
+                <tr>
+                  <td>
+                    <%= count %>
+                  </td>
+                  <td>
+                    <%=user.username %>
+                  </td>
+                  <td>
+                    <%=user.email %>
+                  </td>
+                  <td>
+                    <%=user.phonenumber %>
+                  </td>
+                  <td>
+                    <% if(user.isBlocked===false) { %>
+                      <a href="/admin/blockUser/<%= user._id%>" class="btn btn-danger">Block</a>
+                      <% }else{ %>
+                        <a href="/admin/unblockUser/<%= user._id%>" class="btn btn-success">Unblock</a>
+                        <%}%>
+                  </td>
+                </tr>
+                <% count++ %>
+                  <% }) %>
+
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#tabledata').DataTable();
+    });
+    $('#tabledata').DataTable({
+    "searching": true
+    });
+  </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+    <script>
+      $("#menu-btn").click(function () {
+        $("#menu").toggleClass("active");
+      });
+    </script>
+
+</body>
+
+</html>
