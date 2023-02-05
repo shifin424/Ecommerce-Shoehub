@@ -19,6 +19,10 @@ adminRouter.post('/signin',loginSession,adminController.postAdminLogin);
 
 adminRouter.get('/home',adminSession,adminController.getAdminHome);
 
+adminRouter.get('/twoFactorAdmin',adminController.twoFactorAdmin);
+
+adminRouter.post('/twoFactorAdmin',adminController.postTwoFactor)
+
 adminRouter.get('/adminLogout',adminController.adminLogout);
 
 adminRouter.get('/addProduct',adminSession,productController.addProduct);
@@ -37,9 +41,16 @@ adminRouter.get('/deleteproduct/:id',adminSession,productController.deleteProduc
 
 adminRouter.get('/restoreProduct/:id',adminSession,productController.restoreProduct);
 
-// adminRouter.post('/postProduct',adminSession,multipleUpload)
 
 adminRouter.get('/category',adminSession,categoryController.getCategory);
+
+adminRouter.post('/editCategory/:id',adminSession,categoryController.editCategory)
+
+adminRouter.post('/editSubCategory/:id',adminSession,categoryController.editSubCategory)
+
+adminRouter.get('/restoreCategory/:id',adminSession,categoryController.restoreCategory)
+
+adminRouter.get('/restoreSubCategory/:id',adminSession,categoryController.restoreSubCategory)
 
 adminRouter.post('/addCategory',adminSession,categoryController.addCategory);
 
@@ -49,7 +60,7 @@ adminRouter.get('/subCategory',adminSession,categoryController.getsubCategory);
 
 adminRouter.post('/addSubCategory',adminSession,categoryController.addSubCategory);
 
-adminRouter.get('/deleteSubCategory',adminSession,categoryController.deletesubCategory);
+adminRouter.get('/deleteSubCategory/:id',adminSession,categoryController.deleteSubCategory);
 
 adminRouter.get('/userDetails',adminSession,adminController.getAllUsers);
 

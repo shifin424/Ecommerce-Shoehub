@@ -12,20 +12,20 @@
  <div class="card text-center" style="width: 350px; ">
      <div class="card-header h5 text-white bg-primary">Two Factor</div>
      <div class="card-body px-5">
-       
-             <p class="alert bg-light text-danger" style="border-style:dashed;border-color: brown;"> </p>
-        
+             <% if (locals.invalid){ %> 
+             <p class="alert bg-light text-danger" style="border-style:dashed;border-color: brown;"><%= invalid %>  </p>
+              <% } %> 
              <h5> Enter your otp </h5>
              <p class="card-text py-2">
                 we'll send you a four digit otp on your mail
              </p>       
  
          
-         <form action="/twoFactor" method="post">
+         <form action="/twoFactorLogin" method="post">
          <div class="form-outline">
             
-            <input type="hidden" name="email" value="">
-           
+            <input type="hidden" name="email" value="<%= email %>">
+     
              <input type="number" id="otp-reset" placeholder="Enter your otp" name="otp" class="form-control my-3" required/>
          </div>
         <button type="submit" class="btn btn-primary w-100">Confirm</button>

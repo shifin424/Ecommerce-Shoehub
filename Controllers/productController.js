@@ -1,6 +1,7 @@
 const products = require('../model/productSchema');
 const categories = require('../model/categorySchema');
-const fs = require('fs')
+const fs = require('fs');
+const subCategories = require('../Model/subCategorySchema');
 
 
 
@@ -14,92 +15,90 @@ const fs = require('fs')
 const addProduct = async (req, res, next) => {
     try {
         const category = await categories.find()
-        res.render('admin/addProduct', { category: category });
+        const subCategory = await subCategories.find()
+        res.render('admin/addProduct', { category,subCategory  });
     } catch (err) {
         next(err)
     }
 }
 
-   const  postProduct = async (req, res,next) => {
-        try {
-            let categoryId = req.body.category;
-           
-            const product = new products({
-                image1 : req.files[0].filename,
-                image2 : req.files[1].filename,
-                image3 : req.files[2].filename,
-                name: req.body.product_name,
-                price: req.body.price,
-                category: categoryId,
-                description: req.body.description,
-                stock: req.body.stock,
-                size: req.body.size
-            })
-             product.save()
-             res.redirect('/admin/productDetails')
-          
-        } catch (err) {
-            next(err)
-        }
-    };
 
+
+const postProduct = async (req, res, next) => {
+    try {
+        let categoryId = req.body.category;
+        let subCategoryId = req.body.subcategory;
     
 
-   const  editProduct = async (req, res, next) => {
-        try {
-            const id = req.params.id;
-            const category = await categories.find()
-            const productData = await products.findOne({ _id: id })
-            res.render('admin/editProduct', { productData, category })
-        } catch (err) {
-            next(err)
-        }
-    };
+        const product = new products({
+            image1: req.files[0].filename,
+            image2: req.files[1].filename,
+            image3: req.files[2].filename,
+            name: req.body.product_name,
+            price: req.body.price,
+            category: categoryId,
+            subCategory:subCategoryId,
+            description: req.body.description,
+            stock: req.body.stock,
+            size: req.body.size
+        })
+        product.save()
+        res.redirect('/admin/productDetails')
+
+    } catch (err) {
+        next(err)
+    }
+};
+
+
+
+const editProduct = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const category = await categories.find()
+        const subCategory = await subCategories.find()
+        const productData = await products.findOne({ _id: id })
+        res.render('admin/editProduct', { productData, category ,subCategory})
+    } catch (err) {
+        next(err)
+    }
+};
 
 
 const postEditProduct = async (req, res, next) => {
     try {
 
         const id = req.params.id;
-
+        console.log(req.body.image2)
         await products.updateOne({ _id: id }, {
             $set: {
                 name: req.body.name,
                 price: req.body.price,
                 category: req.body.category,
+                subCategory:req.body.subCategory,
                 description: req.body.description,
                 stock: req.body.stock,
-                image1 : req.files[0].filename,
-                image2 : req.files[1].filename,
-                image3 : req.files[2].filename, 
+                image1: req.files[0].filename,
+                image2: req.files[1].filename,
+                image3: req.files[2].filename,
 
             }
-            
+
         })
-        const directorypath1 = "public/"+req.body.image1
-        const directorypath2 = "public/"+req.body.image2
-        const directorypath3 = "public/"+req.body.image3
-        
-        fs.unlink(directorypath1,(err)=>{
-            if(err){
-                throw err;
-            }
-            console.log("Delete image1 successfully");
-        })
-        fs.unlink(directorypath2,(err)=>{
-            if(err){
-                throw err;
-            }
-            console.log("Delete image2 successfully");
-        })
-        fs.unlink(directorypath3,(err)=>{
-            if(err){
-                throw err;
-            }
-            console.log("Delete image3 successfully");
-        })
+        const directorypath1 = "public/" + req.body.image1
+        const directorypath2 = "public/" + req.body.image2
+        const directorypath3 = "public/" + req.body.image3
+        const path = [directorypath1, directorypath2, directorypath3]
+        for (i = 0; i < 3; i++) {
+            fs.unlink(path[i], (err) => {
+                if (err) {
+                    throw err;
+                }
+                console.log("Deleted image successfully");
+            })
+        }
         res.redirect('/admin/productdetails')
-        
+
 
     } catch (err) {
         next(err
@@ -112,7 +111,7 @@ const productDetails = async (req, res, next) => {
 
     try {
 
-        const product = await products.find().populate('category');
+        const product = await products.find().populate('category').populate('subCategory');
         res.render('admin/productDetails', { product })
     } catch (err) {
         next(err)
@@ -120,7 +119,7 @@ const productDetails = async (req, res, next) => {
 
 };
 
-const addSize = async (req, res,next) => {
+const addSize = async (req, res, next) => {
     try {
         const product = req.body.product;
         const size = req.body.size;

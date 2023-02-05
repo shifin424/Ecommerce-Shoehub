@@ -36,7 +36,16 @@
             <% }) %>              
           </select>
         </div>
-        <div class="row p-2 mt-5 mb-2">
+        <div class="form-outline flex-fill mb-0 mt-4">              
+          <select required  class="form-select required" name="subcategory" id="category"   aria-label="Default select example">
+            <option selected value=""  >subCategory</option>
+            <% subCategory.forEach((subctgry)=> {%>
+              <option value="<%=subctgry._id%>"><%=subctgry.subcategory_name%></option>
+            <% }) %>              
+          </select>
+        </div>
+
+        <div class="row p-2 mt-5 mb-2"> 
           <div class="col-md-12 d-flex justify-content-center">
             <button type="submit" class="btn btn-success sub-btn btn-lg">Add Product</button>
           </div>

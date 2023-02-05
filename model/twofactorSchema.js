@@ -7,9 +7,10 @@ const twoFactorSchema = new Schema({
         required:true
     },
     email:{
-        type:String
+        type:String,
+        required:true
     }
 }); 
 
-const TFotp = mongoose.model('twoFactor',twoFactorSchema)
-module.exports = TFotp;
+const twoFactor = mongoose.model('twoFactor',twoFactorSchema)
+module.exports = twoFactor;

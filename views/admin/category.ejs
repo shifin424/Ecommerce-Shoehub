@@ -9,6 +9,9 @@
       <input type="text" name="name" placeholder="Add new category" required>
       <button type="submit" class="btn btn-success" >Submit</button>
     </form>
+    <div class="container d-flex justify-content-end">
+      <a href="/admin/subCategory"><button class="btn btn-primary"  type="button">subCategory</button></a>
+    </div>
  
         
 
@@ -19,12 +22,14 @@
             </p>
             <% } %>
         </div>
+
+        
     <table class="table" id="table">
       <thead>
         <tr>
           <th scope="col">No</th>
           <th scope="col">Category</th>
-          <th scope="col">SubCategory</th>
+          <th scope="col">EditCategory</th>
           <th scope="col">Delete</th>
           
         </tr>
@@ -41,7 +46,12 @@
                 <%= catg.category_name %>
               </td>
               <td>
-                <a href="/admin/subCategory"><button class="btn btn-primary"  type="button">subCategory</button></a>
+                
+                <form action="/admin/editCategory/<%=catg._id%>" method="post">
+                  <div class="d-flex">
+                  <input placeholder="Edit category name" name="name" type="text" id="category" class="form-control w-50"  required>                     
+                  <button type="submit" class="btn btn-success">Submit</button>
+                  </div>
                 </form>
                 
             </td>

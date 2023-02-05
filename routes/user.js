@@ -2,6 +2,7 @@ const express = require('express');
 const userController = require('../controllers/userController');
 const router = express()
 const session = require("../middlewares/session");
+const profileController = require('../Controllers/userProfileController')
 
 
 router.use(express.json());
@@ -10,7 +11,11 @@ router.use(express.urlencoded({ extended: true }));
 
 router.get('/', userController.getHome)
 router.get('/login', session.verifyLoginUser, userController.getLogin)
-router.post('/login', userController.postlogin)
+router.post('/postlogin', userController.postlogin)
+
+router.get('/profile',session.userLogin,profileController.viewProfile)
+router.get('/editProfile',session.userLogin,profileController.editProfile);
+router.post('/postEditProfile',session.userLogin,profileController.postEditProfile)
 
 router.get('/Signup', session.verifyLoginUser, userController.getsignup)
 router.get('/otp', session.verifyLoginUser,userController.getOtpPage)
@@ -25,8 +30,8 @@ router.post('/postOtpSignup', userController.getOtpPage)
 router.post('/postForgotOtp', userController.postforgototp)
 router.post('/forgot-new-password', userController.forgotNewPassword)
 
-router.get('/twoFactor',userController.twoFactor)
-router.post('/twoFactor',userController.usertwofactor)
+router.get('/userTwoFactor',userController.twoFactor)
+ router.post('/twoFactorLogin',userController.usertwofactor)
 
 router.get('/logout', userController.userLogout)
 

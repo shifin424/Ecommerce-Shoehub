@@ -14,6 +14,15 @@ module.exports = {
     }
   },
 
+  userLogin:(req,res,next)=>{
+    if(req.session?.user){
+      next()
+    }
+    else{
+      res.redirect('/')
+    }
+  },
+
   loginSession:(req,res,next)=>{
     if(req.session.admin){
       res.redirect('/admin')

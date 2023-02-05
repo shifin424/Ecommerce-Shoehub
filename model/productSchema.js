@@ -13,6 +13,11 @@ const productSchema = new mongoose.Schema({
         type:mongoose.SchemaTypes.ObjectId,
         ref:'categories'
     },
+    subCategory:{
+        type:mongoose.SchemaTypes.ObjectId,
+        ref:'subCategories'
+    },
+
     image1:{
         type:String,
         required:true
@@ -25,6 +30,25 @@ const productSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+
+    reviews: [
+        {
+          userId: {
+            type:mongoose.SchemaTypes.ObjectId,
+            ref: 'User'
+          },
+          text: {
+            type: String,
+            required: true
+          },
+          rating: {
+            type: Number,
+            required: true,
+            min: 0,
+            max: 5
+          }
+        }
+      ],
 
     size: [Number],
     

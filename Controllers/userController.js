@@ -5,7 +5,7 @@ const user = require('../model/userSchema')
 const bcrypt = require('bcrypt');
 const { response } = require('express')
 const sendMail = require('../config/mailSender');
-const TFotp = require('../model/twofactorSchema')
+const twoFactor = require('../model/twofactorSchema')
 
 
 
@@ -24,7 +24,7 @@ const getLogin = (req, res, next) => {
   try {
     invalid = req.session.errMessage
     req.session.errMessage = false
-    res.render("user/login",{invalid});
+    res.render("user/login",{invalid:"invalid Email and Password"});
   } catch (err) {
     next(err)
   }
@@ -125,7 +125,6 @@ const postOtp = (req, res, next) => {
 
 // login post
 const postlogin = async (req, res, next) => {
-
   try {
     const email = req.body.email
     const password = req.body.password
@@ -134,18 +133,42 @@ const postlogin = async (req, res, next) => {
     req.session.err_message = false;
 
     if (userData) {
-      console.log(userData);
       if (userData.isBlocked === false) {
         const passwordMatch = await bcrypt.compare(password, userData.password)
+       
         if (passwordMatch) {
           response.email = userData
           req.session.user = response.email
 
+          const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
+          console.log(OTP);
+          const botp = await bcrypt.hash(OTP, 10)
 
-          
+          const mailDetail = {
+            from: process.env.MAILER_EMAIL,
+            to: email,
+            subject: 'Otp for SHOEHUB ',
+            html: `<p>Your OTP for registering in SHOEHUB  is ${OTP}</p>`
+      
+          }
+          mailer.mailTransporter.sendMail(mailDetail, async function (err) {
 
+            twoFactor.deleteOne({ email: email }).then(() => {
+    
+              twoFactor.create({
+                email: email,
+                otp: botp
+              }).then(() => {
+    
+                res.render("user/userTwoFactor", { email });
+    
+              })
+    
+            })
+    
+          })
 
-          res.redirect('/')
+         
         } else {
           req.session.errMessage="Invalid password"
           res.redirect('/login')
@@ -159,7 +182,7 @@ const postlogin = async (req, res, next) => {
       res.render('user/login')
     }
   } catch (err) {
-    nect(err)
+    next(err)
   }
 };
 
@@ -372,7 +395,7 @@ const userResend = async (req, res, next) => {
 
 };
 
-const twoFactor =(req,res,next)=> {
+const twoFactors =(req,res,next)=> {
   try{
     res.render("user/userTwoFactor")
   }catch(err){
@@ -382,46 +405,18 @@ const twoFactor =(req,res,next)=> {
 
 const usertwofactor = async (req,res,next)=>{
   try{
+    
     const useremail = req.body.email;
+    const Otp = req.body.otp
+    const tOtp = await twoFactor.findOne({email:useremail})
+    const validOtp = await bcrypt.compare(Otp, tOtp.otp)
 
-    const userdata = req.body;
-    const isuserExist = await user.findOne({ email: userEmail });
-    const TFotp = `${Math.floor(1000 + Math.random() * 9000)}`
-    const bcryptotp = await bcrypt.hash(TFotp, 10)
+    if(validOtp){
+      res.redirect('/')
 
-
-    const mailDetail = {
-
-      from: process.env.MAILER_EMAIL,
-      to: useremail,
-      subject: 'Otp for SHOEHUB ',
-      html: `<p>Your OTP for registering in SHOEHUB  is ${TFotp}</p>`
-
+    }else{
+      res.redirect('/userTwoFactor')
     }
-
-    if (isuserExist) {
-      console.log(isuserExist);
-      mailer.mailTransporter.sendMail(mailDetail, async function (err) {
-
-        TFotp.deleteOne({ email: useremail }).then(() => {
-
-          TFotp.create({
-            email: useremail,
-            otp: bcryptotp
-          }).then(() => {
-
-            res.render("user/home", { useremail });
-
-          })
-
-        })
-
-      })
-
-    } else {
-      res.render('user/userTwoFactor', { invalid: "please enter a valid Email", userdata })
-    }
-
 
 }catch(err){
   next(err)
@@ -430,6 +425,7 @@ const usertwofactor = async (req,res,next)=>{
 
 module.exports = {
 
+  twoFactors,
   getHome, 
   getLogin,
   getsignup,

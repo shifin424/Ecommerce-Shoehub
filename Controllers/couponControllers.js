@@ -1,4 +1,6 @@
 const coupon = require('../model/couponSchema');
+const moment = require("moment");
+moment().format();
 
 
 
@@ -7,7 +9,7 @@ const coupon = require('../model/couponSchema');
     const getCouponPage =async (req,res,next)=>{
         try{
             const couponData = await coupon.find()
-            res.render('/admin/coupon',{couponData})
+            res.render('admin/coupon',{couponData})
         }catch(err){
             next(err)
         }

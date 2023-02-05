@@ -9,6 +9,7 @@ const dbconnect   = require('./config/Connection');
 const cookieParser = require('cookie-parser')
 const { urlencoded } = require('body-parser');
 const session     = require('express-session');
+const logger = require('morgan')
 
  //const noCache = require("nocache");
 
@@ -18,6 +19,7 @@ dbconnect.dbconnect();
 
 
 app.use(express.urlencoded({extended:true}))
+// app.use(logger('dev'))
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')));

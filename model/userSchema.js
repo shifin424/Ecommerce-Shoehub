@@ -18,6 +18,29 @@ const userSchema = new mongoose.Schema({
         trim: true,
         required:true,
     },
+
+    cart: [
+        {
+          productId: {
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'Products '
+          },
+          quantity: {
+            type: Number,
+            required: true
+          }
+        }
+      ],
+
+      wishlist: [
+        {
+          productId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product'
+          }
+        }
+      ],
+      
     addressDetails:[
         {
          housename:{

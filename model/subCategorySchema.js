@@ -9,6 +9,7 @@ const subCategorySchema = new Schema({
 
     subcategory_name:{
         type:String,
+        uppercase:true,
         required:true
     }
     , delete:{

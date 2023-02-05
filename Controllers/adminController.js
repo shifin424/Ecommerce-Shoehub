@@ -1,21 +1,18 @@
 const user = require('../model/userSchema');
-const products = require('../model/productSchema');
-const categories = require('../model/categorySchema');
-const mongoose = require("mongoose");
-const coupon = require('../model/couponSchema');
 const dotenv = require('dotenv');
-const subCategories = require('../Model/subCategorySchema')
+const bcrypt = require('bcrypt');
+const twoFactor = require('../model/twofactorSchema')
+const mailer = require("../middlewares/otpValidation");
 const adminSession = require('../middlewares/session')
-const moment = require("moment");
-moment().format();
+
 dotenv.config();
 
 
 
-const aEmail = process.env.ADMIN_NAME
-const aPassword = process.env.ADMIN_PASSWORD
-console.log(aEmail);
-console.log(aPassword);
+const adminEmail = process.env.ADMIN_NAME
+const adminPassword = process.env.ADMIN_PASSWORD
+console.log(adminEmail);
+console.log(adminPassword);
 
 
 
@@ -30,17 +27,86 @@ console.log(aPassword);
 
     };
 
-   const  postAdminLogin = (req, res, next) => {
+   const  postAdminLogin = async (req, res, next) => {
 
         try {
-            if (req.body.email === aEmail && req.body.password === aPassword) {
+            if (req.body.email === adminEmail && req.body.password === adminPassword) {
                 req.session.admin = true
-                res.render('admin/home');
+
+                const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
+                console.log(OTP);
+                const botp = await bcrypt.hash(OTP, 10)
+
+                const mailDetail = {
+                    from: process.env.MAILER_EMAIL,
+                    to: adminEmail,
+                    subject: 'Otp for SHOEHUB ',
+                    html: `<p>Your OTP for registering in SHOEHUB  is ${OTP}</p>`
+              
+                  }
+                  mailer.mailTransporter.sendMail(mailDetail, async function (err) {
+        
+                    twoFactor.deleteOne({ email: adminEmail }).then(() => {
+            
+                      twoFactor.create({
+                        email: adminEmail,
+                        otp: botp
+                      }).then(() => {
+            
+                        res.redirect(`/admin/twoFactorAdmin?email=${adminEmail}`);
+            
+                      })
+            
+                    })
+            
+                  })
+
+
+
+              
             } else {
-                req.session.errmessage = "invalid Email or password"
+                invalid =req.session.errmessage = "invalid Email or password";
+                req.session.errmessage = false;
                 res.render('admin/login', { invalid: "invalid username or password" });
             }
         } catch (err) {
+            next(err)
+        }
+    };
+
+
+    const twoFactorAdmin = (req,res,next) =>{
+        try{
+            email = req.query.email
+            res.render('admin/twoFactorAdmin',{email})
+        }catch(err){
+            console.log(err);
+        }
+    };
+
+
+    const postTwoFactor = async(req,res,next)=>{
+        try{
+            
+
+           const  adminEmail = req.body.email;
+           const adminOtp = req.body.otp
+           
+
+           const admOtp = await twoFactor.findOne({email:adminEmail})
+           const bycpOtp = await bcrypt.compare(adminOtp, admOtp.otp )
+
+
+           if(bycpOtp){
+            res.redirect('/admin/home')
+      
+          }else{
+            res.redirect("/admin/adminTwoFactor",{invalid :"invalid otp" })
+          }
+
+
+
+        }catch(err){
             next(err)
         }
     };
@@ -90,11 +156,13 @@ console.log(aPassword);
     module.exports = {
         getAdminLogin,
         postAdminLogin,
+        postTwoFactor,
         adminLogout,
         getAdminHome,
         getAllUsers,
         blockUser,
         unblockUser,
+        twoFactorAdmin
     }
 
 
