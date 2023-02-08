@@ -1,6 +1,7 @@
 const products = require('../model/productSchema');
 const categories = require('../model/categorySchema');
 const fs = require('fs');
+const mongoose = require("mongoose");
 const subCategories = require('../Model/subCategorySchema');
 
 
@@ -97,22 +98,27 @@ const postEditProduct = async (req, res, next) => {
                 console.log("Deleted image successfully");
             })
         }
+       
         res.redirect('/admin/productdetails')
 
 
     } catch (err) {
-        next(err
-        )
+        next(err )
     }
 
 };
+
+
+
+
+
 
 const productDetails = async (req, res, next) => {
 
     try {
 
         const product = await products.find().populate('category').populate('subCategory');
-        res.render('admin/productDetails', { product })
+        res.render('admin/productdetails', { product })
     } catch (err) {
         next(err)
     }
@@ -123,9 +129,9 @@ const addSize = async (req, res, next) => {
     try {
         const product = req.body.product;
         const size = req.body.size;
-        const productId = mongoose.Types.ObjectId(product);
+        const productId= mongoose.Types.ObjectId(product);    
         await products.findOneAndUpdate({ _id: productId }, { $push: { size: size } });
-        res.redirect('/admin/productDetails')
+        res.redirect('/admin/productdetails')
     } catch (error) {
         next(error)
     }
@@ -162,5 +168,6 @@ module.exports = {
     restoreProduct,
     addSize,
     deleteProduct,
-    productDetails
+    productDetails,
+
 } 

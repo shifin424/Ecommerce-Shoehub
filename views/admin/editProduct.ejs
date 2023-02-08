@@ -11,15 +11,15 @@
             <div class="form-outline flex-fill mb-0 ">
               <label class="form-label" for="form3Example1c">Product name</label>
               <input type="text" value="<%=productData.name%>" name="name" id="name"
-                class="form-control" />
+                class="form-control" data-validate = "Enter your name" required/>
             </div>
             <div class="form-outline flex-fill mb-0 mt-3">
-              <label class="form-label" for="form3Example1c">Price per kg</label>
-              <input type="text" value="<%=productData.price%>" name="price" id="price" class="form-control" />
+              <label class="form-label" for="form3Example1c">Price </label>
+              <input type="text" value="<%=productData.price%>" name="price" id="price" class="form-control" required />
             </div>
             <div class="form-outline flex-fill mb-0 mt-4">              
               <select required  class="form-select required" name="category" id="category"   aria-label="Default select example">
-                <option selected value="<%=productData.category%>" disabled="disabled" >Category</option>
+                <option selected value="<%=productData.category%>" disabled="disabled" required>Category</option>
                 <% category.forEach((categories)=> {%>
                 <option value="<%=categories._id%>" ><%=categories.category_name%></option>
                 <% }) %>              
@@ -27,7 +27,7 @@
             </div>
             <div class="form-outline flex-fill mb-0 mt-4">              
               <select required  class="form-select required" name="category" id="category"   aria-label="Default select example">
-                <option selected value="<%=productData.subCategory%>" disabled="disabled" >SubCategory</option>
+                <option selected value="<%=productData.subCategory%>" disabled="disabled" required>SubCategory</option>
                 <% subCategory.forEach((subctgry)=> {%>
                 <option value="<%=subctgry._id%>" ><%=subctgry.subcategory_name%></option>
                 <% }) %>              
@@ -36,15 +36,15 @@
             <div class="form-outline flex-fill mb-0 mt-3">
               <label class="form-label" for="form3Example1c">Description</label>
               <input type="text" value="<%=productData.description%>" name="description" id="description"
-                class="form-control" />
+                class="form-control" required/>
             </div>
             <div class="form-outline flex-fill mb-0 mt-3">
               <label class="form-label" for="form3Example1c">Stock</label>
-              <input type="text" value="<%=productData.stock%>" name="stock" id="stock" class="form-control" />
+              <input type="text" value="<%=productData.stock%>" name="stock" id="stock" class="form-control" required />
             </div>
             <div class="form-outline flex-fill mb-0 mt-3">
               <label for="formFile" class="form-label">Product image</label>
-              <input class="form-control" type="file" onchange="viewImage(event)" name="myFiles"
+              <input class="form-control" type="file"  required name="myFiles"
                 id="product_image" multiple>
               <input type="hidden" name="image1" value="<%= productData.image1 %>">
               <input type="hidden" name="image2" value="<%= productData.image2 %>">

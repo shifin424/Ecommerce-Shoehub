@@ -5,7 +5,7 @@ body {
   }
   
   #menu {
-    background-color: #464246;
+    background-color:#003049;
     width: 300px;
     height: 100%;
     position: fixed;
@@ -30,7 +30,7 @@ body {
   }
   
   #menu .items li:hover {
-    background: #CABCB0;
+    background: #297dc7;
     cursor: pointer;
   }
   
@@ -58,7 +58,7 @@ body {
   #interface .navigation {
     display: flex;
     justify-content: space-between;
-    background-color: #CABCB0;
+    background-color: #e8e8e8;
     padding: 15px 30px;
     border-bottom: 3px solid;
     position: fixed;

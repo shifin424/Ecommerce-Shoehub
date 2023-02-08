@@ -29,6 +29,7 @@ adminRouter.get('/addProduct',adminSession,productController.addProduct);
 
 adminRouter.post('/postProduct',upload.array('myFiles',3),adminSession,productController.postProduct);
 
+
 adminRouter.get('/productdetails',adminSession,productController.productDetails);
 
 adminRouter.get('/editProduct/:id',adminSession,productController.editProduct);
@@ -79,8 +80,6 @@ adminRouter.get('/removeCoupon/:id',adminSession,couponController.removeCoupon);
 adminRouter.get('/restoreCoupon/:id',adminSession,couponController.restoreCoupon);
 
 adminRouter.post('/editCoupon/:id',adminSession,couponController.editCoupon);
-
-
 
 
 

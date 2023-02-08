@@ -2,18 +2,21 @@
 const mailer = require("../middlewares/otpValidation");
 const otp = require('../model/otpSchema');
 const user = require('../model/userSchema')
+const products = require('../model/productSchema')
 const bcrypt = require('bcrypt');
 const { response } = require('express')
 const sendMail = require('../config/mailSender');
-const twoFactor = require('../model/twofactorSchema')
+const twoFactor = require('../model/twofactorSchema');
+const { invalid } = require("moment");
 
 
 
 //home page
-const getHome = (req, res, next) => {
+const getHome = async (req, res, next) => {
   try {
     let loging = req.session.user
-    res.render('user/home', { loging })
+    let product = await products.find({ delete: false }).populate('category')
+    res.render('user/home', { loging ,product})
   } catch (err) {
     next(err)
   }
@@ -22,9 +25,9 @@ const getHome = (req, res, next) => {
 //login page
 const getLogin = (req, res, next) => {
   try {
-    invalid = req.session.errMessage
+    
     req.session.errMessage = false
-    res.render("user/login",{invalid:"invalid Email and Password"});
+    res.render("user/login");
   } catch (err) {
     next(err)
   }
@@ -49,7 +52,6 @@ const postSignup = async (req, res, next) => {
   try {
 
     const hash = await bcrypt.hash(req.body.password, 10)
-
     const userName = req.body.username
     const email = req.body.email
     const phoneNumber = req.body.phonenumber
@@ -129,16 +131,13 @@ const postlogin = async (req, res, next) => {
     const email = req.body.email
     const password = req.body.password
     const userData = await user.findOne({ email: email })
-    invalid = req.session.err_message;
-    req.session.err_message = false;
-
     if (userData) {
       if (userData.isBlocked === false) {
         const passwordMatch = await bcrypt.compare(password, userData.password)
        
         if (passwordMatch) {
           response.email = userData
-          req.session.user = response.email
+          
 
           const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
           console.log(OTP);
@@ -170,15 +169,18 @@ const postlogin = async (req, res, next) => {
 
          
         } else {
-          req.session.errMessage="Invalid password"
+          req.session.errMessage="Invalid password";
+          console.log(req.session.errMessage);
           res.redirect('/login')
         }
       } else {
-        req.session.errMessage = "You can't login!!"
+        req.session.errMessage = "You can't login!!";
+        console.log(req.session.errMessage);
         res.redirect('/login')
       }
     } else {
-      req.session.errMessage = 'Invalid password or email!!'
+      req.session.errMessage = 'Invalid password or email!!';
+      console.log(req.session.errMessage);
       res.render('user/login')
     }
   } catch (err) {
@@ -412,10 +414,11 @@ const usertwofactor = async (req,res,next)=>{
     const validOtp = await bcrypt.compare(Otp, tOtp.otp)
 
     if(validOtp){
+      req.session.user = response.email
       res.redirect('/')
 
     }else{
-      res.redirect('/userTwoFactor')
+      res.render('user/userTwoFactor',{ invalid:"incorrect otp" })
     }
 
 }catch(err){
@@ -442,7 +445,6 @@ module.exports = {
   userResend,
   getOtpPage,
   userLogout,
-  twoFactor,
   usertwofactor
 
 };

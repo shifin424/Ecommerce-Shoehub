@@ -1,0 +1,69 @@
+<%- include('../partials/templateHeader.ejs')  %> 
+    <!-- END nav -->
+
+    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="">Home</a></span> <span>Cart</span></p>
+            <h1 class="mb-0 bread">My Cart</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+								<th></th>
+						        <th>Image</th>
+						        <th>Product</th>
+						        <th>Price</th>
+						        <th>Quantity</th>
+						        <th>Total</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+								<% productData.forEach((product)=>{%>
+						       <tr class="text-center ">
+							
+						        <td class="product-remove "><button onclick="removeProduct('<%= product._id %>','<%= product.productDetail._id %>')" class="btn btn-outline-dark"><span class="ion-ios-close"></span></button></td>
+						        
+						        <td class="image-prod"><div class="img" style="background-image:url(<%=product.productDetail.image3%>);"></div></td>
+						        
+						        <td class="product-name">
+						        	<h3><%= product.productDetail.name %> </h3>
+						        	<!-- <p><%=product.productDetail.description %> </p> -->
+						        </td>
+						        
+						        <td class="price"><%= product.productDetail.price%> ₹ </td>
+						        
+						        <td class="quantity">
+						        	<div class="input-group mb-3">
+					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+					          	</div>
+					          </td>
+						        
+						        <td class="total"><%=product.productDetail.price%>  ₹  </td>
+						      </tr> 
+							 
+
+							  <% }) %>
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+    		
+			</div> 
+		</section>
+		<script src="/js/ajaxRequest.js">
+
+		</script>
+
+    <%- include('../partials/templateFooter.ejs')  %> 

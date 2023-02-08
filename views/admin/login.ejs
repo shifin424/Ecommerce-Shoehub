@@ -46,12 +46,12 @@
 				<%}%>
 			
 
-		
+				<p id="alert" class="text-danger d-flex justify-content-center"></p>
 			
 			
 		
 
-				<form class="login100-form validate-form" action="/admin/signin" method="post">
+				<form class="login100-form validate-form" onsubmit="return submitform(events)" action="/admin/signin" method="post" id="form">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Email</span>
 						<input class="input100" type="email"  name="email" placeholder="Enter email">
@@ -78,7 +78,9 @@
 	
 <!--===============================================================================================-->
 	<script src="../adminLogin/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+
+	<script src="../../js/loginValidation.js"> </script>
+	<!--===============================================================================================-->
 	<script src="../adminLogin/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
 	<script src="../adminLogin/vendor/bootstrap/js/popper.js"></script>

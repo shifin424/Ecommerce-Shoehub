@@ -101,9 +101,8 @@ console.log(adminPassword);
             res.redirect('/admin/home')
       
           }else{
-            res.redirect("/admin/adminTwoFactor",{invalid :"invalid otp" })
+            res.render("admin/twoFactorAdmin",{invalid :"invalid otp" })
           }
-
 
 
         }catch(err){
@@ -124,7 +123,7 @@ console.log(adminPassword);
         try {
             res.render('admin/home');
         } catch (err) {
-            next(err)
+            next(error)
         }
     };
 
@@ -152,6 +151,8 @@ console.log(adminPassword);
             res.redirect('/admin/userDetails');
         })
     };
+
+
 
     module.exports = {
         getAdminLogin,
