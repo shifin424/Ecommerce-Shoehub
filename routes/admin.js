@@ -8,6 +8,7 @@ const productController = require('../Controllers/productController')
 const couponController = require('../Controllers/couponControllers')
 const categoryController = require('../Controllers/categoryControllers')
 const upload = require('../middlewares/uploadImage')
+const bannerController = require('../Controllers/bannerController')
 
 
 
@@ -80,6 +81,17 @@ adminRouter.get('/removeCoupon/:id',adminSession,couponController.removeCoupon);
 adminRouter.get('/restoreCoupon/:id',adminSession,couponController.restoreCoupon);
 
 adminRouter.post('/editCoupon/:id',adminSession,couponController.editCoupon);
+
+adminRouter.get('/getBanner',adminSession,bannerController.getBannerPage);
+
+adminRouter.post('/addBanner',adminSession,bannerController.addBanner);
+
+adminRouter.post('/editBanner/:id',adminSession,bannerController.editBanner);
+
+adminRouter.get('/deleteBanner/:id',adminSession,bannerController.deleteBanner);
+
+adminRouter.get('/restoreBanner/:id',adminSession,bannerController.restoreBanner);
+
 
 
 

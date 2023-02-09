@@ -5,6 +5,7 @@ const user = require('../model/userSchema')
 const products = require('../model/productSchema')
 const bcrypt = require('bcrypt');
 const { response } = require('express')
+const banner = require('../model/bannerSchema')
 const sendMail = require('../config/mailSender');
 const twoFactor = require('../model/twofactorSchema');
 const { invalid } = require("moment");
@@ -16,7 +17,8 @@ const getHome = async (req, res, next) => {
   try {
     let loging = req.session.user
     let product = await products.find({ delete: false }).populate('category')
-    res.render('user/home', { loging ,product})
+    let bannerData = await banner.find().sort({ createdAt: -1 }).limit(1);
+    res.render('user/home', { loging ,product,bannerData})
   } catch (err) {
     next(err)
   }
