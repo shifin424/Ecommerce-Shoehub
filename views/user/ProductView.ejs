@@ -20,23 +20,27 @@
 							
 						
 						</div>
-    				<p class="price"><span><%=product.price %> </span></p>
+    				<p name="price" class="price"><span><%=product.price %> </span></p>
             <p><%=product.description%> </p>
 						</p>
 						
 						<div class="row mt-4">
-							<label for="">Size</label>
 							<div class="col-md-6">
+								<b>Select Size</b>	
 								<div class="form-group d-flex">
 									
 		              <div class="select-wrap">
 						
-	                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-	                  <select name="" id="" value="size" class="form-control"> 
-						<%product?.size.forEach((size,i)=>{ %>
-
-	                  	<option ><%=product?.size[i]%></option>
-						  <% }) %>
+						<form action="/cart/<%=product._id%>" method="post">
+	                  
+					  <% product?.size.forEach(Size=> { %>
+						<label class="radio p-2">
+						  <span>
+							<%= Size %>
+						  </span> <br>
+						  <input type="radio" name="size" value="<%= Size %> " checked />
+						</label>
+						<% }) %>
 	                
 	                  </select>
 				
@@ -46,26 +50,31 @@
 							</div>
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
-	             	<span class="input-group-btn mr-2">
-	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-	                   <i class="ion-ios-remove"></i>
-	                	</button>
-	            		</span>
-	             	<input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-	             	<span class="input-group-btn ml-2">
-	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-	                     <i class="ion-ios-add"></i>
-	                 </button>
-	             	</span>
+								<span class="input-group-btn mr-2">
+									<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
+								   <i class="ion-ios-remove"></i>
+									</button>
+									</span>
+								 <input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+								 <span class="input-group-btn ml-2">
+									<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+									 <i class="ion-ios-add"></i>
+								 </button>
+								 </span>
 	          	</div>
 	          	<div class="w-100"></div>
 	          	<div class="col-md-12">
 	          		<p style="color: #000;"><%=product.stock %>  piece available</p>
 	          	</div>
           	</div>
-          	<p><a href="/cart/<%=product._id%>"class="btn btn-black py-3 px-5 mr-2">Add to Cart</a><a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a></p>
+			  <button style="border: none;background: none;" type="submit" value="submit"><a style="width: 10rem;height: 2rem;color: #000;" class="buy-now btn btn-sm btn-primary ">Add To Cart</a></button>
+
+          	<!-- <a href="/cart/<%=product._id%>"class="btn btn-black py-3 px-5 mr-2">Add to Cart</a>
+				<a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a> -->
     			</div>
     		</div>
+		</form>
+
 
 
 

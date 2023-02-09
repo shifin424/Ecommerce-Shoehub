@@ -23,6 +23,7 @@
 								<th></th>
 						        <th>Image</th>
 						        <th>Product</th>
+								<th>Size</th>
 						        <th>Price</th>
 						        <th>Quantity</th>
 						        <th>Total</th>
@@ -30,7 +31,7 @@
 						    </thead>
 						    <tbody>
 								<% productData.forEach((product)=>{%>
-						       <tr class="text-center ">
+						       <tr class="text-center  bg-light">
 							
 						        <td class="product-remove "><button onclick="removeProduct('<%= product._id %>','<%= product.productDetail._id %>')" class="btn btn-outline-dark"><span class="ion-ios-close"></span></button></td>
 						        
@@ -39,17 +40,39 @@
 						        <td class="product-name">
 						        	<h3><%= product.productDetail.name %> </h3>
 						        	<!-- <p><%=product.productDetail.description %> </p> -->
+								
 						        </td>
+
+								<td>
+									<h6><%=product?.productDetail?.size[0] %> </h6>
+								</td>
 						        
 						        <td class="price"><%= product.productDetail.price%> ₹ </td>
 						        
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+										<span class="input-group-btn mr-2">
+											<button type="button" onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',-1)" class="quantity-left-minus btn"  data-type="minus" data-field="">
+										   <i class="ion-ios-remove"></i>
+											</button>
+											</span>
+										 <input type="text" id="<%= product.productDetail._id %>" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+										 <span class="input-group-btn ml-2">
+											<button type="button"  onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',1)" class="quantity-right-plus btn" data-type="plus" data-field="">
+											 <i class="ion-ios-add"></i>
+										 </button>
+										 </span>
 					          	</div>
+								  <% var a=product.productDetail.price%>
+								  <% var b=product.productQuantity%>
+												<% var c=a*b %>
+													<td >
+														<%=c %> ₹
+													
+								 
 					          </td>
 						        
-						        <td class="total"><%=product.productDetail.price%>  ₹  </td>
+						        <!-- <td class="total"><%=product.productDetail.price%> ₹ </td> -->
 						      </tr> 
 							 
 

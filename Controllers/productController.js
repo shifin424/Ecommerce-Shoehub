@@ -3,6 +3,7 @@ const categories = require('../model/categorySchema');
 const fs = require('fs');
 const mongoose = require("mongoose");
 const subCategories = require('../Model/subCategorySchema');
+const cart = require('../model/cartSchema')
 
 
 
@@ -141,6 +142,7 @@ const deleteProduct = async (req, res, next) => {
     try {
         const id = req.params.id;
         await products.updateOne({ _id: id }, { $set: { delete: true } })
+        await cart.updateMany({}, {$pull: {product: {productId: id}}})
         res.redirect('/admin/productdetails')
     } catch (err) {
         next(err)

@@ -35,11 +35,15 @@ router.post('/postSignup', userController.postSignup)
 
 router.post('/resend', userController.userResend)
 
+router.post('/changeQuantity',session.userLogin,cartController.changeQuantity);
+
 router.post('/removeProduct',session.userLogin,cartController.removeProduct);
 
 router.get('/viewcart',session.userLogin,cartController.viewCart); 
 
 router.get('/cart/:id',session.userLogin,cartController.addToCart) 
+
+router.post('/cart/:id',session.userLogin,cartController.addToCart);
 
 router.get('/shop',session.userLogin,shopController.getshop)
 

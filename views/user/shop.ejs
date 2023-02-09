@@ -44,8 +44,8 @@
 			    						<p class="price"><span><%=products.price%> </span></p>
 			    					</div>
 			    					<p class="bottom-area d-flex px-3">
-		    							<a href="/cart/<%=products._id%>" class="add-to-cart text-center py-2 mr-1"><span>ADD TO <i class=""></i></span></a>
-		    							<a href="#" class="buy-now text-center py-2">ADD TO<span><i class="icon-heart"></i></span></a>
+		    							<a href="#" class="buy-now text-center py-2">ADD TO <span><i class="icon-heart"></i></span></a>
+									
 		    						</p>
 		    					</div>
 		    				</div>
@@ -183,5 +183,17 @@
     	</div>
     </section>
 
+	<script>
+		function addToCart(id) {
+        $.ajax({
+                url: "/cart/"+id,
+                 success: function (result) {
 
+
+                }
+            });
+        }
+	</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
   <%- include('../partials/templateFooter.ejs')  %> 
