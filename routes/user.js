@@ -5,7 +5,7 @@ const session = require("../middlewares/session");
 const profileController = require('../Controllers/userProfileController');
 const cartController = require('../Controllers/userCartController')
 const shopController = require('../Controllers/userShopController')
-const checkoutController = require('../Controllers/userChekout')
+const checkoutController = require('../Controllers/userChekoutController')
 
 
 
@@ -47,11 +47,13 @@ router.post('/cart/:id',session.userLogin,cartController.addToCart);
 
 router.get('/shop',session.userLogin,shopController.getshop)
 
-router.get('/checkout',session.userLogin,checkoutController.getCheckout)
-
 router.get('/productView/:id',session.userLogin,shopController.getProductView)
 
-router.get('/category/:id',session.userLogin,shopController.getCategoryWisePage);  
+router.get('/category/:id',session.userLogin,shopController.getCategoryWisePage);
+
+router.get('/checkout',session.userLogin,checkoutController.getCheckout)
+
+
 
 router.get('/forgotPassword', session.verifyLoginUser, userController.forgotPassword) 
 

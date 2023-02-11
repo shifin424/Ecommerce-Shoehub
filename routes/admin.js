@@ -60,7 +60,7 @@ adminRouter.get('/deleteCategory/:id',adminSession,categoryController.deleteCate
 
 adminRouter.get('/subCategory',adminSession,categoryController.getsubCategory);
 
-adminRouter.post('/addSubCategory',adminSession,categoryController.addSubCategory);
+adminRouter.post('/addSubCategory/:id',adminSession,categoryController.addSubCategory);
 
 adminRouter.get('/deleteSubCategory/:id',adminSession,categoryController.deleteSubCategory);
 

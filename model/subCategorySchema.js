@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const subCategorySchema = new Schema({
     category_id:{ 
         type:mongoose.SchemaTypes.ObjectId,
-        ref:'categories'
     },
 
 

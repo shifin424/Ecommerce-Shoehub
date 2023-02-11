@@ -1,4 +1,4 @@
-function removeProduct(cartId, productId) {
+function removeProduct(cartId,productId) {
 
   $.ajax({
     url: "/removeProduct",

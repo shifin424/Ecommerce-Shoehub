@@ -76,6 +76,7 @@ const editSubCategory = async (req, res) => {
 
 
 const addSubCategory = async (req, res, next) => {
+    console.log("hello");
     try {
         if (req.body.name) {
            
@@ -88,6 +89,7 @@ const addSubCategory = async (req, res, next) => {
                 res.redirect('/admin/subCategory')
             } else {
                 const subcategory = new subCategories({
+                    category_id :req.params.id,
                     subcategory_name: req.body.name
                 })
                 await subcategory.save()

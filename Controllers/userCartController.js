@@ -93,8 +93,7 @@ const viewCart = async (req, res,next) => {
     const session = req.session.user;
     const cartEmail = session.email
     const userData = await users.findOne({ email: cartEmail });
-    const productData = await cart
-        .aggregate([
+    const productData = await cart.aggregate([
             {
                 $match: { userId: userData.id },
             },
@@ -144,7 +143,7 @@ const viewCart = async (req, res,next) => {
 
 
 
-const removeProduct = async (req, res) => {
+const removeProduct = async (req, res) => {     
     const data = req.body;
     const objId = mongoose.Types.ObjectId(data.product);
     await cart.aggregate([

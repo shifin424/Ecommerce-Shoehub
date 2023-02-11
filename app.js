@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser')
 const { urlencoded } = require('body-parser');
 const session = require('express-session');
 const logger = require('morgan')
+const colors = require('colors')
 
 //const noCache = require("nocache");
 
@@ -56,7 +57,7 @@ app.use('/admin', (adminRouter));
 // })
 
 app.listen(process.env.PORT, () => {
-  console.log("server started listening to port ");
+  console.log(`server started listening to ${process.env.PORT}`.rainbow.bold);
 });
 
 // app.use(function (err, req, res, next) {
@@ -67,4 +68,5 @@ app.listen(process.env.PORT, () => {
 //   res.status(err.status || 500);
 //   res.render("admin/error");
 // });
+
 
