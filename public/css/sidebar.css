@@ -29,10 +29,10 @@ body {
     padding: 15px 0;
   }
   
-  #menu .items li:hover {
+  /* #menu .items li:hover {
     background: #297dc7;
     cursor: pointer;
-  }
+  } */
   
   #menu .items li i {
     color: #fff;

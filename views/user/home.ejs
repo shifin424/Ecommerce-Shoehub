@@ -59,22 +59,9 @@
               <a href="#" class="nav-link">Home</a>
             </li>
             <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="dropdown04"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Catalog</a
-              >
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-                <a class="dropdown-item" href="/shop">Shop</a>
-                <a class="dropdown-item" href="/viewcart">Cart</a>
-                <a class="dropdown-item" href="">Checkout</a>
-              </div>
+              <a href="#" class="nav-link">Contact</a>
             </li>
-            <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="/orderDetails" class="nav-link">Orders</a></li>
             <%if(!loging){ %>
             <li class="nav-item">
               <a href="/login" class="nav-link">Login</a>
@@ -84,7 +71,7 @@
               <a href="/logout" class="nav-link">Logout</a>
             </li>
             <li class="nav-item cta cta-colored">
-              <a href="" class="nav-link"
+              <a href="/viewcart" class="nav-link"
                 ><span class="icon-shopping_cart"></span
               ></a>
             </li>
@@ -109,16 +96,18 @@
 
     <section id="home-section" class="hero">
       <div class="home-slider owl-carousel">
-        <div class="slider-item js-fullheight">
+        <%bannerData.forEach((banner)=> { %>
+          <div class="slider-item js-fullheight">
           <div class="overlay"></div>
           <div class="container-fluid p-0">
+            <% if(bannerData.length){ %> 
             <div
               class="row d-md-flex no-gutters slider-text align-items-center justify-content-end"
               data-scrollax-parent="true"
             >
               <img
                 class="one-third order-md-last img-fluid"
-                src="images/bg_1.png"
+                src="/images/<%=banner.bannerImage%>"
                 alt=""
               />
               <div
@@ -126,56 +115,22 @@
                 data-scrollax=" properties: { translateY: '70%' }"
               >
                 <div class="text">
-                  <span class="subheading">#New Arrival</span>
+                  <span class="subheading">#<%=banner.couponName%></span>
                   <div class="horizontal">
-                    <h1 class="mb-4 mt-3">Shoes Collection 2019</h1>
+                    <h1 class="mb-4 mt-3"><%=banner.offerType%></h1>
                     <p class="mb-4">
-                      A small river named Duden flows by their place and
-                      supplies it with the necessary regelialia. It is a
-                      paradisematic country.
+                      <%=banner.bannerText%>
                     </p>
 
-                    <p><a href="#" class="btn-custom">Discover Now</a></p>
+                    <p><a href="/shop" class="btn-custom">Discover Now</a></p>
                   </div>
                 </div>
               </div>
             </div>
+            <% } %>
           </div>
         </div>
-
-        <div class="slider-item js-fullheight">
-          <div class="overlay"></div>
-          <div class="container-fluid p-0">
-            <div
-              class="row d-flex no-gutters slider-text align-items-center justify-content-end"
-              data-scrollax-parent="true"
-            >
-              <img
-                class="one-third order-md-last img-fluid"
-                src="images/bg_2.png"
-                alt=""
-              />
-              <div
-                class="one-forth d-flex align-items-center ftco-animate"
-                data-scrollax=" properties: { translateY: '70%' }"
-              >
-                <div class="text">
-                  <span class="subheading">#Use Coupon</span>
-                  <div class="horizontal">
-                    <h1 class="mb-4 mt-3">New Shoes Winter Collection</h1>
-                    <p class="mb-4">
-                      A small river named Duden flows by their place and
-                      supplies it with the necessary regelialia. It is a
-                      paradisematic country.
-                    </p>
-
-                    <p><a href="#" class="btn-custom">Discover Now</a></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <% })%>
       </div>
     </section>
 
@@ -295,7 +250,7 @@
               </div>
             </div>
           </div>
-          <%})%>
+          <% })%>
         </div>
       </div>
     </section>

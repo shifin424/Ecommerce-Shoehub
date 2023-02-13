@@ -12,7 +12,7 @@ const session = require('express-session');
 const logger = require('morgan')
 const colors = require('colors')
 
-//const noCache = require("nocache");
+// const noCache = require("nocache");
 
 
 dotenv.config();
@@ -20,7 +20,7 @@ dbconnect.dbconnect();
 
 
 app.use(express.urlencoded({ extended: true }))
-// app.use(logger('dev'))
+app.use(logger('dev'))
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')));

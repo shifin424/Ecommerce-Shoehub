@@ -9,6 +9,7 @@ const couponController = require('../Controllers/couponControllers')
 const categoryController = require('../Controllers/categoryControllers')
 const upload = require('../middlewares/uploadImage')
 const bannerController = require('../Controllers/bannerController')
+const orderController = require('../Controllers/orderController')
 
 
 
@@ -84,13 +85,17 @@ adminRouter.post('/editCoupon/:id',adminSession,couponController.editCoupon);
 
 adminRouter.get('/getBanner',adminSession,bannerController.getBannerPage);
 
-adminRouter.post('/addBanner',adminSession,bannerController.addBanner);
+adminRouter.post('/addBanner',upload.single('bannerImage'),adminSession,bannerController.addBanner);
 
 adminRouter.post('/editBanner/:id',adminSession,bannerController.editBanner);
 
 adminRouter.get('/deleteBanner/:id',adminSession,bannerController.deleteBanner);
 
 adminRouter.get('/restoreBanner/:id',adminSession,bannerController.restoreBanner);
+
+adminRouter.get('/order',adminSession,orderController.getOrders)
+
+adminRouter.post('/orderStatuschange/:id',orderController.orderStatusChanging)
 
 
 

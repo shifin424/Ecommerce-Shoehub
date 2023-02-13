@@ -14,6 +14,10 @@ const bannerSchema = new Schema({
         type:String,
         required:true
     },
+    bannerImage:{
+        type:String,
+        required:true
+    },
     isDeleted:{
         type:Boolean,
         default:false

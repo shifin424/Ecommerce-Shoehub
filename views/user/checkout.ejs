@@ -1,10 +1,91 @@
-<%-include('../partials/templateHeader.ejs')  %> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>checkoutPage</title>
+
+
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/css/aos.css">
+
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/icomoon.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body class="goto-here ">
+
+	
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+			<div class="container">
+			  <a class="navbar-brand" href="/">SHOE HUB</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			  </button>
+	
+			  <div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+				  <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+				  <li class="nav-item dropdown active">
+				  <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
+				  <div class="dropdown-menu" aria-labelledby="dropdown04">
+					  <a class="dropdown-item" href="/shop">Shop</a>
+					<a class="dropdown-item" href="/Viewcart">Cart</a>
+					<a class="dropdown-item" href="/checkout">Checkout</a>
+				  </div>
+				  <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+				</li><li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+				  <li class="nav-item cta cta-colored">
+					<a href="/Viewcart" class="nav-link"
+					  ><span class="icon-shopping_cart"></span
+					></a>
+				  </li>
+				  <li class="nav-item cta cta-colored">
+					<a href="" class="nav-link"
+					  ><span class=" icon-heart"></span
+					></a>
+				  </li>
+				  <li class="nav-item cta cta-colored">
+					<a href="/profile" class="nav-link"
+					  ><span class="icon-user"></span
+					></a>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+		  </nav>
+		<!-- END nav -->
+	
+
+ 
+    <!-- END nav -->
 
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Checkout</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="">Home</a></span> <span>Checkout</span></p>
             <h1 class="mb-0 bread">Checkout</h1>
           </div>
         </div>
@@ -15,146 +96,92 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-10 ftco-animate">
-						<form action="#" class="billing-form">
-							<h3 class="mb-4 billing-heading">Billing Details</h3>
-	          	<div class="row align-items-end">
-	          		<div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="firstname">Firt Name</label>
-	                  <input type="text" class="form-control" placeholder="">
-	                </div>
-	              </div>
-	              <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="lastname">Last Name</label>
-	                  <input type="text" class="form-control" placeholder="">
-	                </div>
-                </div>
-                <div class="w-100"></div>
-		            <div class="col-md-12">
-		            	<div class="form-group">
-		            		<label for="country">State / Country</label>
-		            		<div class="select-wrap">
-		                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                  <select name="" id="" class="form-control">
-		                  	<option value="">France</option>
-		                    <option value="">Italy</option>
-		                    <option value="">Philippines</option>
-		                    <option value="">South Korea</option>
-		                    <option value="">Hongkong</option>
-		                    <option value="">Japan</option>
-		                  </select>
-		                </div>
-		            	</div>
-		            </div>
-		            <div class="w-100"></div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-	                	<label for="streetaddress">Street Address</label>
-	                  <input type="text" class="form-control" placeholder="House number and street name">
-	                </div>
-		            </div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-	                  <input type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)">
-	                </div>
-		            </div>
-		            <div class="w-100"></div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-	                	<label for="towncity">Town / City</label>
-	                  <input type="text" class="form-control" placeholder="">
-	                </div>
-		            </div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-		            		<label for="postcodezip">Postcode / ZIP *</label>
-	                  <input type="text" class="form-control" placeholder="">
-	                </div>
-		            </div>
-		            <div class="w-100"></div>
-		            <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="phone">Phone</label>
-	                  <input type="text" class="form-control" placeholder="">
-	                </div>
-	              </div>
-	              <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="emailaddress">Email Address</label>
-	                  <input type="text" class="form-control" placeholder="">
-	                </div>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-md-12">
-                	<div class="form-group mt-4">
-										<div class="radio">
-										  <label class="mr-3"><input type="radio" name="optradio"> Create an Account? </label>
-										  <label><input type="radio" name="optradio"> Ship to different address</label>
-										</div>
-									</div>
-                </div>
-	            </div>
-	          </form><!-- END -->
+						
+			<!--  -->
+
+	<div class="container pb-5">
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			Add new address
+		  </button>
+	</div>
+
+	<h5>
+		Select Shipping address
+	</h5>
+<form action="placeOrder" method="post">
+	<select class="form-select mt-2" required name="address" style="width: 20rem">
+		<% userData.addressDetails.forEach((address)=>{%>
+			<option name="address">	
+				<%= address.housename %>,<%= address.postoffice%>,<%= address.landmark %>,<%=address.area
+				%>,<%= address.district %>,<%= address.pin %>,<%=address.state %>				
+			</option>
+			<% }) %>
+	</select>
+
+<!-- Button trigger modal -->
+
+<div class="container d-flex ">
+				
+	<div class="form-group mt-5"> <h6>Have coupon?</h6>
+	<div class="input-group"> <input type="text" class="form-control coupon" name="coupon" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon" style="width: 6rem;">Apply</button> </span> </div>
+	</div>
+	
+</div>
+	
+	
 
 
 
 	          <div class="row mt-5 pt-3 d-flex">
 	          	<div class="col-md-6 d-flex">
 	          		<div class="cart-detail cart-total bg-light p-3 p-md-4">
-	          			<h3 class="billing-heading mb-4">Cart Total</h3>
-	          			<p class="d-flex">
-		    						<span>Subtotal</span>
-		    						<span>$20.60</span>
+	          			<h3 class="billing-heading mb-4">Amount to Paid</h3>
+	          			<p class="d-flex ">
+							<span>Product</span>
+		    				<span>Total</span>
+							<% productData.forEach(function(product) {%>
+		    						
 		    					</p>
 		    					<p class="d-flex">
-		    						<span>Delivery</span>
-		    						<span>$0.00</span>
+		    						<span> <%=product.productDetail.name%> <strong class="mx-2">x</strong>
+										<%= product.productQuantity%></span>
+										<% var a=product.productDetail.price%>
+                                    <% var b=product.productQuantity%>
+                                      <% var c=a*b %>
+                                        <td>
+		    						<span> <%= c %>₹</span>
 		    					</p>
-		    					<p class="d-flex">
-		    						<span>Discount</span>
-		    						<span>$3.00</span>
-		    					</p>
+								<% }) %>
 		    					<hr>
-		    					<p class="d-flex total-price">
-		    						<span>Total</span>
-		    						<span>$17.60</span>
+		    					<p class="d-flex ">
+		    						<span>Total Amount</span>
+		    						<span> <%=sum%> ₹</span>
 		    					</p>
 								</div>
 	          	</div>
+				
 	          	<div class="col-md-6">
 	          		<div class="cart-detail bg-light p-3 p-md-4">
 	          			<h3 class="billing-heading mb-4">Payment Method</h3>
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Direct Bank Tranfer</label>
+											   <label><input type="radio" value="COD" name="paymentMethod" class="mr-2" checked required> COD (cash on delivery)</label>
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Check Payment</label>
+											   <label><input type="radio" value="Online" name="paymentMethod" class="mr-2" checked required>Online</label>
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="checkbox">
-											   <label><input type="checkbox" value="" class="mr-2"> I have read and accept the terms and conditions</label>
-											</div>
-										</div>
-									</div>
-									<p><a href="#"class="btn btn-primary py-3 px-4">Place an order</a></p>
+									
+									
+									<button style="border: none;background: none;" type="submit" value="submit"><a style="width: 10rem;height: 2rem;color: #000;" class="buy-now btn btn-sm btn-primary ">Place an Order</a></button>
 								</div>
+						</form>
 	          	</div>
 	          </div>
           </div> <!-- .col-md-8 -->
@@ -164,4 +191,246 @@
 		
 
    
-      	<%-include('../partials/templateFooter.ejs')  %> 
+
+	<footer class="ftco-footer ftco-section">
+	<div class="container">
+	  <div class="row">
+		<div class="mouse">
+		  <a href="#" class="mouse-icon">
+			<div class="mouse-wheel">
+			  <span class="ion-ios-arrow-up"></span>
+			</div>
+		  </a>
+		</div>
+	  </div>
+	  <div class="row mb-5">
+		<div class="col-md">
+		  <div class="ftco-footer-widget mb-4">
+			<h2 class="ftco-heading-2">SHOEHUB</h2>
+			<p>
+			  "The right shoes can make everything different.”
+			</p>
+			<ul
+			  class="ftco-footer-social list-unstyled float-md-left float-lft mt-5"
+			>
+			  <li class="ftco-animate">
+				<a href=""><span class="icon-instagram"></span></a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+		<div class="col-md">
+		  <div class="ftco-footer-widget mb-4 ml-md-5">
+			<h2 class="ftco-heading-2">Menu</h2>
+			<ul class="list-unstyled">
+			  <li><a href="#" class="py-2 d-block">Home</a></li>
+			  <li><a href="#" class="py-2 d-block">Catalog</a></li>
+			  <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+			  <li><a href="#" class="py-2 d-block">Profile</a></li>
+			</ul>
+		  </div>
+		</div>
+		<div class="col-md-4">
+		  <div class="ftco-footer-widget mb-4">
+			<h2 class="ftco-heading-2">Help</h2>
+			<div class="d-flex">
+			  <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
+				<li>
+				  <a href="#" class="py-2 d-block">Shipping Information</a>
+				</li>
+				<li>
+				  <a href="#" class="py-2 d-block">Returns &amp; Exchange</a>
+				</li>
+				<li>
+				  <a href="#" class="py-2 d-block">Terms &amp; Conditions</a>
+				</li>
+				<li><a href="#" class="py-2 d-block">Privacy Policy</a></li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+		<div class="col-md">
+		  <div class="ftco-footer-widget mb-4">
+			<h2 class="ftco-heading-2">Have a Questions?</h2>
+			<div class="block-23 mb-3">
+			  <ul>
+				<li>
+				  <span class="icon icon-map-marker"></span
+				  ><span class="text"
+					>HiLight business Park , calicut ,kerala</span
+				  >
+				</li>
+				<li>
+				  <a href="#"
+					><span class="icon icon-phone"></span
+					><span class="text">6238424753</span></a
+				  >
+				</li>
+				<li>
+				  <a href="#"
+					><span class="icon icon-envelope"></span
+					><span class="text">shoehub2023@gmail.com</span></a
+				  >
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12 text-center">
+		  <p>
+			<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			Copyright &copy;
+			<script>
+			  document.write(new Date().getFullYear());
+			</script>
+			All rights reserved | This template is made 
+			<i class="icon-heart color-danger" aria-hidden="true"></i> by
+			<a href="https://colorlib.com" target="_blank">Shifin</a>
+			<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		  </p>
+		</div>
+	  </div>
+	</div>
+	</footer>
+	
+	<!-- loader -->
+	<div id="ftco-loader" class="show fullscreen">
+	<svg class="circular" width="48px" height="48px">
+	  <circle
+		class="path-bg"
+		cx="24"
+		cy="24"
+		r="22"
+		fill="none"
+		stroke-width="4"
+		stroke="#eeeeee"
+	  />
+	  <circle
+		class="path"
+		cx="24"
+		cy="24"
+		r="22"
+		fill="none"
+		stroke-width="4"
+		stroke-miterlimit="10"
+		stroke="#F96D00"
+	  />
+	</svg>
+	</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Add new Address</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<form action="/addNewAddress" method="post">
+				<div class="modal-body">
+					<div class="mb-1">
+						<label for="recipient-name"
+							class="col-form-label">Housename:</label>
+						<input required  type="text" class="form-control" id="housename"
+							name="housename" />
+						<p id="houseError" style="color: red"></p>
+					</div>
+					<div class="mb-3">
+						<label for="recipient-name" class="col-form-label">Area:</label>
+						<input required type="text" class="form-control" id="area"
+							name="area" />
+						<p id="areaError" style="color: red"></p>
+					</div>
+					<div class="mb-3">
+						<label for="recipient-name" class="col-form-label">Landmark:</label>
+						<input required type="text" class="form-control" id="landmark"
+							name="landmark" />
+						<p id="landmarkError" style="color: red"></p>
+					</div>
+					<div class="mb-3">
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="firstName">District</label>
+								<input required type="text" class="form-control"
+									id="district" name="district" />
+								<p id="stateError" style="color: red"></p>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="lastName">State</label>
+								<input required type="text" class="form-control" id="state"
+									name="state" />
+								<p id="pincodeError" style="color: red"></p>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3">
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="firstName">Post office</label>
+								<input required type="text" class="form-control"
+									id="postoffice" name="postoffice" />
+								<p id="stateError" style="color: red"></p>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="lastName">Pincode</label>
+								<input required type="text" class="form-control" id="pin"
+									name="pin" />
+								<p id="pincodeError" style="color: red"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+				Close
+			</button>
+			<button type="submit" value="submit" class="btn btn-primary">
+				Add
+			</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+  <!--  -->
+
+
+	<!-- bootsrap -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script>
+		var myModalEl = document.getElementById('myModal')
+myModalEl.addEventListener('hidden.bs.modal', function (event) {
+  // do something...
+})
+	</script>
+
+
+
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/jquery.easing.1.3.js"></script>
+	<script src="/js/jquery.waypoints.min.js"></script>
+	<script src="/js/jquery.stellar.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
+	<script src="/js/jquery.magnific-popup.min.js"></script>
+	<script src="/js/aos.js"></script>
+	<script src="/js/jquery.animateNumber.min.js"></script>
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/scrollax.min.js"></script>
+	<script src="/https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="/js/google-map.js"></script>
+	<script src="/js/main.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
+	
+		
+	</body>
+	</html>

@@ -43,13 +43,13 @@ try{
           email:req.body.email,
           addressDetails:[
             {
-              housename:req.body.housename,
-              area:req.body.area,
-              landMark:req.body.landmark,
-              district:req.body.district,
-              state:req.body.state,
-              postoffice:req.body.postoffice,
-              pin:req.body.pin,
+              housename:req.body?.housename,
+              area:req.body?.area,
+              landMark:req.body?.landmark,
+              district:req.body?.district,
+              state:req.body?.state,
+              postoffice:req.body?.postoffice,
+              pin:req.body?.pin,
             },
           ],
         },
@@ -61,21 +61,6 @@ try{
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
 
      module.exports={
         editProfile,

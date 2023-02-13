@@ -6,6 +6,7 @@ const profileController = require('../Controllers/userProfileController');
 const cartController = require('../Controllers/userCartController')
 const shopController = require('../Controllers/userShopController')
 const checkoutController = require('../Controllers/userChekoutController')
+ const orderDetails = require('../Controllers/userOrderController')
 
 
 
@@ -53,7 +54,15 @@ router.get('/category/:id',session.userLogin,shopController.getCategoryWisePage)
 
 router.get('/checkout',session.userLogin,checkoutController.getCheckout)
 
+router.post('/addNewAddress',session.userLogin,checkoutController.addNewAddress);
+  
+router.get('/success',session.userLogin,checkoutController.orderSuccess)
 
+router.post("/placeOrder",session.userLogin,checkoutController.placeOrder);
+
+router.get('/orderDetails',session.userLogin,orderDetails.orderDetails)
+
+router.get('/cancelOrder/:id',session.userLogin,orderDetails.cancelOrder)
 
 router.get('/forgotPassword', session.verifyLoginUser, userController.forgotPassword) 
 

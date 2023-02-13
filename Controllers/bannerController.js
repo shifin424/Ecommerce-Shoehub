@@ -17,7 +17,8 @@ const addBanner = async(req,res,next)=>{
         await banner.create({
             offerType:req.body.offerType,
             bannerText:req.body.bannerText,
-            couponName:req.body.couponName,  
+            couponName:req.body.couponName,
+            bannerImage:req.body.bannerImage,  
         }).then((data)=>{
             res.redirect('/admin/getBanner')
         })
