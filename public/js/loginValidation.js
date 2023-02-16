@@ -41,7 +41,7 @@ form.onsubmit=()=> {
         showErrorMessage("Password must be longer than 6 characters ")
         return false;
     }
-    else if (password.value.length >= 10) {
+    else if (password.value.length > 14) {
         showErrorMessage("Password must be less than 10 characters")
         return false;
     }

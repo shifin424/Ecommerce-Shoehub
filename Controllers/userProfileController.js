@@ -1,11 +1,13 @@
 
 const user = require('../model/userSchema')
+const bcrypt = require('bcrypt');
 
 const viewProfile = async (req, res,next) => {
 try{
     const session =req.session.user
     const email = session.email
     const userData = await user.findOne({email:email})
+    console.log(userData);
     res.render('user/profile',{userData})
 }
 catch(err){
@@ -32,9 +34,8 @@ try{
 
 
     const session = req.session.user
-    console.log(session);
      await user.updateOne(
-      {email : session},
+      {email : session.email},
       {
         $set: {
 
@@ -61,10 +62,57 @@ try{
   }
 
 }
+const getPasswordPage = async (req,res,next)=>{
+  try{
+    res.render('user/profilePassword')
+  }catch(err){
+    console.log(err);
+    next(err)
+  }
+};
+
+const postChangePassword = async(req,res,next)=>{
+  try{
+
+ const data = req.body
+ const session = req.session.user
+
+ if(data.newPassword === data.conNewPassword){
+
+   const userData = await user.findOne({email:session.email})
+   const passwordMatch = await bcrypt.compare(data.currentPassword,userData.password)
+
+ if(passwordMatch){ 
+    
+   const hashPassword = await bcrypt.hash(data.newPassword,10)
+   
+   user.updateOne({ email: session.email }, { $set: { password: hashPassword }}).then(()=>{
+
+     req.session.user = null;
+     res.redirect('/')
+   })
+
+   }else{
+     res.render('user/profilePassword',{invalid: "Incorrect password"})
+   }
+
+ }else{
+   res.render('user/profilePassword',{ invalid: "Password must be same"})
+ }
+
+
+
+  }catch(err){
+   console.log(err);
+  }
+};
+
 
      module.exports={
         editProfile,
         viewProfile,
-        postEditProfile
+        postEditProfile,
+        getPasswordPage,
+        postChangePassword
        
      }

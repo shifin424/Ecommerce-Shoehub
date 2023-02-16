@@ -58,15 +58,14 @@
             <li class="nav-item active">
               <a href="#" class="nav-link">Home</a>
             </li>
-            <li class="nav-item dropdown">
-              <a href="#" class="nav-link">Contact</a>
-            </li>
-            <li class="nav-item"><a href="/orderDetails" class="nav-link">Orders</a></li>
+            <li class="nav-item"><a href="/shop" class="nav-link">Shop</a></li>
+            <li class="nav-item"><a href="" class="nav-link">contact</a></li>
             <%if(!loging){ %>
             <li class="nav-item">
               <a href="/login" class="nav-link">Login</a>
             </li>
             <% }else { %>
+              <li class="nav-item"><a href="/orderDetails" class="nav-link">Orders</a></li>
             <li class="nav-item">
               <a href="/logout" class="nav-link">Logout</a>
             </li>
@@ -240,9 +239,7 @@
                   <p class="price"><span><%=products.price%> </span></p>
                 </div>
                 <p class="bottom-area d-flex px-3">
-                  <a href="#" class="add-to-cart text-center py-2 mr-1"
-                    ><span>ADD To<i class="ion-ios-cart ml-1"></i></span
-                  ></a>
+                  
                   <a href="#" class="buy-now text-center py-2"
                     >ADD TO <span><i class="icon-heart"></i></span
                   ></a>

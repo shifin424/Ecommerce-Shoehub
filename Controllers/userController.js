@@ -9,6 +9,7 @@ const banner = require('../model/bannerSchema')
 const sendMail = require('../config/mailSender');
 const twoFactor = require('../model/twofactorSchema');
 const { invalid } = require("moment");
+const mailsender = require("../config/mailSender");
 
 
 
@@ -20,7 +21,8 @@ const getHome = async (req, res, next) => {
     let bannerData = await banner.find()
     res.render('user/home', { loging ,product,bannerData})
   } catch (err) {
-    next(err)
+
+    cosole.log(err)
   }
 };
 
@@ -381,13 +383,15 @@ const userResend = async (req, res, next) => {
       phoneNumber: phoneNumber,
       password: password
     }
-    const mailer = await sendMail(User)
-    if (mailer) {
-      console.log(mailer)
-      res.redirect(`/otp?username=${User.userName}&email=${User.email}&phonenumber=${User.phoneNumber}&password=${User.password}`);
-    } else {
-      console.log('error')
-    }
+    mailsender(User).then(async(mailer)=>{
+      if (mailer) {
+        console.log(mailer)
+        res.redirect(`/otp?username=${User.userName}&email=${User.email}&phonenumber=${User.phoneNumber}&password=${User.password}`);
+      } else {
+        console.log('error')
+      }
+    })
+    
 
 
 

@@ -8,7 +8,6 @@ const mongoose = require("mongoose");
 
 const addToCart = async (req, res) => {
     const body = req.body;
-    console.log(body);
     const id = req.params.id;
     const objId = mongoose.Types.ObjectId(id);
     const session = req.session.user;

@@ -3796,6 +3796,8 @@ input[type="button"].btn-block {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
+  background-color:#f5efd5;
+ font-family: sans-serif;
   padding: 1.25rem; }
 
 .card-title {
@@ -5397,12 +5399,13 @@ button.bg-danger:focus {
   background-color: #bd2130 !important; }
 
 .bg-light {
-  background-color: #f8f9fa !important; }
+  /* background-color: #f5efd5 !important;  */
+}
 
 a.bg-light:hover, a.bg-light:focus,
 button.bg-light:hover,
 button.bg-light:focus {
-  background-color: #dae0e5 !important; }
+  background-color: #f5efd5 !important; }
 
 .bg-dark {
   background-color: #343a40 !important; }
@@ -8724,11 +8727,15 @@ h1, h2, h3, h4, h5,
           background: #fff; }
 
 .bg-light {
-  background: #f8f9fa !important; }
+  /* background: #f5efd5 !important; */
+ }
 
 .bg-primary {
   background: #dbcc8f; }
 
+#editProfile{
+  
+}
 .btn {
   font-size: 12px;
   cursor: pointer;
@@ -8741,14 +8748,29 @@ h1, h2, h3, h4, h5,
   box-shadow: 0px 24px 36px -11px rgba(0, 0, 0, 0.09); }
   .btn:hover, .btn:active, .btn:focus {
     outline: none; }
+
+   #edit-button{
+    background-color: var(--blue);
+    color: #fff;
+    font-weight: bold;
+    width: 5rem;
+    letter-spacing: 1px;
+   } 
+   #changePassword{
+    background-color: var(--green);
+    color: #fff;
+    width: 9rem;
+    height: 2rem;
+
+   }
   .btn.btn-primary {
     background: #dbcc8f;
     border: 1px solid #dbcc8f;
-    color: #fff; }
+    color: #000; }
     .btn.btn-primary:hover {
       border: 1px solid #dbcc8f;
       background: transparent;
-      color: #dbcc8f; }
+      color: black; }
     .btn.btn-primary.btn-outline-primary {
       border: 1px solid #dbcc8f;
       background: transparent;
@@ -9518,7 +9540,7 @@ h1, h2, h3, h4, h5,
 
 .form-control {
   height: 52px !important;
-  background: #fff !important;
+  /* background:#ffc3191c !important; */
   color: #000000 !important;
   font-size: 18px;
   border-radius: 0px;

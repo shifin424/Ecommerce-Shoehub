@@ -37,51 +37,43 @@
 <body class="goto-here ">
 
 	
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-			<div class="container">
-			  <a class="navbar-brand" href="/">SHOE HUB</a>
-			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			  </button>
-	
-			  <div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
-				  <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-				  <li class="nav-item dropdown active">
-				  <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
-				  <div class="dropdown-menu" aria-labelledby="dropdown04">
-					  <a class="dropdown-item" href="/shop">Shop</a>
-					<a class="dropdown-item" href="/Viewcart">Cart</a>
-					<a class="dropdown-item" href="/checkout">Checkout</a>
-				  </div>
-				  <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-				</li><li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
-				  <li class="nav-item cta cta-colored">
-					<a href="/cart" class="nav-link"
-					  ><span class="icon-shopping_cart"></span
-					></a>
-				  </li>
-				  <li class="nav-item cta cta-colored">
-					<a href="cart.html" class="nav-link"
-					  ><span class=" icon-heart"></span
-					></a>
-				  </li>
-				  <li class="nav-item cta cta-colored">
-					<a href="/profile" class="nav-link"
-					  ><span class="icon-user"></span
-					></a>
-				  </li>
-				</ul>
-			  </div>
-			</div>
-		  </nav>
-		<!-- END nav -->
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+		  <a class="navbar-brand" href="/">SHOE HUB</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="oi oi-menu"></span> Menu
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="ftco-nav">
+			<ul class="navbar-nav ml-auto">
+			  <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+	  <li class="nav-item"><a href="/shop" class="nav-link">Shop</a></li>
+	  <li class="nav-item"><a href="/orderDetails" class="nav-link">Orders</a></li>
+	  <li class="nav-item"><a href="" class="nav-link">contact</a></li>
+	<li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+			  <li class="nav-item cta cta-colored">
+				<a href="#" class="nav-link"
+				  ><span class="icon-shopping_cart"></span
+				></a>
+			  </li>
+			  <li class="nav-item cta cta-colored">
+				<a href="#" class="nav-link"
+				  ><span class=" icon-heart"></span
+				></a>
+			  </li>
+			  <li class="nav-item cta cta-colored">
+				<a href="/profile" class="nav-link"
+				  ><span class="icon-user"></span
+				></a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
+	<!-- END nav -->
 	
 
- 
-    <!-- END nav -->
-
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -119,7 +111,7 @@
 						        <td class="image-prod"><div class="img" style="background-image:url(<%=product.productDetail.image3%>);"></div></td>
 						        
 						        <td class="product-name">
-						        	<h3><%= product.productDetail.name %> </h3>
+						        	<h3><%= product.productDetail.name %></h3>
 						        	<!-- <p><%=product.productDetail.description %> </p> -->
 								
 						        </td>
@@ -134,7 +126,7 @@
 						        <td class="price"><%= product.productDetail.price%> ₹ </td>
 						        
 						        <td class="quantity">
-						        	<div class="input-group mb-3">3  
+						        	<div class="input-group mb-3">
 										<span class="input-group-btn mr-2">
 											<button type="button" onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',-1)" class="quantity-left-minus btn"  data-type="minus" data-field="">
 										   <i class="ion-ios-remove"></i>
@@ -207,13 +199,7 @@
     		</div>
 			</div>
 
-			<div class="container d-flex ">
-			<form>
-				<div class="form-group mt-5"> <h6>Have coupon?</h6>
-				<div class="input-group"> <input type="text" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon" style="width: 6rem;">Apply</button> </span> </div>
-				</div>
-				</form>
-			</div>
+			
 			<% } else { %>
 
 				<div class=" container-fluid d-flex justify-content-center   ">
@@ -349,9 +335,9 @@
   
 
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
         <script src="/js/ajaxRequest.js"></script>
-		<script src="/js/jquery.min.js"></script>
+		<script src="/js/jquery.min.js"></script> 
 		<script src="/js/jquery-migrate-3.0.1.min.js"></script>
 		<script src="/js/popper.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script>
@@ -378,25 +364,17 @@
 					e.preventDefault();
 					// Get the field name
 					var quantity = parseInt($('#quantity').val());
-					
-					// If is not undefined
-						
+										
 						$('#quantity').val(quantity + 1);
 	
 					  
-						// Increment
+						
 					
 				});
 	
 				 $('.quantity-left-minus').click(function(e){
-					// Stop acting like a button
 					e.preventDefault();
-					// Get the field name
 					var quantity = parseInt($('#quantity').val());
-					
-					// If is not undefined
-				  
-						// Increment
 						if(quantity>0){
 						$('#quantity').val(quantity - 1);
 						}

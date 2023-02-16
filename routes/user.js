@@ -6,7 +6,7 @@ const profileController = require('../Controllers/userProfileController');
 const cartController = require('../Controllers/userCartController')
 const shopController = require('../Controllers/userShopController')
 const checkoutController = require('../Controllers/userChekoutController')
- const orderDetails = require('../Controllers/userOrderController')
+ const orderController = require('../Controllers/userOrderController')
 
 
 
@@ -16,15 +16,19 @@ router.use(express.urlencoded({ extended: true }));
 
 router.get('/', userController.getHome)
 
-router.get('/login', session.verifyLoginUser, userController.getLogin)
+router.get('/login', session.verifyLoginUser,userController.getLogin)
 
-router.post('/postlogin', userController.postlogin)
+router.post('/postlogin',userController.postlogin)
 
 router.get('/profile',session.userLogin,profileController.viewProfile)
 
 router.get('/editProfile',session.userLogin,profileController.editProfile);
 
+ router.get('/chagProfilePassword',session.userLogin,profileController.getPasswordPage)
+
 router.post('/postEditProfile',session.userLogin,profileController.postEditProfile)
+
+router.post('/profileChangePass',session.userLogin,profileController.postChangePassword)
 
 router.get('/Signup', session.verifyLoginUser, userController.getsignup)
 
@@ -56,13 +60,19 @@ router.get('/checkout',session.userLogin,checkoutController.getCheckout)
 
 router.post('/addNewAddress',session.userLogin,checkoutController.addNewAddress);
   
-router.get('/success',session.userLogin,checkoutController.orderSuccess)
+router.get('/orderSuccess',session.userLogin,checkoutController.orderSuccess)
 
 router.post("/placeOrder",session.userLogin,checkoutController.placeOrder);
 
-router.get('/orderDetails',session.userLogin,orderDetails.orderDetails)
+router.post("/verifyPayment",session.userLogin,checkoutController.verifyPayment);
 
-router.get('/cancelOrder/:id',session.userLogin,orderDetails.cancelOrder)
+router.get('/paymentFail',session.userLogin,checkoutController.paymentFail);
+
+router.get('/orderDetails',session.userLogin,orderController .orderDetails)
+
+router.get('/cancelOrder/:id',session.userLogin,orderController .cancelOrder)
+
+router.get('/orderedProduct/:id',session.userLogin,orderController.orderedProduct);
 
 router.get('/forgotPassword', session.verifyLoginUser, userController.forgotPassword) 
 

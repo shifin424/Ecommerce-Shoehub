@@ -50,12 +50,12 @@
           <li class="nav-item"><a href="" class="nav-link">contact</a></li>
         <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
 				  <li class="nav-item cta cta-colored">
-					<a href="/cart" class="nav-link"
+					<a href="/viewcart" class="nav-link"
 					  ><span class="icon-shopping_cart"></span
 					></a>
 				  </li>
 				  <li class="nav-item cta cta-colored">
-					<a href="cart.html" class="nav-link"
+					<a href="#" class="nav-link"
 					  ><span class=" icon-heart"></span
 					></a>
 				  </li>
@@ -109,7 +109,7 @@
                           
                           <img src="/<%=product.productDetail.image3%>"
                             class="img-fluid" alt="Image">
-                            <!-- <a href="/orderedProduct/<%= product._id %>" style="text-decoration: #a8729a; "  >Track </a> -->
+                            <a href="/orderedProduct/<%= product._id %>" style="text-decoration: #a8729a; "  >Track </a>
                         </div>
                         <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                           <p class="text-muted mb-0"><%=product.productDetail.name%></p>
@@ -124,18 +124,25 @@
                           <p class="text-muted mb-0 small">payment: <%= product.paymentMethod %></p>
                         </div>
                         <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                          <p class="text-muted mb-0 small">      
-                            <% if(product.orderStatus=='placed' ||product.orderStatus=='pending' ||product.orderStatus=='Shipped'||product.orderStatus=='outForDelivery' ){ %>
-                             <a data-bs-toggle="modal" class="btn btn-outline-danger"
-                              data-bs-target="#exampleModal-<%=product._id%>">
+                          <p class="text-muted mb-0">
+                            <% if(product.orderStatus=='placed'
+                            ||product.orderStatus=='pending'
+                            ||product.orderStatus=='shipped'||product.orderStatus=='out for Delivery'
+                            ){ %>
+                            <a
+                              data-bs-toggle="modal"
+                              class="btn btn-outline-danger"
+                              data-bs-target="#exampleModal-<%=product._id%>"
+                            >
                               Cancel
-                            </a>     
-                            <% }else{%>
-                               <b>Order Cancelled</b>
-                              <% } %>
-
-
-                              
+                            </a>
+                            <% }else if(product.orderStatus=='delivered'){%>
+                            <b>Delivered</b>
+                            <% }else {%>
+                              <b>Order Cancelled</b>
+                            <% } %>
+                            
+                          </p>
                               <!-- Modal -->
                               <div class="modal fade  modal-centered" id="exampleModal-<%=product._id%>" tabindex="-1"
                                 aria-labelledby="exampleModalLabel">
@@ -157,7 +164,7 @@
                                 </div>
                               </div>
                            
-                            </p>
+                           
                         </div>
                         <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                           <p class="text-muted mb-0 small"></p>
@@ -170,11 +177,6 @@
                           <p class="text-muted mb-0 small">Total Amount:<%= product.totalAmount%></p>
                         </div>
                         <div class="col-md-10">
-                          <!-- <div class="progress" style="height: 6px; border-radius: 16px;">
-                            <div class="progress-bar" role="progressbar"
-                              style="width: 65%; border-radius: 16px; background-color: #a8729a;" aria-valuenow="65"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div> -->
                           <div class="d-flex justify-content-right">
                             
                             <p class="text-muted mt-1 mb-0 small ms-xl-5">status : <%=product.paymentStatus%></p>

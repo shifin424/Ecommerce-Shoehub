@@ -27,6 +27,8 @@
     "nocache": "^3.0.4",
     "nodemailer": "^6.9.0",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "razorpay": "^2.8.4",
+    "stripe": "^11.10.0"
   }
 }
