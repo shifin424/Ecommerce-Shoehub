@@ -12,12 +12,12 @@ const checkoutController = require('../Controllers/userChekoutController')
 
 
 router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
+router.use(express.urlencoded({ extended:true }));
 
 
 router.get('/', userController.getHome)
 
-router.get('/login', session.verifyLoginUser,userController.getLogin)
+router.get('/login', session.verifyLoginUser,userController.getLogin);
 
 router.post('/postlogin',userController.postlogin)
 
