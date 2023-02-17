@@ -8733,9 +8733,7 @@ h1, h2, h3, h4, h5,
 .bg-primary {
   background: #dbcc8f; }
 
-#editProfile{
-  
-}
+
 .btn {
   font-size: 12px;
   cursor: pointer;
@@ -8756,6 +8754,16 @@ h1, h2, h3, h4, h5,
     width: 5rem;
     letter-spacing: 1px;
    } 
+   #shopNow-button{
+    background-color:#dbcc8f;
+    color: #fff;
+    font-weight: bold;
+    width: 6rem;
+    letter-spacing: 1px;
+   }
+   #shopNow-button:hover{
+    background-color: #ffbb33;
+   }
    #changePassword{
     background-color: var(--green);
     color: #fff;
@@ -9313,16 +9321,16 @@ h1, h2, h3, h4, h5,
     border: 1px solid transparent !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important; }
     .table tbody tr td.product-remove a {
-      background: #dbcc8f;
+      background: red;
       padding: 4px 10px;
-      color: #000000;
+      color:white;
       -webkit-border-radius: 2px;
       -moz-border-radius: 2px;
       -ms-border-radius: 2px;
       border-radius: 2px; }
       .table tbody tr td.product-remove a:hover {
         border: 1px solid #dbcc8f;
-        background: #dbcc8f; }
+        background: #f20d0d; }
         .table tbody tr td.product-remove a:hover span {
           color: #fff; }
     .table tbody tr td.quantity {

@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="/css/icomoon.css">
     <link rel="stylesheet" href="/css/style.css">
 
+	
+
 
 
 </head>
@@ -93,26 +95,26 @@
 	    				<table class=" table">
 						    <thead class="thead-primary">
 						      <tr class="text-center">
-								<th></th>
+								
 						        <th>Image</th>
 						        <th>Product</th>
 								<th>Size</th>
 						        <th>Price</th>
 						        <th>Quantity</th>
 						        <th>Total</th>
+								<th>remove</th>
 						      </tr>
 						    </thead>
 						    <tbody>
 								<% productData.forEach((product)=>{%>
 						       <tr class="text-center  bg-light">
 							
-						        <td class="product-remove "><button onclick="removeProduct('<%= product._id %>','<%= product.productDetail._id %>')" class="btn btn-outline-dark"><span class="ion-ios-close"></span></button></td>
 						        
-						        <td class="image-prod"><div class="img" style="background-image:url(<%=product.productDetail.image3%>);"></div></td>
+						        <td class="image-prod"><div class="img" style="background-image:url(<%=product?.productDetail?.image3%>);"></div></td>
 						        
 						        <td class="product-name">
-						        	<h3><%= product.productDetail.name %></h3>
-						        	<!-- <p><%=product.productDetail.description %> </p> -->
+						        	<h3><%= product?.productDetail?.name %></h3>
+						        	
 								
 						        </td>
 
@@ -123,7 +125,7 @@
 
  
 
-						        <td class="price"><%= product.productDetail.price%> ₹ </td>
+						        <td class="price"><%= product?.productDetail?.price%> ₹ </td>
 						        
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
@@ -148,7 +150,9 @@
 								 
 					          </td>
 						        
-						        <!-- <td class="total"><%=product.productDetail.price%> ₹ </td> -->
+							  <td ><button id="remove" style="width: 2rem;" onclick="removeProduct('<%= product._id %>','<%= product.productDetail._id %>')" class="btn btn-outline-danger"><span class="ion-ios-close"></span></button></td>
+
+						       
 						      </tr> 
 							 
 
@@ -331,11 +335,13 @@
 
 
 
+
+
   
   
 
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+        <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
         <script src="/js/ajaxRequest.js"></script>
 		<script src="/js/jquery.min.js"></script> 
 		<script src="/js/jquery-migrate-3.0.1.min.js"></script>

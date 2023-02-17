@@ -311,7 +311,6 @@ try{
     hmac = hmac.digest("hex");
 
     if (hmac == details.payment.razorpay_signature) {
-      console.log('hiiii');
       const objId = mongoose.Types.ObjectId(details.order.receipt);
       order.updateOne({ _id: objId }, { $set: { paymentStatus: "paid", orderStatus: 'placed' } }).then(() => {
 

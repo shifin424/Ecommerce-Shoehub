@@ -37,3 +37,24 @@ function changeQuantity(cartId, productId, count) {
     },
   });
 }
+
+
+function removeFromWishlist(wishlistId, productId) {
+  $.ajax({
+    url: "/removeFromWishlist",
+    method: "post",
+    data: {
+      wishlistId,
+      productId,
+    },
+    success: () => {
+      Swal.fire({
+        title: "Product removed from wishlist!",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(function () {
+        location.reload();
+      })
+    },
+  });
+}

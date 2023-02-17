@@ -7,6 +7,7 @@ const cartController = require('../Controllers/userCartController')
 const shopController = require('../Controllers/userShopController')
 const checkoutController = require('../Controllers/userChekoutController')
  const orderController = require('../Controllers/userOrderController')
+ const wishlistController = require('../Controllers/userWishlistController')
 
 
 
@@ -24,7 +25,7 @@ router.get('/profile',session.userLogin,profileController.viewProfile)
 
 router.get('/editProfile',session.userLogin,profileController.editProfile);
 
- router.get('/chagProfilePassword',session.userLogin,profileController.getPasswordPage)
+router.get('/chagProfilePassword',session.userLogin,profileController.getPasswordPage)
 
 router.post('/postEditProfile',session.userLogin,profileController.postEditProfile)
 
@@ -71,6 +72,12 @@ router.get('/paymentFail',session.userLogin,checkoutController.paymentFail);
 router.get('/orderDetails',session.userLogin,orderController .orderDetails)
 
 router.get('/cancelOrder/:id',session.userLogin,orderController .cancelOrder)
+
+router.get('/viewWishlist',session.userLogin,wishlistController.viewWishlist)
+
+router.get('/wishList/:id',session.userLogin,wishlistController.addToWishlist);
+
+router.post('/removeFromWishlist',session.userLogin,wishlistController.removeFromWishlist);
 
 router.get('/orderedProduct/:id',session.userLogin,orderController.orderedProduct);
 

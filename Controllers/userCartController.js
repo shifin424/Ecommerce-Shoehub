@@ -10,6 +10,7 @@ const addToCart = async (req, res) => {
     const body = req.body;
     const id = req.params.id;
     const objId = mongoose.Types.ObjectId(id);
+    console.log(objId);
     const session = req.session.user;
     const size = body.size;
     let productObj = {
@@ -131,6 +132,7 @@ const viewCart = async (req, res,next) => {
             }
         ])
         .exec();
+        console.log(productData);
     const sum = productData.reduce((accumulator, object) => {
         return accumulator + object.productPrice;
     }, 0);

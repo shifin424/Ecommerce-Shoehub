@@ -15,11 +15,24 @@ const multerStorage = multer.diskStorage({
         
 })
 
+const multerFilter = (req, file, cb) => {
+
+    if (file.mimetype.split('/')[1] === 'jpeg' ||
+      file.mimetype.split('/')[1] === 'png' ||
+      file.mimetype.split('/')[1] === 'jpg') {
+      cb(null, true);
+    } else {
+      cb(new Error("Not a JPEG, PNG or JPG File!!"), false);
+    }
+  }
+  
+
+
 
 
 //create the multer instance for  all three files 
 const upload = multer({
-    storage : multerStorage
+    storage : multerStorage,fileFilter:multerFilter
 })
 
 module.exports = upload
