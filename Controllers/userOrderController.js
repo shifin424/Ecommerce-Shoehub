@@ -18,6 +18,7 @@ const orderDetails = async (req, res,next) => {
   const session = req.session.user;
   const userData = await users.findOne({ email: session.email });
   const userId   = userData._id
+  console.log(userId);
   const objId    = mongoose.Types.ObjectId(userId);
   console.log(objId);
   const productData = await order
@@ -35,7 +36,7 @@ const orderDetails = async (req, res,next) => {
         productSize:"$orderItems.size",
         address: 1,
         name: 1,
-        phonenumber: 1,
+        phoneNumber: 1,
         totalAmount:1,
         orderStatus:1,
         paymentMethod:1,
@@ -85,8 +86,9 @@ const orderDetails = async (req, res,next) => {
   ]).sort({ createdAt: -1 }); 
 
   const orderDetails = await order.find({ userId: userData._id }).sort({ createdAt: -1 });
-  console.log(productData.length)
+  console.log(productData )
   res.render('user/orderDetails', { productData,orderDetails });
+
   }catch(err){
     console.log(err);
     next(err)

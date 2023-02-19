@@ -1,7 +1,7 @@
 <%- include ("../partials/adminSidebar.ejs") %> 
 
       <div class="col py-3 mt-5">
-      <div class="container mt-1 w-50 border ">
+      <div class="container mt-1 w-50 border mt-5">
 
           <form action="/admin/postEditproduct/<%= productData._id %>" method="post" id="form"
             enctype="multipart/form-data">
@@ -42,16 +42,8 @@
               <label class="form-label" for="form3Example1c">Stock</label>
               <input type="text" value="<%=productData.stock%>" name="stock" id="stock" class="form-control" required />
             </div>
-            <div class="form-outline flex-fill mb-0 mt-3">
-              <label for="formFile" class="form-label">Product image</label>
-              <input class="form-control" type="file"  required name="myFiles"
-                id="product_image" multiple>
-              <input type="hidden" name="image1" value="<%= productData.image1 %>">
-              <input type="hidden" name="image2" value="<%= productData.image2 %>">
-              <input type="hidden" name="image3" value="<%= productData.image3 %>">
-              <img src="../<%=productData.image1%>.jpg" id="imgView" alt="" style="width:100px;height:auto">
-            </div>
-            <div class="d-flex justify-content-center mt-1">
+           
+            <div class="d-flex justify-content-center mt-5">
               <button type="submit" class="btn btn-success btn-block mb-4">Edit product</button>
             </div>
           </form>

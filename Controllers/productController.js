@@ -80,26 +80,11 @@ const postEditProduct = async (req, res, next) => {
                 subCategory:req.body.subCategory,
                 description: req.body.description,
                 stock: req.body.stock,
-                image1: req.files[0].filename,
-                image2: req.files[1].filename,
-                image3: req.files[2].filename,
+            
 
             }
 
         })
-        const directorypath1 = "public/" + req.body.image1
-        const directorypath2 = "public/" + req.body.image2
-        const directorypath3 = "public/" + req.body.image3
-        const path = [directorypath1, directorypath2, directorypath3]
-        for (i = 0; i < 3; i++) {
-            fs.unlink(path[i], (err) => {
-                if (err) {
-                    throw err;
-                }
-                console.log("Deleted image successfully");
-            })
-        }
-       
         res.redirect('/admin/productdetails')
 
 

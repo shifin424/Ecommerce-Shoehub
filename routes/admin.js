@@ -105,6 +105,8 @@ adminRouter.get('/restoreBanner/:id',adminSession,bannerController.restoreBanner
 
 adminRouter.get('/order',adminSession,orderController.getOrders)
 
+adminRouter.get('/orderedProduct/:id',adminSession,orderController.getOrderedProduct)
+
 adminRouter.post('/orderStatuschange/:id',orderController.orderStatusChanging)
 
 
