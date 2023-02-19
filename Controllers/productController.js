@@ -110,6 +110,96 @@ const postEditProduct = async (req, res, next) => {
 };
 
 
+const changeImage1 = async (req,res) => {
+    try{
+
+        await products.updateOne({_id: req.params.id},
+            {$set: 
+                { 
+                    image1 : req.file.filename,
+                }
+            })
+
+            const directoryPath = "public/" + req.body.image1;
+            fs.unlink(directoryPath , (err) => {
+                try{
+                    if (err) {
+                        throw err;
+                    }
+                    console.log("Delete Image 1 successfully.");
+                }catch(err){
+                    console.error(`Error Deleting image : ${err}`);
+                }
+            });
+        res.redirect('/admin/productdetails');
+
+    }catch(err){
+        console.error(`Error Change Image 1 : ${err}`);
+        res.redirect('/admin/productdetails');
+    }
+}
+
+
+const changeImage2 = async (req,res) => {
+    try{
+
+        await products.updateOne({_id: req.params.id},
+            {$set: 
+                { 
+                    image2 : req.file.filename,
+                }
+            })
+
+            const directoryPath = "public/" + req.body.image2;
+            fs.unlink(directoryPath , (err) => {
+                try{
+                    if (err) {
+                        throw err;
+                    }
+                    console.log("Delete Image 2 successfully.");
+                }catch(err){
+                    console.error(`Error Deleting image : ${err}`);
+                }
+            });
+        res.redirect('/admin/productdetails');
+
+    }catch(err){
+        console.error(`Error Change Image 2 : ${err}`);
+        res.redirect('/admin/productdetails');
+    }
+}
+
+
+const changeImage3 = async (req,res) => {
+    try{
+
+        await products.updateOne({_id: req.params.id},
+            {$set: 
+                { 
+                    image3 : req.file.filename,
+                }
+            })
+
+            const directoryPath = "public/" + req.body.image3;
+            fs.unlink(directoryPath , (err) => {
+                try{
+                    if (err) {
+                        throw err;
+                    }
+                    console.log("Delete Image 3 successfully.");
+                }catch(err){
+                    console.error(`Error Deleting image : ${err}`);
+                }
+            });
+        res.redirect('/admin/productdetails');
+
+    }catch(err){
+        console.error(`Error Change Image 3 : ${err}`);
+        res.redirect('/admin/productdetails');
+    }
+}
+
+
 
 
 
@@ -171,5 +261,8 @@ module.exports = {
     addSize,
     deleteProduct,
     productDetails,
+    changeImage1,
+    changeImage2 ,
+    changeImage3
 
 } 

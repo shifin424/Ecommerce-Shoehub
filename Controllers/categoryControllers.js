@@ -6,20 +6,26 @@ const subCategories = require('../Model/subCategorySchema')
 
 const addCategory = async (req, res, next) => {
     try {
-        if (req.body.name) {
-            const name = req.body.name
+        if (req.body) {
+             const body = req.body
             const catgry = await categories.findOne({ category_name: name });
             if (catgry) {
                 req.session.categoryExist = "category already exist";
                 res.redirect('/admin/category')
             } else {
-                const category = new categories({
+                let category = new categories({
                     category_name: req.body.name
                 })
+                
+                // category = {...category, }
+
                 await category.save()
                 res.redirect('/admin/category');
             }
-        } else {
+            console.log(body);
+          
+        }
+        else {
             res.redirect('/admin/category')
         }
     } catch (err) {
@@ -76,7 +82,6 @@ const editSubCategory = async (req, res) => {
 
 
 const addSubCategory = async (req, res, next) => {
-    console.log("hello");
     try {
         if (req.body.name) {
            
@@ -106,7 +111,8 @@ const addSubCategory = async (req, res, next) => {
 const getCategory = async (req, res, next) => {
     try {
         const category = await categories.find();
-        res.render('admin/category', { category });
+        const subcategory = await subCategories.find()
+        res.render('admin/category', { category,subcategory });
     } catch (err) {
         next(err)
     }

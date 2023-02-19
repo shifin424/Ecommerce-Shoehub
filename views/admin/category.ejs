@@ -4,7 +4,55 @@
     <div class="d-flex align-items-center justify-content-center">
       <h1 class="text-decoration-underline">Categories</h1>
     </div>
-    
+    <!-- modal -->
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="/admin/addCategory" method="post" id="form" class="mt-5">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-4 text-end">
+              <label for="name" class="col-form-label">Category Name:</label>
+            </div>
+            <div class="col-8">
+              <input type="text" id="name" name="name" class="form-control" placeholder="Add new category" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4 text-end"> <br>
+              <label for="name" class="col-form-label"> SubCategory:</label>
+            </div>
+            <div class="col-8"><br>
+              <% subcategory.forEach((subcatgry)=> { %>
+              <input type="checkbox" id="myCheckbox" name="subname" value="<%subcategory._id %>">
+              <label for="myCheckbox"><%=subcatgry.subcategory_name %></label><br>
+              <% }) %>
+            </div>
+            
+          </div>
+          
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+    <!-- modal ends here -->
     <form action="/admin/addCategory" method="post" id="form" class="mt-5">
       <input type="text" name="name" placeholder="Add new category" required>
       <button type="submit" class="btn btn-success" >Submit</button>

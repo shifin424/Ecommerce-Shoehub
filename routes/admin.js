@@ -19,7 +19,13 @@ adminRouter.get('/',loginSession,adminController.getAdminLogin);
 
 adminRouter.post('/signin',loginSession,adminController.postAdminLogin);
 
-adminRouter.get('/home',adminSession,adminController.getAdminHome);
+adminRouter.get('/dashBoard',adminSession,adminController.getAdminDashboard);
+
+adminRouter.get('/salesReport',adminSession,adminController.salesReport);
+
+adminRouter.get('/dailyReport',adminSession, adminController.dailyReport);
+
+adminRouter.get('/monthlyReport',adminSession,adminController.monthlyReport);
 
 adminRouter.get('/twoFactorAdmin',adminController.twoFactorAdmin);
 
@@ -31,8 +37,13 @@ adminRouter.get('/addProduct',adminSession,productController.addProduct);
 
 adminRouter.post('/postProduct',upload.array('myFiles',3),adminSession,productController.postProduct);
 
+adminRouter.get('/productdetails',adminSession,productController.productDetails);   
 
-adminRouter.get('/productdetails',adminSession,productController.productDetails);
+adminRouter.post('/changeImage1/:id',upload.single('myFile1'),adminSession,productController.changeImage1)
+
+adminRouter.post('/changeImage2/:id',upload.single('myFile2'),adminSession,productController.changeImage2)
+
+adminRouter.post('/changeImage3/:id',upload.single('myFile3'),adminSession,productController.changeImage3)
 
 adminRouter.get('/editProduct/:id',adminSession,productController.editProduct);
 
@@ -43,7 +54,6 @@ adminRouter.post('/addSize',adminSession,productController.addSize);
 adminRouter.get('/deleteproduct/:id',adminSession,productController.deleteProduct);
 
 adminRouter.get('/restoreProduct/:id',adminSession,productController.restoreProduct);
-
 
 adminRouter.get('/category',adminSession,categoryController.getCategory);
 
@@ -61,7 +71,7 @@ adminRouter.get('/deleteCategory/:id',adminSession,categoryController.deleteCate
 
 adminRouter.get('/subCategory',adminSession,categoryController.getsubCategory);
 
-adminRouter.post('/addSubCategory/:id',adminSession,categoryController.addSubCategory);
+adminRouter.post('/addSubCategory',adminSession,categoryController.addSubCategory);
 
 adminRouter.get('/deleteSubCategory/:id',adminSession,categoryController.deleteSubCategory);
 

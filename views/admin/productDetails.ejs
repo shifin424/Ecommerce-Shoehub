@@ -1,8 +1,11 @@
 <%- include("../partials/adminSidebar.ejs") %>
+
 <link
   rel="stylesheet"
   href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
-/>)
+  
+/>
+
 
 <!-- PRODUCT DETAILS -->
 <div class="col py-3">
@@ -171,9 +174,9 @@
               </button>
               <%}%>
 
-          
 
-              <!-- Modal -->
+
+              <!-- Modal Image View -->
               <div
                 class="modal fade"
                 id="exampleModal<%= products._id %>"
@@ -207,14 +210,11 @@
                             class="me-2"
                             style="width: 80px"
                             
+                            
                           />
-                          <button
-                            type="button"
-                            class="btn btn-xs"
-                            data-toggle="modal"
-                            data-target="#change1"
-                          ></button>
-                        </div>
+                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#change1<%=products._id %>">
+                            <i class="fa-light fa-pencil"></i>
+                          </button></div>
 
                         <div
                           class="d-flex justify-content-center border rounded border-dark p-3 my-2"
@@ -225,12 +225,9 @@
                             class="me-2"
                             style="width: 80px"
                           />
-                          <button
-                            type="button"
-                            class="btn btn-xs"
-                            data-toggle="modal"
-                            data-target="#change2"
-                          ></button>
+                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#change2<%=products._id %>">
+                            <i class="fas fa-pencil-alt" ></i>
+                          </button>
                         </div>
 
                         <div
@@ -242,12 +239,9 @@
                             class="me-2"
                             style="width: 80px"
                           />
-                          <button
-                            type="button"
-                            class="btn btn-xs"
-                            data-toggle="modal"
-                            data-target="#change3"
-                          ></button>
+                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#change3<%=products._id %>">
+                            <i class="bx bx-edit-alt me-1" ></i>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -264,12 +258,96 @@
                 </div>
               </div>
 
-              <!-- View Image -->
+              <!-- The text code -->
+              
 
-              <!-- Button trigger modal -->
 
-              <!-- Modal -->
+              <!-- Edit image 1 -->
 
+              <div class="modal fade" id="change1<%=products._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <form id="changeImage1" action="/admin/changeImage1/<%= products._id %>" method="post"  enctype="multipart/form-data">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Change Image</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-outline mb-1">
+                        <label class="form-label" for="typeUsernameX-1">Change Image 1</label>
+                        <input type="file" id="myFile1" class="form-control form-control-lg" name="myFile1" />
+                        <input type="hidden" name="image1" value="<%= products.image1 %>">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Change</button>
+                    </div>
+                   </form>
+                  </div>
+                </div>
+              </div>  
+
+              <!-- Edit image1 ends here -->
+
+              <!--Edit image2  -->
+
+              <div class="modal fade" id="change2<%=products._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <form id="changeImage1" action="/admin/changeImage2/<%= products._id %>" method="post"  enctype="multipart/form-data">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Change Image</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-outline mb-1">
+                        <label class="form-label" for="typeUsernameX-1">Change Image 2</label>
+                        <input type="file" id="myFile2" class="form-control form-control-lg" name="myFile2" />
+                        <input type="hidden" name="image2" value="<%= products.image2 %>">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Change</button>
+                    </div>
+                   </form>
+                  </div>
+                </div>
+              </div>  
+
+              <!-- Edit image2 ends here -->
+
+              <!-- Edit image3  -->
+
+              <div class="modal fade" id="change3<%=products._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <form id="changeImage1" action="/admin/changeImage3/<%= products._id %>" method="post"  enctype="multipart/form-data">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Change Image</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-outline mb-1">
+                        <label class="form-label" for="typeUsernameX-1">Change Image 3</label>
+                        <input type="file" id="myFile3" class="form-control form-control-lg" name="myFile3" />
+                        <input type="hidden" name="image3" value="<%= products.image3 %>">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Change</button>
+                    </div>
+                   </form>
+                  </div>
+                </div>
+              </div>  
+
+              <!-- Edit image ends here -->
+             
+             
+              
               <!-- Modal -->
               <div
                 class="modal fade"
@@ -333,6 +411,15 @@
       </table>
     </div>
   </section>
+
+    <!-- image 1 edit modal -->
+    
+
+
+    <!-- Button trigger modal -->
+
+   
+
 
   <script>
     $("#menu-btn").click(function () {

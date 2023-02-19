@@ -6,6 +6,13 @@ const categorySchema =new Schema({
         uppercase:true,
         required:true
     },
+    subcategory:[{
+       type:mongoose.Types.ObjectId,
+       ref: 'subcategory',
+       required:true
+       
+      
+    }],
     delete:{
         type:Boolean,
         default:false,

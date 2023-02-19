@@ -143,16 +143,10 @@ const placeOrder = async(req,res,next)=>{
       let invalid;
       let couponDeleted;
       const data = req.body
-      console.log(data+"1st log");
       const session = req.session.user;
-      console.log(session+"2nd log");
       const userData = await users.findOne({ email: session.email })
-      console.log(userData+"3rd log");
       const objId = mongoose.Types.ObjectId(userData._id);
-      console.log(objId+"4rth log");
       const cartData = await cart.findOne({ userId: userData._id });
-      console.log(cartData + "cart data");
-
       if (data.coupon) {
         invalid = await coupon.findOne({ couponName: data.coupon });
         if (invalid?.delete == true) {
@@ -276,7 +270,6 @@ const placeOrder = async(req,res,next)=>{
                 if (err) {
                   console.log(err);
                 } else {
-                  console.log('online payyyyyyyyyyyyy')
                   res.json({order:order});
 
                   coupon.updateOne(
