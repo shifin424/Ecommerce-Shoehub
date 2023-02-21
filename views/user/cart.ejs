@@ -141,12 +141,7 @@
 										 </button>
 										 </span>
 					          	</div>
-								  <% var a=product.productDetail.price%>
-								  <% var b=product.productQuantity%>
-												<% var c=a*b %>
-													<td >
-														<%=c %> ₹
-													
+								 
 								 
 					          </td>
 						        
@@ -170,7 +165,7 @@
     					<p class="d-flex">
     						<span>Subtotal</span>
 							<% if(locals.sum!==0){%>
-						<strong class="text-black"><%=sum%> ₹</strong>
+						<strong id="sum" class="text-black"><%=sum%> ₹</strong>
 							<% } else { %>
 						<strong class="text-black">0 ₹</strong>
 								<%}%>
@@ -192,7 +187,7 @@
 							<% if(locals.sum<1000) {%>
 						<strong class="text-black"><%=sum+40%> ₹</strong>
 						<% } else { %>
-							<strong class="text-black"><%=sum%> ₹</strong>
+							<strong id="netamount" class="text-black"><%=sum%> ₹</strong>
 							
 						  <%}%>
     					</p>
@@ -360,7 +355,7 @@
 		<script src="/js/google-map.js"></script>
 		<script src="/js/main.js"></script>
 
-		<script>
+		<!-- <script>
 			$(document).ready(function(){
 	
 			var quantitiy=0;
@@ -387,10 +382,40 @@
 				});
 				
 			});
-		</script>
+		</script> -->
 
-	
-
+<script>
+function changeQuantity(cartId, productId, count){
+	 event.preventDefault();
+    console.log('ajax request succussfully');
+	const inputElement = document.getElementById(productId);
+    const quantity = inputElement.value;
+    // let quantity = parseInt(document.getElementById(productId).innerHTML.value) 
+    $.ajax({
+        url:"/changeQuantity",
+        data:{
+            cart:cartId,
+            product:productId,
+            count:count,
+            quantity:quantity
+        },
+        method:"post",
+        success: (response)=>{ 
+          if(response.status){
+           hello = document.getElementById(productId).innerHTML = quantity + count;
+           welcome = document.getElementById("sum").innerHTML ="₹"+ response.productData[0].total
+           hurry= document.getElementById("netamount").innerHTML ="₹"+ response.productData[0].total
+		   console.log("hello,welcome,hurry");
+            console.log(response);
+          } 
+          if(response.quantity){
+            location.reload()
+          }    
+           
+        }
+    })
+  }
+</script>
 
 	</body>
 	</html>

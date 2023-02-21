@@ -41,7 +41,7 @@ router.post('/postSignup', userController.postSignup)
 
 router.post('/resend', userController.userResend)
 
-router.post('/changeQuantity',session.userLogin,cartController.changeQuantity);
+router.post('/changeQuantity',session.userLogin,cartController.changeQuantity,cartController.totalAmount);
 
 router.post('/removeProduct',session.userLogin,cartController.removeProduct);
 
