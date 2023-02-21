@@ -27,24 +27,22 @@
         </div>
         <div class="form-outline flex-fill mb-0 mt-4">
           <input  class="form-control" type="text" placeholder="Size" id="size" name="size" />
-        </div>           
+        </div> 
+                  <!--  -->
         <div class="form-outline flex-fill mb-0 mt-4">              
-          <select required  class="form-select required" name="category" id="category"   aria-label="Default select example">
-            <option selected value=""  >Category</option>
+          <select required  class="form-select required" name="category" id="category-select"   aria-label="Default select example">
+            <option selected value="">Category</option>
             <% category.forEach((categories)=> {%>
             <option value="<%=categories._id%>"><%=categories.category_name%></option>
             <% }) %>              
           </select>
         </div>
         <div class="form-outline flex-fill mb-0 mt-4">              
-          <select required  class="form-select required" name="subcategory" id="category"   aria-label="Default select example">
-            <option selected value=""  >subCategory</option>
-            <% subCategory.forEach((subctgry)=> {%>
-              <option value="<%=subctgry._id%>"><%=subctgry.subcategory_name%></option>
-            <% }) %>              
+          <select class="form-select required" name="subcategory" id="subCategory-select"   aria-label="Default select example" required>
+           
           </select>
         </div>
-
+        
         <div class="row p-2 mt-5 mb-2"> 
           <div class="col-md-12 d-flex justify-content-center">
             <button type="submit" class="btn btn-success sub-btn btn-lg">Add Product</button>
@@ -64,3 +62,41 @@
       </script>
   </body>
   </html>
+
+
+
+  <script>
+    document.querySelector('#category-select').addEventListener("change",function(){
+
+        const selectedCategory = this.value;
+        console.log(selectedCategory, "selctdcategory")
+        const requestOptions = {
+          method :"POST",
+          headers:{
+            'Content-type':'application/json'                                                        
+          },body:JSON.stringify(
+            {
+              category:selectedCategory,
+            }
+          )
+        }
+        fetch('/admin/getsubcategories',requestOptions).then((res)=>res.json())
+
+        .then(subcategories =>{
+          let subcategoryList = document.querySelector('#subCategory-select');
+          console.log(subcategoryList, "this is subcategory-select");
+          subcategoryList.innerHTML = "";
+          console.log(subcategoryList,"data reached here");
+          subcategories.forEach(subcategory => {
+            const option = document.createElement('option');
+            option.value = subcategory._id;
+            option.textContent = subcategory.subcategory_name;
+            subcategoryList.appendChild(option)
+          });
+
+        }).catch((err)=>{
+          console.log("subcategory managment error" );
+         
+        })
+    })
+  </script>

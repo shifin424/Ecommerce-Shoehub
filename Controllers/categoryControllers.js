@@ -1,38 +1,51 @@
 const categories = require('../model/categorySchema');
 const subCategories = require('../Model/subCategorySchema')
+const mongoose = require('mongoose')
 
 
 
 
 const addCategory = async (req, res, next) => {
     try {
-        if (req.body) {
-             const body = req.body
-            const catgry = await categories.findOne({ category_name: name });
-            if (catgry) {
-                req.session.categoryExist = "category already exist";
-                res.redirect('/admin/category')
-            } else {
-                let category = new categories({
-                    category_name: req.body.name
-                })
-                
-                // category = {...category, }
+        const { name, subname } = req.body;
+        console.log(subname);
 
-                await category.save()
-                res.redirect('/admin/category');
-            }
-            console.log(body);
-          
+        const existingCategory = await categories.findOne({ category_name: name });
+        if (existingCategory) {
+            req.session.categoryExist = "category already exists";
+            return res.redirect('/admin/category');
         }
-        else {
-            res.redirect('/admin/category')
-        }
+        const subcategoryArray=await subCategories.find({_id:subname})
+        console.log(subcategoryArray);
+        
+        const category = new categories({
+            category_name: name,
+            subcategory: subcategoryArray
+        });
+        await category.save();
+
+        res.redirect('/admin/category');
     } catch (err) {
-        next(err)
+        next(err);
     }
-
 };
+
+ 
+const getsubCategories = async(req,res,next)=>{
+    try{
+        const categoryID = req.body.category;
+        const categoryId = mongoose.Types.ObjectId(categoryID);
+        const category = await categories.findOne({_id:categoryId}).populate("subcategory").select("subcategory");
+        const subcategoryIds = category.subcategory;
+        const subcategories = await subCategories.find({_id: {$in: subcategoryIds}}).select("subcategory_name");
+        console.log(subcategories,"these are the subcategories");
+        res.json(subcategories);
+    }catch(err){
+        console.log(err);
+        next(err);
+    }
+}
+
 
 const editCategory = async (req, res) => {
     if (req.body.name) {
@@ -181,6 +194,7 @@ module.exports = {
     editCategory,
     restoreCategory,
     restoreSubCategory,
-    editSubCategory
+    editSubCategory,
+    getsubCategories
 
 }

@@ -1,4 +1,4 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+
 const users = require('../model/userSchema')
 const cart = require('../model/cartSchema')
 const order = require('../model/orderSchema')
@@ -47,6 +47,8 @@ const getCheckout = async (req,res,next)=>{
     try{
         let session = req.session.user; 
         const userData = await users.findOne({ email: session.email });
+        const addressData = await users.find({email:session.email})
+        console.log(addressData);
         const userId = userData._id.toString()
         const productData = await cart
           .aggregate([
@@ -87,13 +89,13 @@ const getCheckout = async (req,res,next)=>{
               }
             }
           ])
-          .exec();
+          .exec(); 
         const sum = productData.reduce((accumulator, object) => {
           return accumulator + object.productPrice;
         }, 0);
     
         const query = req.query
-        res.render("user/checkout", { productData, sum, userData });
+        res.render("user/checkout", { productData, sum, userData ,addressData});
     }catch(err){
         next(err)
     }
@@ -121,6 +123,10 @@ const addNewAddress = async (req,res,next)=>{
         next(err)
     }
 };
+
+
+
+  
 
 
 
@@ -259,7 +265,7 @@ const placeOrder = async(req,res,next)=>{
 
 
             } else {
-            
+             
               let options = {
                 amount: amount,
                 currency: "INR",
@@ -339,5 +345,5 @@ module.exports ={
     orderSuccess,
     placeOrder,
     verifyPayment,
-    paymentFail
+    paymentFail,
 }

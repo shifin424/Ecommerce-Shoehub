@@ -27,9 +27,9 @@ adminRouter.get('/dailyReport',adminSession, adminController.dailyReport);
 
 adminRouter.get('/monthlyReport',adminSession,adminController.monthlyReport);
 
-adminRouter.get('/twoFactorAdmin',adminController.twoFactorAdmin);
+adminRouter.get('/twoFactorAdmin',adminSession,adminController.twoFactorAdmin);
 
-adminRouter.post('/twoFactorAdmin',adminController.postTwoFactor)
+adminRouter.post('/twoFactorAdmin',adminSession,adminController.postTwoFactor);
 
 adminRouter.get('/adminLogout',adminController.adminLogout);
 
@@ -108,6 +108,8 @@ adminRouter.get('/order',adminSession,orderController.getOrders)
 adminRouter.get('/orderedProduct/:id',adminSession,orderController.getOrderedProduct)
 
 adminRouter.post('/orderStatuschange/:id',orderController.orderStatusChanging)
+
+adminRouter.post('/getsubcategories',categoryController.getsubCategories)
 
 
 

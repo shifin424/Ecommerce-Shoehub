@@ -16,7 +16,8 @@ const cart = require('../model/cartSchema')
 
 const addProduct = async (req, res, next) => {
     try {
-        const category = await categories.find()
+        const category = await categories.find().populate("subcategory.subId")
+        console.log(category);
         const subCategory = await subCategories.find()
         res.render('admin/addProduct', { category,subCategory  });
     } catch (err) {

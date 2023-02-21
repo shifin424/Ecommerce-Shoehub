@@ -6,9 +6,7 @@
     </div>
     <!-- modal -->
     <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -34,7 +32,7 @@
             </div>
             <div class="col-8"><br>
               <% subcategory.forEach((subcatgry)=> { %>
-              <input type="checkbox" id="myCheckbox" name="subname" value="<%subcategory._id %>">
+              <input type="checkbox" id="myCheckbox" name="subname" value="<%=subcatgry._id %>" >
               <label for="myCheckbox"><%=subcatgry.subcategory_name %></label><br>
               <% }) %>
             </div>
@@ -53,10 +51,9 @@
 </div>
 
     <!-- modal ends here -->
-    <form action="/admin/addCategory" method="post" id="form" class="mt-5">
-      <input type="text" name="name" placeholder="Add new category" required>
-      <button type="submit" class="btn btn-success" >Submit</button>
-    </form>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Categories
+    </button>
     <div class="container d-flex justify-content-end">
       <a href="/admin/subCategory"><button class="btn btn-primary"  type="button">subCategory</button></a>
     </div>

@@ -60,6 +60,8 @@ router.get('/category/:id',session.userLogin,shopController.getCategoryWisePage)
 router.get('/checkout',session.userLogin,checkoutController.getCheckout)
 
 router.post('/addNewAddress',session.userLogin,checkoutController.addNewAddress);
+
+// router.post('/editAddress',session.userLogin,checkoutController.editAddress);
   
 router.get('/orderSuccess',session.userLogin,checkoutController.orderSuccess)
 
