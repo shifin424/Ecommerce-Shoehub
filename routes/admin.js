@@ -49,6 +49,8 @@ adminRouter.get('/editProduct/:id',adminSession,productController.editProduct);
 
 adminRouter.post('/postEditproduct/:id',upload.array('myFiles',3),adminSession,productController.postEditProduct)
 
+adminRouter.get('/productView/:id',adminSession,productController.getProductView)
+
 adminRouter.post('/addSize',adminSession,productController.addSize);
 
 adminRouter.get('/deleteproduct/:id',adminSession,productController.deleteProduct);
@@ -107,9 +109,11 @@ adminRouter.get('/order',adminSession,orderController.getOrders)
 
 adminRouter.get('/orderedProduct/:id',adminSession,orderController.getOrderedProduct)
 
-adminRouter.post('/orderStatuschange/:id',orderController.orderStatusChanging)
+adminRouter.post('/orderStatuschange/:id',adminSession,orderController.orderStatusChanging)
 
-adminRouter.post('/getsubcategories',categoryController.getsubCategories)
+adminRouter.post('/getsubcategories',adminSession,categoryController.getsubCategories)
+
+adminRouter.get('/cropImage',adminSession,productController.getCroppedImage)
 
 
 

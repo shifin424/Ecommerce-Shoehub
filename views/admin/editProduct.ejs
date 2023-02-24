@@ -1,96 +1,89 @@
 <%- include ("../partials/adminSidebar.ejs") %> 
 
-      <div class="col py-3 mt-5">
-      <div class="container mt-1 w-50 border mt-5">
+<div class="col py-3 mt-5">
+  <div class="container mt-1 w-50 border mt-5">
 
-          <form action="/admin/postEditproduct/<%= productData._id %>" method="post" id="form"
-            enctype="multipart/form-data">
-            <div class="d-flex justify-content-center">
-              <h1>Edit Product</h1>
-            </div>
-            <div class="form-outline flex-fill mb-0 ">
-              <label class="form-label" for="form3Example1c">Product name</label>
-              <input type="text" value="<%=productData.name%>" name="name" id="name"
-                class="form-control" data-validate = "Enter your name" required/>
-            </div>
-            <div class="form-outline flex-fill mb-0 mt-3">
-              <label class="form-label" for="form3Example1c">Price </label>
-              <input type="text" value="<%=productData.price%>" name="price" id="price" class="form-control" required />
-            </div>
-            <div class="form-outline flex-fill mb-0 mt-4">              
-              
-              <select   class="form-select required" name="category" id="category-select"   aria-label="Default select example" required>
-                <!--< productData.category> -->
-                <option selected value="">Category</option>
-                <% category.forEach((categories)=> {%>
-                <option value="<%=categories._id%>" ><%=categories.category_name%></option>
-                <% }) %>              
-              </select>
-            </div>
-            <div class="form-outline flex-fill mb-0 mt-4">              
-              <select class="form-select required" name="subcategory" id="subCategory-select" aria-label="Default select example">
-           
-              </select>
-            </div>
-            <div class="form-outline flex-fill mb-0 mt-3">
-              <label class="form-label" for="form3Example1c">Description</label>
-              <input type="text" value="<%=productData.description%>" name="description" id="description"
-                class="form-control" required/>
-            </div>
-            <div class="form-outline flex-fill mb-0 mt-3">
-              <label class="form-label" for="form3Example1c">Stock</label>
-              <input type="text" value="<%=productData.stock%>" name="stock" id="stock" class="form-control" required />
-            </div>
-           
-            <div class="d-flex justify-content-center mt-5">
-              <button type="submit" class="btn btn-success btn-block mb-4">Edit product</button>
-            </div>
-          </form>
+      <form action="/admin/postEditproduct/<%= productData._id %>" onsubmit="return submitform(event)" method="post" id="form"
+        enctype="multipart/form-data">
+        <div class="d-flex justify-content-center">
+          <h1>Edit Product</h1>
         </div>
-        <!-- <script>
-          function viewImage(event) {
-            document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
-          }
-        </script> -->
-      </div>
+        <p id="alert" class="text-danger d-flex justify-content-center"></p>
+        <div class="form-outline flex-fill mb-0 ">
+          <label class="form-label" for="form3Example1c">Product name</label>
+          <input type="text" value="<%=productData.name%>" name="name" id="product_name"
+            class="form-control" data-validate = "Enter your name" required/>
+        </div>
+        <div class="form-outline flex-fill mb-0 mt-3">
+          <label class="form-label" for="form3Example1c">Price </label>
+          <input type="text" value="<%=productData.price%>" name="price" id="price" class="form-control" />
+        </div>
+        <div class="form-outline flex-fill mb-0 mt-4">              
+          
+          <select  class="form-select required" value="" name="category" id="category-select"  aria-label="Default select example" >
+            <!--< productData.category> -->
+            <option selected value="">Category</option>
+            <% category.forEach((categories)=> {%>
+            <option value="<%=categories._id%>" ><%=categories.category_name%></option>
+            <% }) %>              
+          </select>
+        </div>
+        <div class="form-outline flex-fill mb-0 mt-4">              
+          <select class="form-select required" name="subcategory" id="subCategory-select" aria-label="Default select example">
+       
+          </select>
+        </div>
+        <div class="form-outline flex-fill mb-0 mt-3">
+          <label class="form-label" for="form3Example1c">Description</label>
+          <input type="text" value="<%=productData.description%>" name="description" id="description"
+            class="form-control" />
+        </div>
+        <div class="form-outline flex-fill mb-0 mt-3">
+          <label class="form-label" for="form3Example1c">Stock</label>
+          <input type="text" value="<%=productData.stock%>" name="stock" id="stock" class="form-control"  />
+        </div>
+       
+        <div class="d-flex justify-content-center mt-5">
+          <button type="submit" class="btn btn-success btn-block mb-4">Edit product</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>
+</div>
 
-
-  <script>
-    document.querySelector('#category-select').addEventListener("change",function(){
-
-        const selectedCategory = this.value;
-        console.log(selectedCategory, "selctdcategory")
-        const requestOptions = {
-          method :"POST",
-          headers:{
-            'Content-type':'application/json'                                                        
-          },body:JSON.stringify(
-            {
-              category:selectedCategory,
-            }
-          )
+<script src="/js/editProductValidation.js"></script>
+<script>
+document.querySelector('#category-select').addEventListener("change",function(){
+    const selectedCategory = this.value;
+    console.log(selectedCategory, "selctdcategory")
+    const requestOptions = {
+      method :"POST",
+      headers:{
+        'Content-type':'application/json'                                                        
+      },body:JSON.stringify(
+        {
+          category:selectedCategory,
         }
-        fetch('/admin/getsubcategories',requestOptions).then((res)=>res.json())
-
-        .then(subcategories =>{
-          let subcategoryList = document.querySelector('#subCategory-select');
-          console.log(subcategoryList, "this is subcategory-select");
-          subcategoryList.innerHTML = "";
-          console.log(subcategoryList,"data reached here");
-          subcategories.forEach(subcategory => {
-            const option = document.createElement('option');
-            option.value = subcategory._id;
-            option.textContent = subcategory.subcategory_name;
-            subcategoryList.appendChild(option)
-          });
-
-        }).catch((err)=>{
-          console.log("subcategory managment error" );
-         
-        })
+      )
+    }
+    fetch('/admin/getsubcategories',requestOptions).then((res)=>res.json())
+    .then(subcategories =>{
+      let subcategoryList = document.querySelector('#subCategory-select');
+      console.log(subcategoryList, "this is subcategory-select");
+      subcategoryList.innerHTML = "";
+      console.log(subcategoryList,"data reached here");
+      subcategories.forEach(subcategory => {
+        const option = document.createElement('option');
+        option.value = subcategory._id;
+        option.textContent = subcategory.subcategory_name;
+        subcategoryList.appendChild(option)
+      });
+    }).catch((err)=>{
+      console.log("subcategory managment error" );
+     
     })
-  </script>
+})
+</script>
   <%- include ("../partials/adminFooter.ejs")-%>
   

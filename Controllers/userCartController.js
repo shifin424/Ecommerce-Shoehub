@@ -7,17 +7,18 @@ const mongoose = require("mongoose");
 
 
 const addToCart = async (req, res) => {
-    const body = req.body;
-    const id = req.params.id;
+    const id = req.query.productid
     const objId = mongoose.Types.ObjectId(id);
-    console.log(objId);
     const session = req.session.user;
-    const size = body.size;
+
+
+
+    const size = req.query.size;
     let productObj = {
         productId: objId,
         quantity: 1,
         size: size,
-        
+
     };
     const userData = await users.findOne({ email: session.email });
     const userCart = await cart.findOne({ userId: userData._id });
@@ -37,7 +38,7 @@ const addToCart = async (req, res) => {
                     { userId: userData._id, "product.productId": objId },
                     { $inc: { "product.$.quantity": 1 } }
                 );
-                res.redirect("/viewcart");
+                res.redirect("/productView");
             } else {
                 const newCart = new cart({
                     userId: userData.id,
@@ -51,7 +52,7 @@ const addToCart = async (req, res) => {
                 });
                 newCart.save().then(() => {
 
-                    res.redirect("/viewcart");
+                    res.redirect("/productView");
 
 
                 });
@@ -62,7 +63,7 @@ const addToCart = async (req, res) => {
                 .updateOne({ userId: userData._id }, { $push: { product: productObj } })
                 .then(() => {
 
-                    res.redirect("/viewcart");
+                    res.redirect("/productView");
 
                 });
         }
@@ -79,7 +80,7 @@ const addToCart = async (req, res) => {
         });
         newCart.save().then(() => {
 
-            res.redirect("/viewcart");
+            res.redirect("/productView");
 
 
         });
@@ -89,62 +90,65 @@ const addToCart = async (req, res) => {
 
 
 
-const viewCart = async (req, res,next) => {
+const viewCart = async (req, res, next) => {
     const session = req.session.user;
     const cartEmail = session.email
     const userData = await users.findOne({ email: cartEmail });
     const productData = await cart.aggregate([
-            {
-                $match: { userId: userData.id },
-            },
-            {
-                $unwind: "$product",
-            },
-            {
-                $project: {
-                    productItem: "$product.productId",
-                    productQuantity: "$product.quantity",
+        {
+            $match: { userId: userData.id },
+        },
+        {
+            $unwind: "$product",
+        },
+        {
+            $project: {
+                productItem: "$product.productId",
+                productQuantity: "$product.quantity",
 
-                },
             },
-            {
-                $lookup: {
-                    from: "products",
-                    localField: "productItem",
-                    foreignField: "_id",
-                    as: "productDetail",
-                },
+        },
+        {
+            $lookup: {
+                from: "products",
+                localField: "productItem",
+                foreignField: "_id",
+                as: "productDetail",
             },
-            {
-                $project: {
-                    productItem: 1,
-                    productQuantity: 1,
-                    productSize: 1,
-                    productDetail: { $arrayElemAt: ["$productDetail", 0] },
-                },
+        },
+        {
+            $project: {
+                productItem: 1,
+                productQuantity: 1,
+                productSize: 1,
+                productDetail: { $arrayElemAt: ["$productDetail", 0] },
             },
-            {
-                $addFields: {
-                    productPrice: {
-                        $multiply: ["$productQuantity", "$productDetail.price"]
-                    }
+        },
+        {
+            $addFields: {
+                productPrice: {
+                    $multiply: ["$productQuantity", "$productDetail.price"]
                 }
             }
-        ])
+        }
+    ])
         .exec();
-        console.log(productData);
+    console.log(productData);
+    
     const sum = productData.reduce((accumulator, object) => {
         return accumulator + object.productPrice;
     }, 0);
     countInCart = productData.length;
-    let id = req.params.id
-    let product = await products.findOne({ _id: id })
-    res.render("user/cart", { productData, sum, countInCart, product: product });
+    console.log("viewCart");
+   
+    res.render("user/cart", { productData, sum, countInCart });
+
+    console.log(productData+555555555);
 };
 
 
 
-const removeProduct = async (req, res) => {     
+const removeProduct = async (req, res) => {
     const data = req.body;
     const objId = mongoose.Types.ObjectId(data.product);
     await cart.aggregate([
@@ -164,60 +168,60 @@ const removeProduct = async (req, res) => {
 
 
 const totalAmount = async (req, res) => {
-    try{
+    try {
 
-    let session = req.session.user;
-    const userData = await users.findOne({ email: session.email });
-    const productData = await cart.aggregate([
-      {
-        $match: { userId: userData.id },
-      },
-      {
-        $unwind: "$product",
-      },
-      {
-        $project: {
-          productItem: "$product.productId",
-          productQuantity: "$product.quantity",
-        },
-      },
-      {
-        $lookup: {
-          from: "products",
-          localField: "productItem",
-          foreignField: "_id",
-          as: "productDetail",
-        },
-      },
-      {
-        $project: {
-          productItem: 1,
-          productQuantity: 1,
-          productDetail: { $arrayElemAt: ["$productDetail", 0] },
-        },
-      },
-      {
-        $addFields: {
-          productPrice: {
-            $multiply: ["$productQuantity", "$productDetail.price"],
-          },
-        },
-      },
-      {
-        $group: {
-          _id: userData.id,
-          total: {
-            $sum: { $multiply: ["$productQuantity", "$productDetail.price"] },
-          },
-        },
-      },
-    ]).exec();
-    res.json({ status: true, productData });
-}catch(err){
-    console.log(err);
-    next(err)
-}
-  };
+        let session = req.session.user;
+        const userData = await users.findOne({ email: session.email });
+        const productData = await cart.aggregate([
+            {
+                $match: { userId: userData.id },
+            },
+            {
+                $unwind: "$product",
+            },
+            {
+                $project: {
+                    productItem: "$product.productId",
+                    productQuantity: "$product.quantity",
+                },
+            },
+            {
+                $lookup: {
+                    from: "products",
+                    localField: "productItem",
+                    foreignField: "_id",
+                    as: "productDetail",
+                },
+            },
+            {
+                $project: {
+                    productItem: 1,
+                    productQuantity: 1,
+                    productDetail: { $arrayElemAt: ["$productDetail", 0] },
+                },
+            },
+            {
+                $addFields: {
+                    productPrice: {
+                        $multiply: ["$productQuantity", "$productDetail.price"],
+                    },
+                },
+            },
+            {
+                $group: {
+                    _id: userData.id,
+                    total: {
+                        $sum: { $multiply: ["$productQuantity", "$productDetail.price"] },
+                    },
+                },
+            },
+        ]).exec();
+        res.json({ status: true, productData });
+    } catch (err) {
+        console.log(err);
+        next(err)
+    }
+};
 
 
 // const changeQuantity = async (req, res) => {
@@ -243,33 +247,33 @@ const totalAmount = async (req, res) => {
 //   };
 
 
-const  changeQuantity =  (req,res,next)=>{   
-    try{
-    const data = req.body
-    console.log(data,"counted");
-    const objId = mongoose.Types.ObjectId(data.product)
-    console.log(objId);
+const changeQuantity = (req, res, next) => {
+    try {
+        const data = req.body
+        console.log(data, "counted");
+        const objId = mongoose.Types.ObjectId(data.product)
+        console.log(objId);
 
-    if(data.count == -1 && data.quantity == 1){
-         cart.updateOne(
-          {_id : data.cart, "product.productId":objId},
-          {$pull : { product : { productId:objId }}}
-         )
-         .then(()=>{
-         res.json({quantity:true})
-         }).catch(err => console.log(err))
-    }else{
-      cart.updateOne(
-        { _id: data.cart, "product.productId":objId},
-        { $inc:{"product.$.quantity": data.count }}
-       ).then(()=>{
-        next()
-       })
+        if (data.count == -1 && data.quantity == 1) {
+            cart.updateOne(
+                { _id: data.cart, "product.productId": objId },
+                { $pull: { product: { productId: objId } } }
+            )
+                .then(() => {
+                    res.json({ quantity: true })
+                }).catch(err => console.log(err))
+        } else {
+            cart.updateOne(
+                { _id: data.cart, "product.productId": objId },
+                { $inc: { "product.$.quantity": data.count } }
+            ).then(() => {
+                next()
+            })
+        }
+    } catch (err) {
+        console.log(err);
+        next(err)
     }
-}catch(err){
-    console.log(err);
-    next(err)
-}
 
 };
 

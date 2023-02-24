@@ -185,51 +185,52 @@ const unblockUser = async (req, res) => {
 };
 
 
-const salesReport = async(req,res,next)=>{
-    try{
-        const allsalesReport= await order.find({
-            paymentStatus:"paid",
-            orderStatus:"delivered",
+const salesReport = async (req, res, next) => {
+    try {
+        const allsalesReport = await order.find({
+            paymentStatus: "paid",
+            orderStatus: "delivered",
         });
-        res.render("admin/salesReport",{allsalesReport});
-    }catch(err){
+        res.render("admin/salesReport", { allsalesReport });
+    } catch (err) {
         console.log(err);
         next(err)
     }
 }
 
-const dailyReport = async(req,res,next)=>{
-    try{
-        const allsalesReport= await order.find({
-            $and:[
-              {
-                paymentStatus:"paid",orderStatus:"delivered"},
-              {
-                  orderDate:moment().format("MMM Do YY")
-              }
+const dailyReport = async (req, res, next) => {
+    try {
+        const allsalesReport = await order.find({
+            $and: [
+                {
+                    paymentStatus: "paid", orderStatus: "delivered"
+                },
+                {
+                    orderDate: moment().format("MMM Do YY")
+                }
             ]
-          })
-          console.log(allsalesReport);
-          res.render("admin/salesReport",{allsalesReport});
-    }catch(err){
+        })
+        console.log(allsalesReport);
+        res.render("admin/salesReport", { allsalesReport });
+    } catch (err) {
         console.log(err);
         next(err)
     }
 }
 
 
-const monthlyReport = async(req,res,next)=>{
-    try{
+const monthlyReport = async (req, res, next) => {
+    try {
         var d = new Date();
         d.setMonth(d.getMonth() - 1);
-        const allsalesReport= await order.find({
-              $and:[
-                {paymentStatus:"paid",orderStatus:"delivered"},
-                {created:{$gte:d}}
-              ],
-        })            
-        res.render('admin/salesReport',{allsalesReport});
-    }catch(err){
+        const allsalesReport = await order.find({
+            $and: [
+                { paymentStatus: "paid", orderStatus: "delivered" },
+                { created: { $gte: d } }
+            ],
+        })
+        res.render('admin/salesReport', { allsalesReport });
+    } catch (err) {
         console.log(err);
         next(err)
     }
@@ -251,7 +252,7 @@ module.exports = {
     salesReport,
     dailyReport,
     monthlyReport,
-     
+
 }
 
 

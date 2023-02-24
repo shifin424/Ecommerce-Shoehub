@@ -3,34 +3,36 @@
 <div class="col py-3">
 
     <div class="container mt-5 w-50 border p-5">
-      <form action="/admin/postProduct" method="post" id="form" enctype="multipart/form-data">
+      <form action="/admin/postProduct" method="post" onsubmit="return submitform(events)" id="form" enctype="multipart/form-data">
         <div class="d-flex justify-content-center">
           <h1>Add Product</h1>
         </div>
 
+        <p id="alert" class="text-danger d-flex justify-content-center"></p>
         <div class="form-outline flex-fill mb-0 mt-4">
-          <input class="form-control" required  placeholder="main_image" type="file" name="myFiles" multiple>
+          <input class="form-control"   placeholder="main_image" type="file" id="images" name="myFiles" multiple>
         </div>
        
         <div class="form-outline flex-fill mb-0 mt-4">
-          <input type="text" required placeholder="Product name" name="product_name" id="product_name"
+          <input type="text"  placeholder="Product name" name="product_name" id="product_name"
             class="form-control" />
         </div>
         <div class="form-outline flex-fill mb-0 mt-4">
-          <input type="text" required placeholder="Price" name="price" id="price" class="form-control" required>
+          <input type="number"  placeholder="Price" name="price" id="price" class="form-control" >
         </div>
         <div class="form-outline flex-fill mb-0 mt-4">
-          <input type="text" required  placeholder="Description" name="description" id="description" class="form-control" />
+          <input type="text"   placeholder="Description" name="description" id="description" class="form-control" />
         </div>
         <div class="form-outline flex-fill mb-0 mt-4">
-          <input type="text" required  placeholder="Stock" name="stock" id="stock" class="form-control" />
+          <input type="number"   placeholder="Stock" name="stock" id="stock" class="form-control" />
         </div>
         <div class="form-outline flex-fill mb-0 mt-4">
-          <input  class="form-control" type="text" placeholder="Size" id="size" name="size" />
+          <input  class="form-control" type="number" placeholder="Size" id="size" name="size" />
         </div> 
-                  <!--  -->
+        
+              
         <div class="form-outline flex-fill mb-0 mt-4">              
-          <select required  class="form-select required" name="category" id="category-select"   aria-label="Default select example">
+          <select   class="form-select required" name="category" id="category-select"   aria-label="Default select example">
             <option selected value="">Category</option>
             <% category.forEach((categories)=> {%>
             <option value="<%=categories._id%>"><%=categories.category_name%></option>
@@ -38,7 +40,7 @@
           </select>
         </div>
         <div class="form-outline flex-fill mb-0 mt-4">              
-          <select class="form-select required" name="subcategory" id="subCategory-select"   aria-label="Default select example" required>
+          <select class="form-select required" name="subcategory" id="subCategory-select" placeholder="Select Subcategory"  aria-label="Default select example" >
            
           </select>
         </div>
@@ -51,6 +53,8 @@
       </form>
     </div>
   </div>
+
+  <script src="../js/productValidation.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
   crossorigin="anonymous"></script>
@@ -100,3 +104,4 @@
         })
     })
   </script>
+

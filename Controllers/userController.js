@@ -19,7 +19,7 @@ const getHome = async (req, res, next) => {
     let loging = req.session.user
     let product = await products.find({ delete: false }).populate('category')
     let bannerData = await banner.find()
-    res.render('user/home', { loging ,product,bannerData})
+    res.render('user/home', { loging, product, bannerData })
   } catch (err) {
 
     cosole.log(err)
@@ -29,7 +29,7 @@ const getHome = async (req, res, next) => {
 //login page
 const getLogin = (req, res, next) => {
   try {
-    
+
     req.session.errMessage = false
     res.render("user/login");
   } catch (err) {
@@ -138,10 +138,10 @@ const postlogin = async (req, res, next) => {
     if (userData) {
       if (userData.isBlocked === false) {
         const passwordMatch = await bcrypt.compare(password, userData.password)
-       
+
         if (passwordMatch) {
           response.email = userData
-          
+
 
           const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
           console.log(OTP);
@@ -152,28 +152,28 @@ const postlogin = async (req, res, next) => {
             to: email,
             subject: 'Otp for SHOEHUB ',
             html: `<p>Your OTP for registering in SHOEHUB  is ${OTP}</p>`
-      
+
           }
           mailer.mailTransporter.sendMail(mailDetail, async function (err) {
 
             twoFactor.deleteOne({ email: email }).then(() => {
-    
+
               twoFactor.create({
                 email: email,
                 otp: botp
               }).then(() => {
-    
+
                 res.render("user/userTwoFactor", { email });
-    
+
               })
-    
+
             })
-    
+
           })
 
-         
+
         } else {
-          req.session.errMessage="Invalid password";
+          req.session.errMessage = "Invalid password";
           console.log(req.session.errMessage);
           res.redirect('/login')
         }
@@ -225,7 +225,7 @@ const postForgotPassword = async (req, res, next) => {
     const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
     console.log(OTP);
     const botp = await bcrypt.hash(OTP, 10)
-    
+
     const mailDetails = {
 
       from: process.env.MAILER_EMAIL,
@@ -383,7 +383,7 @@ const userResend = async (req, res, next) => {
       phoneNumber: phoneNumber,
       password: password
     }
-    mailsender(User).then(async(mailer)=>{
+    mailsender(User).then(async (mailer) => {
       if (mailer) {
         console.log(mailer)
         res.redirect(`/otp?username=${User.userName}&email=${User.email}&phonenumber=${User.phoneNumber}&password=${User.password}`);
@@ -391,7 +391,7 @@ const userResend = async (req, res, next) => {
         console.log('error')
       }
     })
-    
+
 
 
 
@@ -403,39 +403,39 @@ const userResend = async (req, res, next) => {
 
 };
 
-const twoFactors =(req,res,next)=> {
-  try{
+const twoFactors = (req, res, next) => {
+  try {
     res.render("user/userTwoFactor")
-  }catch(err){
+  } catch (err) {
     next(err)
   }
 }
 
-const usertwofactor = async (req,res,next)=>{
-  try{
-    
+const usertwofactor = async (req, res, next) => {
+  try {
+
     const useremail = req.body.email;
     const Otp = req.body.otp
-    const tOtp = await twoFactor.findOne({email:useremail})
+    const tOtp = await twoFactor.findOne({ email: useremail })
     const validOtp = await bcrypt.compare(Otp, tOtp.otp)
 
-    if(validOtp){
+    if (validOtp) {
       req.session.user = response.email
       res.redirect('/')
 
-    }else{
-      res.render('user/userTwoFactor',{ invalid:"incorrect otp" })
+    } else {
+      res.render('user/userTwoFactor', { invalid: "incorrect otp" })
     }
 
-}catch(err){
-  next(err)
-}
+  } catch (err) {
+    next(err)
+  }
 }
 
 module.exports = {
 
   twoFactors,
-  getHome, 
+  getHome,
   getLogin,
   getsignup,
   postSignup,

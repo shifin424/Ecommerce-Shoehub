@@ -47,15 +47,21 @@ router.post('/removeProduct',session.userLogin,cartController.removeProduct);
 
 router.get('/viewcart',session.userLogin,cartController.viewCart); 
 
-router.get('/cart/:id',session.userLogin,cartController.addToCart) 
+router.get('/cart',session.userLogin,cartController.addToCart) 
 
-router.post('/cart/:id',session.userLogin,cartController.addToCart);
+router.post('/cart',session.userLogin,cartController.addToCart);
 
 router.get('/shop',session.userLogin,shopController.getshop)
+
+router.get('/sortLowToHigh',session.userLogin,shopController.sortLowToHigh)
+
+router.get('/sortHighToLow',session.userLogin,shopController.sortHighToLow)
 
 router.get('/productView/:id',session.userLogin,shopController.getProductView)
 
 router.get('/category/:id',session.userLogin,shopController.getCategoryWisePage);
+
+router.post('/searchProduct',session.userLogin,shopController.searchProduct)
 
 router.get('/checkout',session.userLogin,checkoutController.getCheckout)
 

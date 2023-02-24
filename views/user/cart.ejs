@@ -101,7 +101,6 @@
 								<th>Size</th>
 						        <th>Price</th>
 						        <th>Quantity</th>
-						        <th>Total</th>
 								<th>remove</th>
 						      </tr>
 						    </thead>
@@ -134,7 +133,7 @@
 										   <i class="ion-ios-remove"></i>
 											</button>
 											</span>
-										 <input type="text" id="<%= product.productDetail._id %>" name="quantity" class="quantity form-control input-number" value="<%= product.productQuantity%>" min="1" max="100">
+										 <input type="text" id="<%= product.productDetail._id %>" min="0" name="quantity" class="quantity form-control input-number" value="<%=product.productDetail.productQuantity%>"  max="100">
 										 <span class="input-group-btn ml-2">
 											<button type="button"  onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',1)" class="quantity-right-plus btn" data-type="plus" data-field="">
 											 <i class="ion-ios-add"></i>

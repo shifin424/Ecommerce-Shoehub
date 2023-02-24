@@ -21,9 +21,6 @@ form.onsubmit=()=> {
         return false;
     }
    
-   
-   
-    
      if(Email.value === ""){
         showErrorMessage("Email is required")
     }

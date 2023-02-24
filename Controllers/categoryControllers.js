@@ -15,9 +15,9 @@ const addCategory = async (req, res, next) => {
             req.session.categoryExist = "category already exists";
             return res.redirect('/admin/category');
         }
-        const subcategoryArray=await subCategories.find({_id:subname})
+        const subcategoryArray = await subCategories.find({ _id: subname })
         console.log(subcategoryArray);
-        
+
         const category = new categories({
             category_name: name,
             subcategory: subcategoryArray
@@ -30,17 +30,17 @@ const addCategory = async (req, res, next) => {
     }
 };
 
- 
-const getsubCategories = async(req,res,next)=>{
-    try{
+
+const getsubCategories = async (req, res, next) => {
+    try {
         const categoryID = req.body.category;
         const categoryId = mongoose.Types.ObjectId(categoryID);
-        const category = await categories.findOne({_id:categoryId}).populate("subcategory").select("subcategory");
+        const category = await categories.findOne({ _id: categoryId }).populate("subcategory").select("subcategory");
         const subcategoryIds = category.subcategory;
-        const subcategories = await subCategories.find({_id: {$in: subcategoryIds}}).select("subcategory_name");
-        console.log(subcategories,"these are the subcategories");
+        const subcategories = await subCategories.find({ _id: { $in: subcategoryIds } }).select("subcategory_name");
+        console.log(subcategories, "these are the subcategories");
         res.json(subcategories);
-    }catch(err){
+    } catch (err) {
         console.log(err);
         next(err);
     }
@@ -67,7 +67,7 @@ const editCategory = async (req, res) => {
     } else {
         res.redirect('/admin/category')
     }
-}     
+}
 
 
 
@@ -91,13 +91,13 @@ const editSubCategory = async (req, res) => {
     } else {
         res.redirect('/admin/subCategory')
     }
-}     
+}
 
 
 const addSubCategory = async (req, res, next) => {
     try {
         if (req.body.name) {
-           
+
             const name = req.body.name
             console.log(name);
             const subcatgry = await subCategories.findOne({ subcategory_name: name });
@@ -107,7 +107,7 @@ const addSubCategory = async (req, res, next) => {
                 res.redirect('/admin/subCategory')
             } else {
                 const subcategory = new subCategories({
-                    category_id :req.params.id,
+                    category_id: req.params.id,
                     subcategory_name: req.body.name
                 })
                 await subcategory.save()
@@ -125,7 +125,7 @@ const getCategory = async (req, res, next) => {
     try {
         const category = await categories.find();
         const subcategory = await subCategories.find()
-        res.render('admin/category', { category,subcategory });
+        res.render('admin/category', { category, subcategory });
     } catch (err) {
         next(err)
     }
@@ -141,27 +141,27 @@ const getsubCategory = async (req, res, next) => {
 };
 
 
- const deleteCategory = async (req, res) => {
+const deleteCategory = async (req, res) => {
     const id = req.params.id;
-    await categories.updateOne({ _id: id },{$set:{delete:true}}) 
+    await categories.updateOne({ _id: id }, { $set: { delete: true } })
     res.redirect('/admin/category')
 };
 
-const restoreCategory = async (req,res)=>{
+const restoreCategory = async (req, res) => {
     const id = req.params.id
-    await categories.updateOne({_id:id},{$set:{delete:false}})
+    await categories.updateOne({ _id: id }, { $set: { delete: false } })
     res.redirect('/admin/category');
 };
 
 const deleteSubCategory = async (req, res) => {
     const id = req.params.id;
-    await subCategories.updateOne({ _id: id },{$set:{delete:true}}) 
+    await subCategories.updateOne({ _id: id }, { $set: { delete: true } })
     res.redirect('/admin/SubCategory')
 };
 
-const restoreSubCategory = async (req,res)=>{
+const restoreSubCategory = async (req, res) => {
     const id = req.params.id
-    await subCategories.updateOne({_id:id},{$set:{delete:false}})
+    await subCategories.updateOne({ _id: id }, { $set: { delete: false } })
     res.redirect('/admin/SubCategory');
 };
 
