@@ -40,6 +40,16 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+  .wallet-header {
+    background-color: #f5efd5;
+    color: rgb(38, 32, 32);
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -9577,12 +9587,14 @@ textarea.form-control {
 .about-author .desc h3 {
   font-size: 24px; }
 
+  
+
 .ftco-section {
-  padding: 7em 0;
+  padding: 1em 0;
   position: relative; }
   @media (max-width: 767.98px) {
     .ftco-section {
-      padding: 6em 0; } }
+      padding:  0; } }
 
 .ftco-choose .divider-one {
   height: 700px; }

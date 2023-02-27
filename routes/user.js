@@ -59,6 +59,8 @@ router.get('/sortHighToLow',session.userLogin,shopController.sortHighToLow)
 
 router.get('/productView/:id',session.userLogin,shopController.getProductView)
 
+router.post('/productView/:id',session.userLogin,shopController.reviews)
+
 router.get('/category/:id',session.userLogin,shopController.getCategoryWisePage);
 
 router.post('/searchProduct',session.userLogin,shopController.searchProduct)
@@ -79,7 +81,7 @@ router.get('/paymentFail',session.userLogin,checkoutController.paymentFail);
 
 router.get('/orderDetails',session.userLogin,orderController .orderDetails)
 
-router.get('/cancelOrder/:id',session.userLogin,orderController .cancelOrder)
+router.get('/cancelOrder/:id',session.userLogin,orderController.cancelOrder)
 
 router.get('/viewWishlist',session.userLogin,wishlistController.viewWishlist)
 
@@ -106,6 +108,12 @@ router.get('/userTwoFactor',userController.twoFactors)
  router.post('/twoFactorLogin',userController.usertwofactor)
 
 router.get('/logout', userController.userLogout)
+
+router.get('/contact',session.userLogin,profileController.getContactPage)
+
+router.get('/getAddressDetails/:userId',session.userLogin,checkoutController.fetchAddress)
+
+
 
 
 module.exports = router;

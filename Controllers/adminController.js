@@ -107,7 +107,8 @@ const postTwoFactor = async (req, res, next) => {
             res.redirect('/admin/dashBoard')
 
         } else {
-            res.render("admin/twoFactorAdmin", { invalid: "invalid otp" })
+            email =adminEmail
+            res.render("admin/twoFactorAdmin", { invalid: "invalid otp",email })
         }
 
 

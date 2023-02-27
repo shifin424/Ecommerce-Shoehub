@@ -1,6 +1,6 @@
 const products = require('../model/productSchema');
 const categories = require('../model/categorySchema');
-const productSchema = require('../model/productSchema');
+const user = require('../model/userSchema');
 
 const getshop = async (req, res, next) => {
     try {
@@ -42,7 +42,6 @@ const getProductView = async (req, res, next) => {
     try {
         let id = req.params.id
         let product = await products.findOne({ _id: id }).populate('category')
-
         res.render('user/productView', { product: product })
     } catch (err) {
         next(err)
@@ -63,22 +62,41 @@ const getCategoryWisePage = async (req, res, next) => {
 };
 
 
-const searchProduct = async(req,res,next)=>{
-    try{
+const searchProduct = async (req, res, next) => {
+    try {
         const searchInput = req.body
         const category = await categories.find();
 
         const searchTerm = searchInput.searchInput;
         const product = await products.find({ name: { $regex: searchTerm, $options: 'i' } });
         console.log(product);
-        
+
         res.render('user/shop', { product, category })
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
         next(err)
     }
 };
+
+const reviews = async (req, res, next) => {
+    try {
+        let id = req.params.id
+        session = req.session.user
+        const body = req.body
+        const userData = await user.findOne({ email: session.email })
+        const data = {
+            name: userData.username,
+            text: body.review,
+            rating: body.rating
+        }
+        await products.updateOne({ _id: id }, { $push: { reviews: data } })
+        const product = await products.findOne({ _id: id }).populate('category')
+        res.render('user/productView', { product: product })
+    } catch (err) {
+        next(err)
+    }
+}
 
 
 
@@ -88,6 +106,7 @@ module.exports = {
     getCategoryWisePage,
     sortLowToHigh,
     sortHighToLow,
-    searchProduct
+    searchProduct,
+    reviews
 
 }

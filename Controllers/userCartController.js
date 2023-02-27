@@ -1,6 +1,5 @@
 const cart = require('../model/cartSchema');
 const users = require('../model/userSchema')
-const products = require('../model/productSchema');
 const mongoose = require("mongoose");
 
 
@@ -133,17 +132,15 @@ const viewCart = async (req, res, next) => {
         }
     ])
         .exec();
-    console.log(productData);
     
     const sum = productData.reduce((accumulator, object) => {
         return accumulator + object.productPrice;
     }, 0);
     countInCart = productData.length;
-    console.log("viewCart");
-   
+   console.log(productData,1);
     res.render("user/cart", { productData, sum, countInCart });
 
-    console.log(productData+555555555);
+    
 };
 
 
@@ -252,7 +249,7 @@ const changeQuantity = (req, res, next) => {
         const data = req.body
         console.log(data, "counted");
         const objId = mongoose.Types.ObjectId(data.product)
-        console.log(objId);
+        
 
         if (data.count == -1 && data.quantity == 1) {
             cart.updateOne(

@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>My Orders</title>
+	<title>Profile page</title>
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -32,6 +32,22 @@
     <link rel="stylesheet" href="/css/icomoon.css">
     <link rel="stylesheet" href="/css/style.css">
 
+    <style>
+      .modal-body .row {
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.modal-body .row .col {
+  padding: 10px;
+  text-align: center;
+}
+
+
+    </style>
+
 
 
 </head>
@@ -50,7 +66,7 @@
 				  <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="/shop" class="nav-link">Shop</a></li>
           <li class="nav-item"><a href="/orderDetails" class="nav-link">Orders</a></li>
-          <li class="nav-item"><a href="" class="nav-link">contact</a></li>
+          <li class="nav-item"><a href="/contact" class="nav-link">contact</a></li>
         <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
 				  <li class="nav-item cta cta-colored">
 					<a href="/viewcart" class="nav-link"
@@ -101,7 +117,58 @@
             </div>
           </div>
         </div>
+
+
+       
+        <div class="card">
+          <div class="wallet-header">My Wallet <hr></div>
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div class="wallet-container">
+              <h4>Total</h4>
+              <p class="wallet-amount">₹ <%= userData.walletTotal %> </p>
+            </div>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#wallet-modal">View  History</button>
+          </div>
+        </div>
+        <!-- Wallet Modal -->
+        <div class="modal fade" id="wallet-modal" tabindex="-1" role="dialog" aria-labelledby="wallet-modal-label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="wallet-modal-label">Wallet History</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  
+                  <div style="color: black;" class="col">Amount</div>
+                  <div style="color: black;" class="col">Transaction Type</div>
+                  <div style="color: black;" class="col">Date</div>
+                </div>
+
+                  <% walletDetails.forEach((walletDetail) => { %>
+                    <div class="row">
+                      <div class="col">₹<%= walletDetail.amount.toFixed(2) %></div>
+                      <div class="col"><%= walletDetail.transactionType %></div>
+                      <div class="col"><%= walletDetail.date.toISOString().substr(0, 10) %></div>
+                    </div>
+                  <% }); %>
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               
+              </div>
+            </div>
+          </div>
+        </div>
         
+             
+             
+          
+ 
+           
       </div>
       <div class="col-lg-8 pb-5 pt-5">
         <div class="card mb-4">
@@ -168,7 +235,10 @@
               <button class="btn" id="edit-button">Edit</button></a>
               </div>
               <div class="col-sm-9">
-               <!-- <button class="btn btn-primary">Change Password</button> -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                Add new address
+              </button>
               </div>
             </div>
           </div>
@@ -284,11 +354,89 @@
   </div>
   </footer>
 
+
+    <!-- Add address modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Add new Address</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="/addNewAddress" method="post">
+					<div class="modal-body">
+						<div class="mb-1">
+							<label for="recipient-name"
+								class="col-form-label">Housename:</label>
+							<input required  type="text" class="form-control" id="housename"
+								name="housename" />
+						</div>
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">Area:</label>
+							<input required type="text" class="form-control" id="area"
+								name="area" />					
+						</div>
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">Landmark:</label>
+							<input required type="text" class="form-control" id="landmark"
+								name="landmark" />						
+						</div>
+						<div class="mb-3">
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="firstName">District</label>
+									<input required type="text" class="form-control"
+										id="district" name="district" />
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="lastName">State</label>
+									<input required type="text" class="form-control" id="state"
+										name="state" />
+									
+								</div>
+							</div>
+						</div>
+						<div class="mb-3">
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="firstName">Post office</label>
+									<input required type="text" class="form-control"
+										id="postoffice" name="postoffice" />								
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="lastName">Pincode</label>
+									<input required type="text" class="form-control" id="pin"
+										name="pin" />
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
+			 </div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					Close
+				</button>
+				<button type="submit" value="submit" class="btn btn-primary">
+					Add
+				</button>
+			</div>
+		  </div>
+		</form>
+		</div>
+	  </div>
+
+      <!-Modal Ends here-  -->
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-
+  
 
 
         <script src="/js/jquery.min.js"></script>

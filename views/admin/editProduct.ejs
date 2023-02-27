@@ -14,23 +14,28 @@
           <input type="text" value="<%=productData.name%>" name="name" id="product_name"
             class="form-control" data-validate = "Enter your name" required/>
         </div>
-        <div class="form-outline flex-fill mb-0 mt-3">
+        <div class="form-outline flex-fill mb-3 mt-3">
           <label class="form-label" for="form3Example1c">Price </label>
           <input type="text" value="<%=productData.price%>" name="price" id="price" class="form-control" />
         </div>
-        <div class="form-outline flex-fill mb-0 mt-4">              
+        <label for="">category</label>
+        <div class="form-outline flex-fill mb-3  d-flex">              
           
+          <input type="text"  value="<%=productData.category.category_name %>" disabled>
           <select  class="form-select required" value="" name="category" id="category-select"  aria-label="Default select example" >
             <!--< productData.category> -->
-            <option selected value="">Category</option>
+            <option selected value="">Select</option>
             <% category.forEach((categories)=> {%>
             <option value="<%=categories._id%>" ><%=categories.category_name%></option>
             <% }) %>              
           </select>
         </div>
-        <div class="form-outline flex-fill mb-0 mt-4">              
+        <label for="">Subcategory</label>
+        <div class="form-outline flex-fill mb-0  d-flex justify-content-center">   
+                
+          <input type="text"  value="<%=productData.subCategory.subcategory_name %>" disabled>    
           <select class="form-select required" name="subcategory" id="subCategory-select" aria-label="Default select example">
-       
+            <option selected value="">Select</option> 
           </select>
         </div>
         <div class="form-outline flex-fill mb-0 mt-3">

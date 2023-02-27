@@ -424,7 +424,8 @@ const usertwofactor = async (req, res, next) => {
       res.redirect('/')
 
     } else {
-      res.render('user/userTwoFactor', { invalid: "incorrect otp" })
+      const email=useremail
+      res.render('user/userTwoFactor', { invalid: "incorrect otp" ,email})
     }
 
   } catch (err) {

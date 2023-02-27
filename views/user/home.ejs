@@ -40,7 +40,7 @@
       id="ftco-navbar"
     >
       <div class="container">
-        <a class="navbar-brand" href="#">SHOE HUB</a>
+        <a class="navbar-brand" href="/">SHOE HUB</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -59,7 +59,7 @@
               <a href="#" class="nav-link">Home</a>
             </li>
             <li class="nav-item"><a href="/shop" class="nav-link">Shop</a></li>
-            <li class="nav-item"><a href="" class="nav-link">contact</a></li>
+            <li class="nav-item"><a href="/contact" class="nav-link">contact</a></li>
             <%if(!loging){ %>
             <li class="nav-item">
               <a href="/login" class="nav-link">Login</a>
@@ -95,6 +95,8 @@
     </nav>
     <!-- END nav -->
 
+
+    <!-- Start Banner -->
     <section id="home-section" class="hero">
       <div class="home-slider owl-carousel">
         <%bannerData.forEach((banner)=> { %>
@@ -132,6 +134,11 @@
         <% })%>
       </div>
     </section>
+
+    <!-- End Banner -->
+
+
+    <!-- Start service -->
 
     <section class="ftco-section ftco-no-pt ftco-no-pb">
       <div class="container">
@@ -194,6 +201,11 @@
       </div>
     </section>
 
+    <!-- End service -->
+
+
+    <!--  Start product detail -->
+
     <section class="ftco-section bg-light">
       <div class="container">
         <div class="row justify-content-center mb-3 pb-3">
@@ -236,11 +248,11 @@
                 </div>
                 <h3><a href="#"><%=products.name%> </a></h3>
                 <div class="pricing">
-                  <p class="price"><span><%=products.price%> </span></p>
+                  <p class="price">₹<span><%=products.price%> </span></p>
                 </div>
                 <p class="bottom-area d-flex px-3">
                   <a
-                    href="/wishList/<%=products._id%>"
+                  onclick="addToWishlist('<%= products._id %>')"
                     class="buy-now text-center py-2"
                     >ADD TO <span><i class="icon-heart"></i></span
                   ></a>
@@ -253,6 +265,10 @@
       </div>
     </section>
 
+    <!-- End Product  detail -->
+
+
+    <!-- Start Offers -->
     <section class="ftco-section ftco-choose ftco-no-pb ftco-no-pt">
       <div class="container">
         <div class="row no-gutters">
@@ -268,7 +284,6 @@
                   Separated they live in Bookmarksgrove right at the coast of
                   the Semantics, a large language ocean.
                 </p>
-                <p><a href="#" class="btn btn-black px-3 py-2">Shop now</a></p>
               </div>
             </div>
           </div>
@@ -290,7 +305,6 @@
                         of the Semantics, a large language ocean.
                       </p>
                       <p>
-                        <a href="#" class="btn btn-black px-3 py-2">Shop now</a>
                       </p>
                     </div>
                   </div>
@@ -329,11 +343,6 @@
                           Separated they live in Bookmarksgrove right at the
                           coast of the Semantics, a large language ocean.
                         </p>
-                        <p>
-                          <a href="#" class="btn btn-black px-3 py-2"
-                            >Shop now</a
-                          >
-                        </p>
                       </div>
                     </div>
                   </div>
@@ -344,7 +353,10 @@
         </div>
       </div>
     </section>
+    <!-- End offers -->
 
+  <script src="/js/ajaxRequest.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <%- include('../partials/templateFooter.ejs') %>
   </body>
 </html>

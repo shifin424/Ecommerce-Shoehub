@@ -102,10 +102,10 @@
 		</div>
 	  </div>
 	  <!--  -->
-	  <section class="sec-product-detail bg0 p-t-65 p-b-60">
+	  <section class="sec-product-detail bg0 p-t-65">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 col-lg-7 p-b-30">
+				<div class="col-md-6 col-lg-7 ">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
 						<div class="wrap-slick3 flex-sb flex-w">
 							<div class="wrap-slick3-dots"></div>
@@ -146,14 +146,14 @@
 					</div>
 				</div>
 					
-				<div class="col-md-6 col-lg-5 p-b-30">
-					<div class="p-r-50 p-t-5 p-lr-0-lg">
+				<div class="col-md-6 col-lg-5 ">
+					
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
 							<%= product.name %>
 						</h4>
 
 						<span class="mtext-106 cl2">
-							<%=product.price %>
+							₹<%=product.price %>
 						</span>
 
 						<p class="stext-102 cl3 p-t-23">
@@ -164,7 +164,7 @@
 						<div class="row mt-4">
 							<div class="col-md-6">
 								<b>Select Size</b>	
-								<div class="form-group d-flex">
+				     <div class="form-group d-flex">
 									
 		              <div class="select-wrap">
 						
@@ -176,54 +176,134 @@
 							  <input type="radio" name="size" value="<%= Size %>" checked />
 							</label>
 						  <% }) %>
+
+					 
 						  
-						  <a id="addCart<%=product._id%>" onclick="addCart('<%=product._id%>')" style="width: 10rem;height: 2rem;color: #000;cursor:pointer; " >Add To Cart</a>
+						  <a id="addCart<%=product._id%>" onclick="addCart('<%=product._id%>')" class="buy-now btn btn-sm btn-primary " style="width: 10rem;height: 2rem;color: #000;cursor:pointer; " ><button>Add To Cart</button> </a>
 						  
-						  <script>
-						  function addCart(productId){
-							const selectedSize = document.querySelector('input[name="size"]:checked').value;
-							const url = window.location.origin;
-							try{
-							  fetch(`${url}/cart?productid=${productId}&size=${selectedSize}`,{
-								method:'POST',
-							  })
-							}catch(err){
-							  console.log(err);
-							  alert('err')
-							}
-						  }
 						  
-						  document.getElementById("addCart<%=product._id%>").addEventListener("click", function () {
-							Swal.fire({
-							  title: 'Added',
-							  text: " Added To Cart",
-							  icon: 'success',
-							  confirmButtonColor: '#3085d6',
-							  confirmButtonText: 'Ok',
-							})
-						  });
-						  </script>
 						  
-		<a href="/wishList/<%=product._id%>" class="buy-now btn btn-sm btn-primary "><button style="border: none;background: none;" ><i class="icon-heart"></i></button></a>
+		                  <a href="/wishList/<%=product._id%>" class="buy-now btn btn-sm btn-primary "><button style="border: none;background: none;" ><i class="icon-heart"></i></button></a>
 
 
-						<!--  -->
-						<!-- <div class="flex-w flex-m p-l-100 p-t-40 respon7">
-							<div class="flex-m bor9 p-r-10 m-r-11">
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-									<i class="zmdi zmdi-favorite"></i>
-								</a>
-							</div>
-
-						</div> -->
+					
 					</div>
 				</div>
 			</div>
-
-			
 		</div>
 	</section>
+
+	<section class="ftco-section mb-5">
+    	<div class="container">
+    		
+    		<div class="row ">
+          <div class="col-md-12 nav-link-wrap">
+            <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Description</a>
+              <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Reviews</a>
+
+            </div>
+          </div>
+          <div class="col-md-12 tab-wrap">
+            
+            <div class="tab-content bg-light" id="v-pills-tabContent">
+
+				<!--  -->
+              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">
+              	<div class="p-4">
+	              	<h3 class="mb-4"><%= product.name %></h3>
+					<p><%=product.description%></p>
+              	</div>
+              </div>
+
+              <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
+				
+					<div class="tab-content">
+						<div class="tab-pane fade active show" id="reviews" role="tabpanel" aria-expanded="true">
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+									<div class="p-b-30 m-lr-15-sm">
+										<!-- Add review -->
+										<form class="w-full p-b-60"  action="/productView/<%=product._id%>" method="post">
+											<h5 class="mtext-108 cl2 pt-3 p-b-23">
+												Add a review
+											</h5>
+				
+											<div class="flex-w flex-m p-b-10">
+												<span class="stext-102 cl3 m-r-16">
+													Your rating
+												</span>
+
+												<span class="wrap-rating fs-18 cl11 pointer">
+													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+													<input class="dis-none" type="number" required id="rateingDetect" name="rating" onclick="rating()">
+												</span>
+											</div>
+
+											<div class="row p-b-25">
+												<div class="col-12 p-b-5">
+													<label class="stext-102 cl3" for="review">Your review</label>
+													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" required placeholder="Enter your Review here" name="review"></textarea>
+												</div>
+											</div>
+											<div id="reviewErr"></div>
+											<button type="submit" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+												Submit
+											</button>
+										 </form>
+										 <!-- Review -->
+											<h5 class="mtext-108 cl2 p-b-32">
+												All reviews
+											 </h5>
+											 <%product?.reviews?.forEach((products)=>{ %>
+												<div class="flex-w flex-t p-b-20">
+													<div class="size-207">
+														<div class="flex-w flex-sb-m p-b-17">
+															<span class="mtext-107 cl2 p-r-20">
+																<%= products?.name %>
+															</span>
 	
+															<span class="fs-18 cl11">
+																<% for (var i = 0; i < products.rating; i++) { %>
+																	<i class="zmdi zmdi-star"></i>
+																  <% } %>
+																  <% for (var i = 0; i < 5-products.rating; i++) { %>
+																	<i class="zmdi zmdi-star-outline"></i>
+																  <% } %>
+																
+																
+																
+																					
+															</span>
+														</div>
+	
+														<p class="stext-102 cl6">
+															<%= products?.text  %>
+														</p>
+													</div>
+												</div>	
+												<% }) %>
+										 
+											<!-- <p style="color: #FF5733; font-size: 1.2em; font-weight: bold; text-align: center;">Be the First Comment on the product</p> -->
+
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+                </div>
+            </div>
+    	</div>
+    </section>
+	
+
+
+	<!-- Footer Start -->
 	<footer class="ftco-footer ftco-section">
 		<div class="container">
 		  <div class="row">
@@ -327,9 +407,6 @@
 		</div>
 		</footer>
 
-		
-
-
 <!--  -->
 	  <div id="ftco-loader" class="show fullscreen">
 <svg class="circular" width="48px" height="48px">
@@ -356,6 +433,30 @@
 </div>
 
 
+<script>
+	function addCart(productId){
+	  const selectedSize = document.querySelector('input[name="size"]:checked').value;
+	  const url = window.location.origin;
+	  try{
+		fetch(`${url}/cart?productid=${productId}&size=${selectedSize}`,{
+		  method:'POST',
+		})
+	  }catch(err){
+		console.log(err);
+		alert('err')
+	  }
+	}
+	
+	document.getElementById("addCart<%=product._id%>").addEventListener("click", function () {
+	  Swal.fire({
+		title: 'Added',
+		text: " Added To Cart",
+		icon: 'success',
+		confirmButtonColor: '#3085d6',
+		confirmButtonText: 'Ok',
+	  })
+	});
+	</script>
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery-migrate-3.0.1.min.js"></script>

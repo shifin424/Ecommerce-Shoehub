@@ -3,14 +3,7 @@ const mongoose = require("mongoose");
 const users = require('../model/userSchema')
 
 
-// const  orderDetails = async(req,res,next)=>{
-//     try{
 
-//         res.render('user/orderDetails')
-//     }catch(err){
-//         next(err)
-//     }
-// };
 
 
 const orderDetails = async (req, res, next) => {
@@ -18,9 +11,7 @@ const orderDetails = async (req, res, next) => {
     const session = req.session.user;
     const userData = await users.findOne({ email: session.email });
     const userId = userData._id
-    console.log(userId);
     const objId = mongoose.Types.ObjectId(userId);
-    console.log(objId);
     const productData = await order
       .aggregate([
         {
@@ -86,7 +77,6 @@ const orderDetails = async (req, res, next) => {
       ]).sort({ createdAt: -1 });
 
     const orderDetails = await order.find({ userId: userData._id }).sort({ createdAt: -1 });
-    console.log(productData)
     res.render('user/orderDetails', { productData, orderDetails });
 
   } catch (err) {
@@ -152,6 +142,7 @@ const orderedProduct = async (req, res, next) => {
         }
 
       ]);
+    console.log(productData, 2)
 
 
     res.render('user/orderedProduct', { productData, orderDetails });
@@ -165,6 +156,23 @@ const orderedProduct = async (req, res, next) => {
 const cancelOrder = async (req, res, next) => {
   try {
     const data = req.params.id;
+    const orderData = await order.findOne({ _id: data })
+    const refundAmount = orderData.totalAmount
+    const userData = await users.findOne({ _id: orderData.userId });
+
+
+    const updatedWalletTotal = userData.walletTotal + refundAmount;
+    const updatedWalletDetails = userData.walletDetails.concat({
+      transactionType: 'refund',
+      amount: refundAmount,
+      orderDetails: orderData._id,
+      date: new Date()
+    });
+
+    await users.updateOne(
+      { _id: orderData.userId },
+      { $set: { walletTotal: updatedWalletTotal, walletDetails: updatedWalletDetails } }
+    );
     await order.updateOne({ _id: data }, { $set: { orderStatus: "cancelled" } })
     res.redirect("/orderDetails");
   } catch (err) {

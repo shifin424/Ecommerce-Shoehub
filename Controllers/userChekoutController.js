@@ -146,9 +146,11 @@ const orderSuccess = async (req, res, next) => {
 const placeOrder = async (req, res, next) => {
   try {
 
+
     let invalid;
     let couponDeleted;
     const data = req.body
+    console.log(data,2);
     const session = req.session.user;
     const userData = await users.findOne({ email: session.email })
     const objId = mongoose.Types.ObjectId(userData._id);
@@ -239,7 +241,13 @@ const placeOrder = async (req, res, next) => {
             userId: userData._id,
             name: userData.username,
             phoneNumber: userData.phonenumber,
-            address: req.body.address,
+            houseName: req.body.housename,
+            area: req.body.area,
+            landMark: req.body.landMark,
+            district: req.body.district,
+            state: req.body.state,
+            postOffice: req.body.postOffice,
+            pin: req.body.pincode,
             orderItems: cartData.product,
             totalAmount: total,
             paymentMethod: req.body.paymentMethod,
@@ -339,6 +347,25 @@ const paymentFail = async (req, res, next) => {
   }
 }
 
+
+const fetchAddress = async (req,res,next)=>{
+  try{
+    const addressId = req.params.userId
+    const session = req.session.user
+    const userData = await users.findOne({email:session.email})
+    console.log(userData,2);
+    const addressDetails = userData.addressDetails.id(addressId);
+    if(!addressDetails){
+      return res.status(404).json({message:'Address not found'})
+    }
+    res.json(addressDetails)
+  }catch(err){
+    console.log(err);
+    res.status(500).json({message:'internal server error'})
+    next(err)
+  }
+}
+
 module.exports = {
   getCheckout,
   addNewAddress,
@@ -346,4 +373,5 @@ module.exports = {
   placeOrder,
   verifyPayment,
   paymentFail,
+  fetchAddress
 }

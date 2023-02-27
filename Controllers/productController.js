@@ -4,12 +4,8 @@ const fs = require('fs');
 const mongoose = require("mongoose");
 const subCategories = require('../Model/subCategorySchema');
 const cart = require('../model/cartSchema')
-
-
-
-
-
-
+const sharp = require('sharp')
+const path  = require('path')
 
 
 
@@ -31,18 +27,34 @@ const postProduct = async (req, res, next) => {
     try {
         let categoryId = req.body.category;
         let subCategoryId = req.body.subcategory;
+        let FirstImage = `productImages/${Date.now()}${ req.files[0].originalname}`;
+        sharp(req.files[0].buffer)
+        .toFormat("png","jpg","jpeg")
+          .resize(255,380)
+          .toFile(`public/${FirstImage}`);
+        let SecondImage = `productImages/${Date.now()}${ req.files[1].originalname}`;
+        sharp(req.files[1].buffer)
+        .toFormat("png","jpg","jpeg")
+        .resize(255,380)
+          .toFile(`public/${SecondImage}`);
 
+        let ThirdImage = `productImages/${Date.now()}${ req.files[2].originalname}`;
+        sharp(req.files[2].buffer)
+        .toFormat("png","jpg","jpeg")
+        .resize(255,380)
+          .toFile(`public/${ThirdImage}`);
 
         const product = new products({
-            image1: req.files[0].filename,
-            image2: req.files[1].filename,
-            image3: req.files[2].filename,
+            image1: FirstImage,
+            image2:SecondImage,
+            image3: ThirdImage,
             name: req.body.product_name,
             price: req.body.price,
             category: categoryId,
             subCategory: subCategoryId,
             stock: req.body.stock,
-            size: req.body.size
+            size: req.body.size,
+            description:req.body.description
         })
         product.save()
         res.redirect('/admin/productDetails')
@@ -53,13 +65,13 @@ const postProduct = async (req, res, next) => {
 };
 
 
-
 const editProduct = async (req, res, next) => {
     try {
         const id = req.params.id;
         const category = await categories.find()
         const subCategory = await subCategories.find()
-        const productData = await products.findOne({ _id: id })
+        const productData = await products.findOne({ _id: id }).populate('category').populate('subCategory')
+        console.log(productData,1);
         res.render('admin/editProduct', { productData, category, subCategory })
     } catch (err) {
         next(err)

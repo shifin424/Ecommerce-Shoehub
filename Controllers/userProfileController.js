@@ -7,8 +7,9 @@ const viewProfile = async (req, res, next) => {
     const session = req.session.user
     const email = session.email
     const userData = await user.findOne({ email: email })
-    console.log(userData);
-    res.render('user/profile', { userData })
+    console.log(userData,1);
+    const walletDetails = userData.walletDetails
+    res.render('user/profile', { userData,walletDetails  })
   }
   catch (err) {
     next(err)
@@ -76,7 +77,6 @@ const postChangePassword = async (req, res, next) => {
 
     const data = req.body
     const session = req.session.user
-
     if (data.newPassword === data.conNewPassword) {
 
       const userData = await user.findOne({ email: session.email })
@@ -107,12 +107,21 @@ const postChangePassword = async (req, res, next) => {
   }
 };
 
+  const getContactPage = async(req,res,next)=>{
+    try{
+      res.render('user/contact')
+    }catch(err){
+      console.log(err);
+    }
+  }
+
 
 module.exports = {
   editProfile,
   viewProfile,
   postEditProfile,
   getPasswordPage,
-  postChangePassword
+  postChangePassword,
+  getContactPage,
 
 }

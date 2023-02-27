@@ -58,3 +58,29 @@ function removeFromWishlist(wishlistId, productId) {
     },
   });
 }
+
+function addToWishlist(productId) {
+  $.ajax({
+    url: "/wishList/" + productId,
+    method: "get",
+    success: (response) => {
+      if (response.status) {
+        Swal.fire({
+          title: "Added to wishlist",
+          icon: "success",
+          confirmButtonText: "continue",
+        });
+      }
+      if (response.productExist) {
+        Swal.fire({
+          title: "Alredy Exist in wishlist",
+          icon: "error",
+          confirmButtonText: "continue",
+        });
+
+      }
+    },
+  });
+}
+
+

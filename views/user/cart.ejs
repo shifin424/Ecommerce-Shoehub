@@ -5,8 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CartPage</title>
-
+	<title>CartPage</title>  
 	<link rel="stylesheet" href="/css/cartImage.css">
 
 
@@ -101,6 +100,7 @@
 								<th>Size</th>
 						        <th>Price</th>
 						        <th>Quantity</th>
+								<th>Total</th>
 								<th>remove</th>
 						      </tr>
 						    </thead>
@@ -129,22 +129,25 @@
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
 										<span class="input-group-btn mr-2">
-											<button type="button" onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',-1)" class="quantity-left-minus btn"  data-type="minus" data-field="">
-										   <i class="ion-ios-remove"></i>
+											<button type="button" onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',-1)" class="quantity-left-minus btn" style="background-color: #dbcc8f; " data-type="minus" data-field="">
+												➖
 											</button>
 											</span>
-										 <input type="text" id="<%= product.productDetail._id %>" min="0" name="quantity" class="quantity form-control input-number" value="<%=product.productDetail.productQuantity%>"  max="100">
+											<p class="mt-5 ml-3" id="<%= product.productDetail._id %>" min="0" name="quantity"><%= product.productQuantity%></p></strong>
+										 <% {console.log("product.productDetail.productQuantity");} %>
 										 <span class="input-group-btn ml-2">
-											<button type="button"  onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',1)" class="quantity-right-plus btn" data-type="plus" data-field="">
-											 <i class="ion-ios-add"></i>
+											<button type="button"  onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',1)" style="background-color: #dbcc8f; " class="quantity-right-plus btn" data-type="plus" data-field="">
+											 ➕
 										 </button>
 										 </span>
-					          	</div>
+					          	 </div>
 								 
 								 
 					          </td>
-						        
-							  <td ><button id="remove" style="width: 2rem;" onclick="removeProduct('<%= product._id %>','<%= product.productDetail._id %>')" class="btn btn-outline-danger"><span class="ion-ios-close"></span></button></td>
+						        <td>
+									<!--  -->
+								</td>
+							  <td ><button id="remove" style="width: 2rem; border: 2px solid rgb(238, 89, 89) !important" onclick="removeProduct('<%= product._id %>','<%= product.productDetail._id %>')" class="btn btn-outline-danger"><span class="ion-ios-close"></span></button></td>
 
 						       
 						      </tr> 
@@ -354,34 +357,7 @@
 		<script src="/js/google-map.js"></script>
 		<script src="/js/main.js"></script>
 
-		<!-- <script>
-			$(document).ready(function(){
-	
-			var quantitiy=0;
-			   $('.quantity-right-plus').click(function(e){
-					
-					// Stop acting like a button
-					e.preventDefault();
-					// Get the field name
-					var quantity = parseInt($('#quantity').val());
-										
-						$('#quantity').val(quantity + 1);
-	
-					  
-						
-					
-				});
-	
-				 $('.quantity-left-minus').click(function(e){
-					e.preventDefault();
-					var quantity = parseInt($('#quantity').val());
-						if(quantity>0){
-						$('#quantity').val(quantity - 1);
-						}
-				});
-				
-			});
-		</script> -->
+		
 
 <script>
 function changeQuantity(cartId, productId, count){
@@ -389,7 +365,6 @@ function changeQuantity(cartId, productId, count){
     console.log('ajax request succussfully');
 	const inputElement = document.getElementById(productId);
     const quantity = inputElement.value;
-    // let quantity = parseInt(document.getElementById(productId).innerHTML.value) 
     $.ajax({
         url:"/changeQuantity",
         data:{
@@ -401,10 +376,9 @@ function changeQuantity(cartId, productId, count){
         method:"post",
         success: (response)=>{ 
           if(response.status){
-           hello = document.getElementById(productId).innerHTML = quantity + count;
-           welcome = document.getElementById("sum").innerHTML ="₹"+ response.productData[0].total
-           hurry= document.getElementById("netamount").innerHTML ="₹"+ response.productData[0].total
-		   console.log("hello,welcome,hurry");
+           document.getElementById(productId).innerHTML = quantity + count;
+            document.getElementById("sum").innerHTML ="₹"+ response.productData[0].total
+            document.getElementById("netamount").innerHTML ="₹"+ response.productData[0].total
             console.log(response);
           } 
           if(response.quantity){

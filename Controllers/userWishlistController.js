@@ -70,13 +70,13 @@ const addToWishlist = async (req, res, next) => {
       );
       if (proExist != -1) {
 
-        res.redirect('/shop')
+        res.json({ productExist: true });
       } else {
 
         wishlist.updateOne(
           { userId: userData._id }, { $push: { product: proObj } }
         ).then(() => {
-          res.redirect('/shop')
+          res.json({ status: true });
         });
       }
     } else {
@@ -90,7 +90,7 @@ const addToWishlist = async (req, res, next) => {
         ],
       });
       newWishlist.save().then(() => {
-        res.redirect('/shop')
+        res.json({ status: true });
       });
     }
 
@@ -101,6 +101,8 @@ const addToWishlist = async (req, res, next) => {
 
 
 };
+
+
 
 const removeFromWishlist = async (req, res) => {
   const data = req.body;

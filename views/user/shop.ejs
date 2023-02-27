@@ -136,7 +136,7 @@
             <li class="nav-item">
               <a href="/orderDetails" class="nav-link">Orders</a>
             </li>
-            <li class="nav-item"><a href="" class="nav-link">contact</a></li>
+            <li class="nav-item"><a href="/contact" class="nav-link">contact</a></li>
             <li class="nav-item">
               <a href="/logout" class="nav-link">Logout</a>
             </li>
@@ -163,7 +163,7 @@
 
     <div
       class="hero-wrap hero-bread"
-      style="background-image: url('../images/bg_6.jpg')"
+      style="background-image: url('/images/bg_6.jpg')"
     >
       <div class="container">
         <div
@@ -289,10 +289,10 @@
     <div class="container">
       <div  class="row">
         <% product.forEach((products) => { %>
-          <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex products">
+          <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex products data-filter">
             <div class="product d-flex flex-column ">
               <a href="/productView/<%= products._id %>" class="img-prod">
-                <img class="img-fluid" src="../<%= products.image3 %>" />
+                <img class="img-fluid" src="/<%= products.image3 %>" />
                 <div class="overlay"></div>
               </a>
               <div class="text py-3 pb-4 px-3">
@@ -302,20 +302,23 @@
                   </div>
                   <div class="rating">
                     <p class="text-right mb-0">
-                      <a href="#"><span class="ion-ios-star-outline"></span></a>
-                      <a href="#"><span class="ion-ios-star-outline"></span></a>
-                      <a href="#"><span class="ion-ios-star-outline"></span></a>
-                      <a href="#"><span class="ion-ios-star-outline"></span></a>
-                      <a href="#"><span class="ion-ios-star-outline"></span></a>
+                      <span>
+                      <% for (var i = 0; i < products?.reviews?.rating; i++) { %>
+                        <i class="zmdi zmdi-star"></i>
+                        <% } %>
+                        <% for (var i = 0; i < 5-products?.reviews?.rating; i++) { %>
+                        <i class="zmdi zmdi-star-outline"></i>
+                        <% } %>
+                      </span>
                     </p>
                   </div>
                 </div>
                 <h3><a href="#"><%= products.name %></a></h3>
                 <div class="pricing">
-                  <p class="price"><span><%= products.price %></span></p>
+                  <p class="price"><span>₹<%= products.price %></span></p>
                 </div>
                 <p class="bottom-area d-flex px-3">
-                  <a href="/wishList/<%= products._id %>" class="buy-now text-center py-2">
+                  <a   onclick="addToWishlist('<%= products._id %>')"class="buy-now text-center py-2">
                     ADD TO <span><i class="icon-heart"></i></span>
                   </a>
                 </p>
@@ -328,115 +331,30 @@
 
     <!--  -->
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/shopTemplate/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/animsition/js/animsition.min.js"></script>
+    <script src="/shopTemplate/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/bootstrap/js/popper.js"></script>
-    <script src="../shopTemplate/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/shopTemplate/vendor/bootstrap/js/popper.js"></script>
+    <script src="/shopTemplate/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/select2/select2.min.js"></script>
-    <script>
-      $(".js-select2").each(function () {
-        $(this).select2({
-          minimumResultsForSearch: 20,
-          dropdownParent: $(this).next(".dropDownSelect2"),
-        });
-      });
-    </script>
+    <script src="/shopTemplate/vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/daterangepicker/moment.min.js"></script>
-    <script src="../shopTemplate/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="/shopTemplate/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/shopTemplate/vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/slick/slick.min.js"></script>
-    <script src="../shopTemplate/js/slick-custom.js"></script>
+    <script src="/shopTemplate/vendor/slick/slick.min.js"></script>
+    <script src="/shopTemplate/js/slick-custom.js"></script>
     <!--===============================================================================================-->
     <script src="vendor/parallax100/parallax100.js"></script>
-    <script>
-      $(".parallax100").parallax100();
-    </script>
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-    <script>
-      $(".gallery-lb").each(function () {
-        // the containers for all your galleries
-        $(this).magnificPopup({
-          delegate: "a", // the selector for gallery item
-          type: "image",
-          gallery: {
-            enabled: true,
-          },
-          mainClass: "mfp-fade",
-        });
-      });
-    </script>
+    <script src="/shopTemplate/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/isotope/isotope.pkgd.min.js"></script>
+    <script src="/shopTemplate/vendor/isotope/isotope.pkgd.min.js"></script>
     <!--===============================================================================================-->
-    <script src="../shopTemplate/vendor/sweetalert/sweetalert.min.js"></script>
-    <script>
-      $(".js-addwish-b2").on("click", function (e) {
-        e.preventDefault();
-      });
-
-      $(".js-addwish-b2").each(function () {
-        var nameProduct = $(this).parent().parent().find(".js-name-b2").html();
-        $(this).on("click", function () {
-          swal(nameProduct, "is added to wishlist !", "success");
-
-          $(this).addClass("js-addedwish-b2");
-          $(this).off("click");
-        });
-      });
-
-      $(".js-addwish-detail").each(function () {
-        var nameProduct = $(this)
-          .parent()
-          .parent()
-          .parent()
-          .find(".js-name-detail")
-          .html();
-
-        $(this).on("click", function () {
-          swal(nameProduct, "is added to wishlist !", "success");
-
-          $(this).addClass("js-addedwish-detail");
-          $(this).off("click");
-        });
-      });
-
-      /*---------------------------------------------*/
-
-      $(".js-addcart-detail").each(function () {
-        var nameProduct = $(this)
-          .parent()
-          .parent()
-          .parent()
-          .parent()
-          .find(".js-name-detail")
-          .html();
-        $(this).on("click", function () {
-          swal(nameProduct, "is added to cart !", "success");
-        });
-      });
-    </script>
+    <script src="/shopTemplate/vendor/sweetalert/sweetalert.min.js"></script>
     <!--===============================================================================================-->
     <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script>
-      $(".js-pscroll").each(function () {
-        $(this).css("position", "relative");
-        $(this).css("overflow", "hidden");
-        var ps = new PerfectScrollbar(this, {
-          wheelSpeed: 1,
-          scrollingThreshold: 1000,
-          wheelPropagation: false,
-        });
-
-        $(window).on("resize", function () {
-          ps.update();
-        });
-      });
-    </script>
     <!--===============================================================================================-->
     <script src="../shopTemplate/js/main.js"></script>
 
@@ -572,8 +490,7 @@
       </svg>
     </div>
 
-    
-
+    <script src="/js/ajaxRequest.js"></script> 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery-migrate-3.0.1.min.js"></script>
     <script src="/js/popper.min.js"></script>

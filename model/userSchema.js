@@ -19,7 +19,18 @@ const userSchema = new mongoose.Schema({
         required:true,
     },
 
-      
+    walletTotal:{
+        type:Number,
+        default:0
+    },
+    walletDetails:[
+
+    ],
+    cancelledDate:{
+        type: String,
+    },
+
+
     addressDetails:[
         {
          housename:{
@@ -58,5 +69,3 @@ const userSchema = new mongoose.Schema({
  
 module.exports = mongoose.model('User',userSchema)
 
-//UserModel.create()
-//Usermodel.find() 

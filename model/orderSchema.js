@@ -12,14 +12,43 @@ const orderSchema = new Schema(
             type:String,
             required:true
         },
-        address:{
-           type:String,
-           required:true
-        },
-        phoneNumber:{ 
-            type:Number,
-            required:true
-        },
+        houseName: {
+            type: String,
+          
+          },
+      
+        area: {
+            type: String,
+            
+            
+          },
+      
+        landMark: {
+            type: String,
+           
+      
+          },
+        district: {
+            type: String,
+            
+      
+          },
+        state: {
+            type: String,
+            
+      
+          },
+         
+        postOffice: {
+            type: String,
+            
+      
+          },
+        pin: {
+            type: Number,
+            
+      
+          },
         orderItems:[
             {
                 productId:{

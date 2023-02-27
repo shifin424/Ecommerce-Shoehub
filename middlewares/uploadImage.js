@@ -1,19 +1,21 @@
 const express = require('express')
 const path  = require('path')
 const multer = require('multer')
+const { memoryStorage } = require('multer')
 
+const multStorage = multer.memoryStorage();
 
 //configuration for multer
-const multerStorage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'public')
-    },
-    filename : (req,file,cb)=>{
-        const ext = file.mimetype.split('/')[1];
-        cb(null, `productImages/${Date.now()}${path.extname(file.originalname)}`);
-    }   
+// const multerStorage = multer.diskStorage({
+//     destination:(req,file,cb)=>{
+//         cb(null,'public')
+//     },
+//     filename : (req,file,cb)=>{
+//         const ext = file.mimetype.split('/')[1];
+//         cb(null, `productImages/${Date.now()}${path.extname(file.originalname)}`);
+//     }   
         
-})
+// })
 
 const multerFilter = (req, file, cb) => {
 
@@ -32,7 +34,8 @@ const multerFilter = (req, file, cb) => {
 
 //create the multer instance for  all three files 
 const upload = multer({
-    storage : multerStorage,fileFilter:multerFilter
+    storage : multStorage,
+    // fileFilter:multerFilter
 })
 
 module.exports = upload
