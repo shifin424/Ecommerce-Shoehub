@@ -1,5 +1,5 @@
 const categories = require('../model/categorySchema');
-const subCategories = require('../Model/subCategorySchema')
+const subCategories = require('../model/subCategorySchema')
 const mongoose = require('mongoose')
 
 
