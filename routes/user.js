@@ -1,5 +1,5 @@
 const express = require('express');
-const userController = require('../controllers/userController');
+const userController = require('../Controllers/userController');
 const router = express()
 const session = require("../middlewares/session");
 const profileController = require('../Controllers/userProfileController');
