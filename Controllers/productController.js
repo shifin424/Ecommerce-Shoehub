@@ -155,7 +155,7 @@ const changeImage2 = async (req, res) => {
         sharp(req.file.buffer)
          .toFormat("png","jpg","jpeg")
         //    .resize(255,380)
-           .toFile(`public/${FirstImage}`);
+           .toFile(`public/${SecondImage}`);
            
         await products.updateOne({ _id: req.params.id },
             {
@@ -178,18 +178,18 @@ const changeImage2 = async (req, res) => {
 const changeImage3 = async (req, res) => {
     try {
 
-        let ThirdImage = `productImages/${Date.now()}${ req.file.myFile2}`;
+        let ThirdImage = `productImages/${Date.now()}${ req.file.myFile3}`;
   
         sharp(req.file.buffer)
          .toFormat("png","jpg","jpeg")
         //    .resize(255,380)
-           .toFile(`public/${FirstImage}`);
+           .toFile(`public/${ThirdImage}`);
            
         await products.updateOne({ _id: req.params.id },
             {
                 $set:
                 {
-                    image2:ThirdImage ,
+                    image3:ThirdImage ,
                 }
             })
 

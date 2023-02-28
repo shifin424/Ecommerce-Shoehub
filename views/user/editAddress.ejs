@@ -109,7 +109,7 @@
             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar"
               class="rounded-circle img-fluid" style="width: 150px;">
               <div class="container justify-content-center">
-                <p class="text-muted mb-0"> <%= userData.username  %> </p>
+                <p class="text-muted mb-0">  </p>
               </div>
               
             <div class="d-flex justify-content-center mb-2 mt-1">
@@ -120,49 +120,9 @@
 
 
        
-        <div class="card">
-          <div class="wallet-header">My Wallet <hr></div>
-          <div class="card-body d-flex justify-content-between align-items-center">
-            <div class="wallet-container">
-              <h4>Total</h4>
-              <p class="wallet-amount">₹ <%= userData.walletTotal %> </p>
-            </div>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#wallet-modal">View  History</button>
-          </div>
-        </div>
-        <!-- Wallet Modal -->
-        <div class="modal fade" id="wallet-modal" tabindex="-1" role="dialog" aria-labelledby="wallet-modal-label" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="wallet-modal-label">Wallet History</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  
-                  <div style="color: black;" class="col">Amount</div>
-                  <div style="color: black;" class="col">Transaction Type</div>
-                  <div style="color: black;" class="col">Date</div>
-                </div>
+        
 
-                  <% walletDetails.forEach((walletDetail) => { %>
-                    <div class="row">
-                      <div class="col">₹<%= walletDetail.amount.toFixed(2) %></div>
-                      <div class="col"><%= walletDetail.transactionType %></div>
-                      <div class="col"><%= walletDetail.date.toISOString().substr(0, 10) %></div>
-                    </div>
-                  <% }); %>
-                </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               
-              </div>
-            </div>
-          </div>
-        </div>
+         
         
              
              
@@ -171,87 +131,105 @@
            
       </div>
       <div class="col-lg-8 pb-5 pt-5">
-        <div class="card mb-4">
-          <%=  %> 
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Full Name</p>
+        <% userData.addressDetails.forEach((address) => { %>
+        <div class="card mb-2">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0"><%=address.housename %></p><%=address.landMark %>
+                </div>
+                <div class="col-sm-12 text-right">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal<%address._id%>">
+                    Edit Address
+                  </button>
+                  <button class="btn btn-sm btn-danger mx-1"><i class="fas fa-trash"></i> Delete</button>
+                </div>
               </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0"> <%= userData.username  %> </p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Email</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0"><%=userData.email  %> </p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Password</p>
-              </div>
-              <div class="col-sm-9">
-                <a href="/chagProfilePassword">
-                  <button class="btn" id="changePassword" >Change Password</button></a>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Phone</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0"><%=userData.phonenumber%> </p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Address</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">Housename : <%=userData?.addressDetails[0]?.housename %><br>
-                   Area : <%=userData?.addressDetails[0]?.area %> <br>
-                   LandMark : <%=userData?.addressDetails[0]?.landMark  %> <br>
-                   District : <%=userData?.addressDetails[0]?.district  %> <br>
-                   State : <%=userData?.addressDetails[0]?.state  %> <br>
-                   PostOffice : <%=userData?.addressDetails[0]?.postoffice  %> <br>
-                   Pincode : <%=userData?.addressDetails[0]?.pin %>
-
-
-             </p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <a href="/editProfile">
-              <button class="btn" id="edit-button">Edit</button></a>
-              <a href="/EditAddress">
-                <button class="btn" id="edit-button">Edit Address</button></a>
-              </div>
-              
-              <div class="col-sm-9">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                Add new address
-              </button>
-              </div>
+              <hr>
             </div>
           </div>
-          </div>
-        </div>
-        
+          <% } ) %>
+                  
       </div>
-    </div>
+     </div>
   </div>
 </section>
+
+<div class="modal fade" id="exampleModal<%userData.addressDetails._id%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+            <% userData.addressDetails.forEach((data) => { %>
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel<% data._id %>">Edit Address</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="/" method="post">
+					<div class="modal-body">
+						<div class="mb-1">
+							<label for="recipient-name"
+								class="col-form-label">Housename:</label>
+							<input required  type="text" value="<%=data.housename%>" class="form-control" id="housename"
+								name="housename" />
+						</div>
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">Area:</label>
+							<input required type="text" value="<%=data.area%>" class="form-control" id="area"
+								name="area" />					
+						</div>
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">Landmark:</label>
+							<input required type="text" value="<%=data.landMark%>" class="form-control" id="landmark"
+								name="landmark" />						
+						</div>
+						<div class="mb-3">
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="firstName">District</label>
+									<input required type="text" value="<%=data.district%>" class="form-control"
+										id="district" name="district" />
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="lastName">State</label>
+									<input required type="text" value="<%=data.state%>" class="form-control" id="state"
+										name="state" />
+									
+								</div>
+							</div>
+						</div>
+						<div class="mb-3">
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="firstName">Post office</label>
+									<input required type="text" value="<%=data.postoffice%>" class="form-control"
+										id="postoffice" name="postoffice" />								
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="lastName">Pincode</label>
+									<input required type="text" value="<%=data.pin%>" class="form-control" id="pin"
+										name="pin" />
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
+			 </div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					Close
+				</button>
+				<button type="submit" value="submit" class="btn btn-primary">
+					Add
+				</button>
+			</div>
+		  </div>
+        
+		</form>
+        <% } ) %>
+		</div>
+	  </div>
 
 
 <footer class="ftco-footer ftco-section">

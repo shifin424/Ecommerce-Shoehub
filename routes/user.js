@@ -111,6 +111,8 @@ router.get('/logout', userController.userLogout)
 
 router.get('/contact',profileController.getContactPage)
 
+router.get('/EditAddress',session.userLogin,profileController.editAddress)
+
 router.get('/getAddressDetails/:userId',session.userLogin,checkoutController.fetchAddress)
 
 
