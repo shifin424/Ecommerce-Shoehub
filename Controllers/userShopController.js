@@ -92,7 +92,7 @@ const reviews = async (req, res, next) => {
         }
         await products.updateOne({ _id: id }, { $push: { reviews: data } })
         const product = await products.findOne({ _id: id }).populate('category')
-        res.render('user/productView', { product: product })
+        res.render('user/ProductView', { product: product })
     } catch (err) {
         next(err)
     }
