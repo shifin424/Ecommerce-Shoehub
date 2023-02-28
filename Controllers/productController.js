@@ -126,7 +126,7 @@ const changeImage1 = async (req, res) => {
   
         sharp(req.file.buffer)
          .toFormat("png","jpg","jpeg")
-           .resize(255,380)
+        //    .resize(255,380)
            .toFile(`public/${FirstImage}`);
            
         await products.updateOne({ _id: req.params.id },
@@ -154,7 +154,7 @@ const changeImage2 = async (req, res) => {
   
         sharp(req.file.buffer)
          .toFormat("png","jpg","jpeg")
-           .resize(255,380)
+        //    .resize(255,380)
            .toFile(`public/${FirstImage}`);
            
         await products.updateOne({ _id: req.params.id },
@@ -182,7 +182,7 @@ const changeImage3 = async (req, res) => {
   
         sharp(req.file.buffer)
          .toFormat("png","jpg","jpeg")
-           .resize(255,380)
+        //    .resize(255,380)
            .toFile(`public/${FirstImage}`);
            
         await products.updateOne({ _id: req.params.id },
@@ -210,7 +210,7 @@ const changeImage3 = async (req, res) => {
 const productDetails = async (req, res, next) => {
     try {
         const product = await products.find().populate('category').populate('subCategory');
-        res.render('admin/productdetails', { product })
+        res.render('admin/productDetails', { product })
     } catch (err) {
         next(err)
     }
