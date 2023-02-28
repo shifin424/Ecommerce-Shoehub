@@ -42,7 +42,7 @@ const getProductView = async (req, res, next) => {
     try {
         let id = req.params.id
         let product = await products.findOne({ _id: id }).populate('category')
-        res.render('user/productView', { product: product })
+        res.render('user/ProductView', { product: product })
     } catch (err) {
         next(err)
     }
