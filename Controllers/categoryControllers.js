@@ -37,7 +37,7 @@ const getsubCategories = async (req, res, next) => {
         const category = await categories.findOne({ _id: categoryId }).populate("subcategory").select("subcategory");
         const subcategoryIds = category.subcategory;
         const subcategories = await subCategories.find({ _id: { $in: subcategoryIds } }).select("subcategory_name");
-        console.log(subcategories, "these are the subcategories");
+        console.log(subcategories,1);
         res.json(subcategories);
     } catch (err) {
         console.log(err);
@@ -98,9 +98,7 @@ const addSubCategory = async (req, res, next) => {
         if (req.body.name) {
 
             const name = req.body.name
-            console.log(name);
             const subcatgry = await subCategories.findOne({ subcategory_name: name });
-            console.log(subcatgry);
             if (subcatgry) {
                 req.session.subcategoryExist = "subCategory  already exit";
                 res.redirect('/admin/subCategory')
@@ -133,7 +131,7 @@ const getCategory = async (req, res, next) => {
 const getsubCategory = async (req, res, next) => {
     try {
         const subCategory = await subCategories.find();
-        res.render('admin/SubCategory', { subCategory })
+        res.render('admin/subCategory', { subCategory })
     } catch (err) {
         next(err)
     }

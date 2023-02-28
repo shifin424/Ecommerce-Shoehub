@@ -13,11 +13,8 @@ const path  = require('path')
 const addProduct = async (req, res, next) => {
     try {
         const category = await categories.find().populate("subcategory.subId")
-        console.log(category);
         const subCategory = await subCategories.find()
         res.render('admin/addProduct', { category, subCategory });
-        hello =  await products.find()
-        console.log(hello,1);
     } catch (err) {
         next(err)
     }
@@ -211,9 +208,7 @@ const changeImage3 = async (req, res) => {
 
 
 const productDetails = async (req, res, next) => {
-
     try {
-
         const product = await products.find().populate('category').populate('subCategory');
         res.render('admin/productdetails', { product })
     } catch (err) {
