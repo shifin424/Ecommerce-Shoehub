@@ -57,7 +57,7 @@ const postProduct = async (req, res, next) => {
             description:req.body.description
         })
         product.save()
-        res.redirect('/admin/productDetails')
+        res.redirect('/admin/productdetails')
 
     } catch (err) {
         next(err)
@@ -245,7 +245,7 @@ const restoreProduct = async (req, res, next) => {
     try {
         const id = req.params.id;
         await products.updateOne({ _id: id }, { $set: { delete: false } })
-        res.redirect('/admin/productDetails')
+        res.redirect('/admin/productdetails')
     } catch (err) {
         next(err)
     }
