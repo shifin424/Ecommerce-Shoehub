@@ -78,10 +78,10 @@ const editCoupon = async (req, res, next) => {
         coupon.updateOne(
             { _id: id },
             {
-                couponName: data.couponName,
-                discount: data.discount / 100,
-                maxLimit: data.maxLimit,
-                expirationTime: data.expirationTime
+                couponName: data.couponNames,
+                discount: data.Discount / 100,
+                maxLimit: data.mMxlimit,
+                expirationTime: data.ExpirationTime
             }
         ).then(() => {
             res.redirect("/admin/coupon");

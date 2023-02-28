@@ -17,6 +17,11 @@ const productSchema = new mongoose.Schema({
         type:mongoose.SchemaTypes.ObjectId,
         ref:'subCategories'
     },
+    brand:{
+        type:String,
+        uppercase: true,
+        required:true   
+    },
 
     image1:{
         type:String,

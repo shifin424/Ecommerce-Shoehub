@@ -7,6 +7,7 @@ const Stock = document.getElementById('stock')
 const Size = document.getElementById('size')
 const Category = document.getElementById('category-select')
 const subCategory = document.getElementById('subCategory-select')
+const Brands = doucument.getElementById('brand')
 const errorElement = document.getElementById('alert')
 
 
@@ -47,6 +48,12 @@ form.onsubmit=()=> {
       showErrorMessage('Description must be at least 30 characters long')
       return false;
     }
+
+    if(Brands.value.length < 1 ||Brands.value === '' ){
+      showErrorMessage('Enter the Brand name')
+      return false;
+    }
+
     if (Stock.value < 0||Stock.value === '' ) {
       showErrorMessage('Stock must be a positive number')
       return false;

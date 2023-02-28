@@ -16,6 +16,8 @@ const addProduct = async (req, res, next) => {
         console.log(category);
         const subCategory = await subCategories.find()
         res.render('admin/addProduct', { category, subCategory });
+        hello =  await products.find()
+        console.log(hello,1);
     } catch (err) {
         next(err)
     }
@@ -29,18 +31,18 @@ const postProduct = async (req, res, next) => {
         let subCategoryId = req.body.subcategory;
         let FirstImage = `productImages/${Date.now()}${ req.files[0].originalname}`;
         sharp(req.files[0].buffer)
-        .toFormat("png","jpg","jpeg")
-          .resize(255,380)
-          .toFile(`public/${FirstImage}`);
+         .toFormat("png","jpg","jpeg")
+           .resize(255,380)
+           .toFile(`public/${FirstImage}`);
         let SecondImage = `productImages/${Date.now()}${ req.files[1].originalname}`;
         sharp(req.files[1].buffer)
-        .toFormat("png","jpg","jpeg")
-        .resize(255,380)
-          .toFile(`public/${SecondImage}`);
+         .toFormat("png","jpg","jpeg")
+         .resize(255,380)
+           .toFile(`public/${SecondImage}`);
 
         let ThirdImage = `productImages/${Date.now()}${ req.files[2].originalname}`;
         sharp(req.files[2].buffer)
-        .toFormat("png","jpg","jpeg")
+         .toFormat("png","jpg","jpeg")
         .resize(255,380)
           .toFile(`public/${ThirdImage}`);
 
@@ -54,6 +56,7 @@ const postProduct = async (req, res, next) => {
             subCategory: subCategoryId,
             stock: req.body.stock,
             size: req.body.size,
+            brand:req.body.brand,
             description:req.body.description
         })
         product.save()
@@ -92,6 +95,7 @@ const postEditProduct = async (req, res, next) => {
                 subCategory: req.body.subCategory,
                 description: req.body.description,
                 stock: req.body.stock,
+                brand:req.body.brand
 
 
             }
@@ -121,25 +125,22 @@ const getProductView = async (req, res, next) => {
 const changeImage1 = async (req, res) => {
     try {
 
+  let FirstImage = `productImages/${Date.now()}${ req.file.myFile1}`;
+  
+        sharp(req.file.buffer)
+         .toFormat("png","jpg","jpeg")
+           .resize(255,380)
+           .toFile(`public/${FirstImage}`);
+           
         await products.updateOne({ _id: req.params.id },
             {
                 $set:
                 {
-                    image1: req.file.filename,
+                    image1:FirstImage,
                 }
             })
 
-        const directoryPath = "public/" + req.body.image1;
-        fs.unlink(directoryPath, (err) => {
-            try {
-                if (err) {
-                    throw err;
-                }
-                console.log("Delete Image 1 successfully.");
-            } catch (err) {
-                console.error(`Error Deleting image : ${err}`);
-            }
-        });
+        
         res.redirect('/admin/productdetails');
 
     } catch (err) {
@@ -152,25 +153,22 @@ const changeImage1 = async (req, res) => {
 const changeImage2 = async (req, res) => {
     try {
 
+        let SecondImage = `productImages/${Date.now()}${ req.file.myFile2}`;
+  
+        sharp(req.file.buffer)
+         .toFormat("png","jpg","jpeg")
+           .resize(255,380)
+           .toFile(`public/${FirstImage}`);
+           
         await products.updateOne({ _id: req.params.id },
             {
                 $set:
                 {
-                    image2: req.file.filename,
+                    image2:SecondImage,
                 }
             })
 
-        const directoryPath = "public/" + req.body.image2;
-        fs.unlink(directoryPath, (err) => {
-            try {
-                if (err) {
-                    throw err;
-                }
-                console.log("Delete Image 2 successfully.");
-            } catch (err) {
-                console.error(`Error Deleting image : ${err}`);
-            }
-        });
+        
         res.redirect('/admin/productdetails');
 
     } catch (err) {
@@ -183,25 +181,22 @@ const changeImage2 = async (req, res) => {
 const changeImage3 = async (req, res) => {
     try {
 
+        let ThirdImage = `productImages/${Date.now()}${ req.file.myFile2}`;
+  
+        sharp(req.file.buffer)
+         .toFormat("png","jpg","jpeg")
+           .resize(255,380)
+           .toFile(`public/${FirstImage}`);
+           
         await products.updateOne({ _id: req.params.id },
             {
                 $set:
                 {
-                    image3: req.file.filename,
+                    image2:ThirdImage ,
                 }
             })
 
-        const directoryPath = "public/" + req.body.image3;
-        fs.unlink(directoryPath, (err) => {
-            try {
-                if (err) {
-                    throw err;
-                }
-                console.log("Delete Image 3 successfully.");
-            } catch (err) {
-                console.error(`Error Deleting image : ${err}`);
-            }
-        });
+        
         res.redirect('/admin/productdetails');
 
     } catch (err) {
@@ -262,14 +257,6 @@ const restoreProduct = async (req, res, next) => {
 
 };
 
-const getCroppedImage = async (req,res,next)=>{
-    try{
-        res.render('admin/cropImage')
-    }catch(err){
-        console.log(err);
-        next(err)
-    }
-}
 
 
 module.exports = {
@@ -285,6 +272,5 @@ module.exports = {
     changeImage2,
     changeImage3,
     getProductView,
-    getCroppedImage
 
 } 

@@ -8,7 +8,6 @@ const mongoose = require('mongoose')
 const addCategory = async (req, res, next) => {
     try {
         const { name, subname } = req.body;
-        console.log(subname);
 
         const existingCategory = await categories.findOne({ category_name: name });
         if (existingCategory) {

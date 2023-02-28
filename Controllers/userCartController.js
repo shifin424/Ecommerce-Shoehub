@@ -37,7 +37,7 @@ const addToCart = async (req, res) => {
                     { userId: userData._id, "product.productId": objId },
                     { $inc: { "product.$.quantity": 1 } }
                 );
-                res.redirect("/productView");
+                 res.json({succuss:true})
             } else {
                 const newCart = new cart({
                     userId: userData.id,
@@ -51,7 +51,7 @@ const addToCart = async (req, res) => {
                 });
                 newCart.save().then(() => {
 
-                    res.redirect("/productView");
+                    res.json({succuss:true})
 
 
                 });
@@ -62,7 +62,7 @@ const addToCart = async (req, res) => {
                 .updateOne({ userId: userData._id }, { $push: { product: productObj } })
                 .then(() => {
 
-                    res.redirect("/productView");
+                    res.json({succuss:true})
 
                 });
         }
@@ -79,8 +79,7 @@ const addToCart = async (req, res) => {
         });
         newCart.save().then(() => {
 
-            res.redirect("/productView");
-
+            res.json({succuss:true})
 
         });
     }
@@ -221,27 +220,7 @@ const totalAmount = async (req, res) => {
 };
 
 
-// const changeQuantity = async (req, res) => {
-//     const data = req.body;
-//     console.log(data);
-//     const objId = mongoose.Types.ObjectId(data.product);
-//     cart
-//       .aggregate([
-//         {
-//           $unwind: "$product",
-//         },
-//       ])
-//       .then((data) => {
-//       });
-//     cart.updateOne(
-//       { _id: data.cart, "product.productId": objId },
-//       { $inc: { "product.$.quantity": data.count } }
-//     ).then(() => {
-//       res.json({ status: true });
-//     })
 
-
-//   };
 
 
 const changeQuantity = (req, res, next) => {

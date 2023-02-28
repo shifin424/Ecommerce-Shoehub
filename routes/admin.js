@@ -113,7 +113,7 @@ adminRouter.post('/orderStatuschange/:id',adminSession,orderController.orderStat
 
 adminRouter.post('/getsubcategories',adminSession,categoryController.getsubCategories)
 
-adminRouter.get('/cropImage',adminSession,productController.getCroppedImage)
+
 
 
 

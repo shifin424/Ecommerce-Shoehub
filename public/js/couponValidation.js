@@ -16,6 +16,7 @@ function showErrorMessage(message) {
   
 }
 form.onsubmit=()=> {
+  console.log("hello reached to coupon validation",2);
 
    
     if(CouponName.value  === ''||Discount.value  === ''|| maxLimit.value  === ''||date.value === ''){

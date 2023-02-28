@@ -79,7 +79,7 @@
                    
                   
                   <td>
-                    <!-- <a href="" class="btn btn-success">Edit</a> -->
+                   
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModa-<%= element._id %>">
                       Edit
@@ -95,19 +95,19 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <p id="alerts" class="text-danger d-flex justify-content-center"></p>
-                          <form  action="/admin/editCoupon/<%= element._id %>"onsubmit="return submitform(EventS)" id="myForm" method="post">
+                          <form  action="/admin/editCoupon/<%= element._id %>" onsubmit="return submitform(EventS)" id="myForm" method="post">
                             <div class="modal-body">
                               <div class="d-flex justify-content-between" >
   
                                 <div class="d-flex flex-column">
                                   <label>Couponcode</label>
-                                  <input class="rounded-2"   value="<%= element.couponName%>" id="CouponName" name="couponName" style="width: 189px; height: 38px;"
+                                  <input class="rounded-2"   value="<%= element.couponName%>" id="CouponNames" name="couponNames" style="width: 189px; height: 38px;"
                                     type="text">
                                 </div>
   
                                 <div class="d-flex flex-column">
                                   <label>Discount in %</label>
-                                  <input name="discount"  value="<%=element.discount*100%>" id="" class="rounded-2" id="Discount" style="width: 189px; height: 38px;"
+                                  <input name="Discount"  value="<%=element.discount*100%>"  class="rounded-2" id="Discount" style="width: 189px; height: 38px;"
                                     type="text">
                                 </div>
   
@@ -123,7 +123,7 @@
                                 <div class="d-flex flex-column">
                                   <label>Expiry date</label>
                                   <input type="date"  class="rounded-2" style="width: 189px; height: 38px;"
-                                    class="form-control border-secondary" value="<%= element.expirationTime%>" id="Exdate" name="expirationTime"
+                                    class="form-control border-secondary" value="<%= element.expirationTime%>" id="Exdate" name="ExpirationTime"
                                     aria-describedby="emailHelp" />
                                 </div>
   

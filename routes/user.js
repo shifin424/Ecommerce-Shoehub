@@ -109,7 +109,7 @@ router.get('/userTwoFactor',userController.twoFactors)
 
 router.get('/logout', userController.userLogout)
 
-router.get('/contact',session.userLogin,profileController.getContactPage)
+router.get('/contact',profileController.getContactPage)
 
 router.get('/getAddressDetails/:userId',session.userLogin,checkoutController.fetchAddress)
 
