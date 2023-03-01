@@ -49,104 +49,52 @@
             </td>
             <td>
              
-            <td>
-              <div
-                class="modal fade"
-              
-                aria-hidden="true"
-                aria-labelledby="s-<%=products._id %>ModalToggleLabel"
-                tabindex="-1"
-              >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5
-                        class="modal-title"
-                        id="s-<%= products._id %>ModalToggleLabel"
-                      >
-                        Size
-                      </h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                      <div><%= products.size %></div>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        class="btn btn-primary"
-                        data-bs-target="#add-<%= products._id %>ModalToggle2"
-                        data-bs-toggle="modal"
-                        data-bs-dismiss="modal"
-                      >
-                        Add
-                      </button>
+              <td>
+                <div class="modal fade" id="s-<%= products._id %>Modal" aria-hidden="true"
+                  aria-labelledby="s-<%=products._id %>ModalToggleLabel" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="s-<%= products._id %>ModalToggleLabel">Size</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                          <%= products.size %>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-target="#add-<%= products._id %>ModalToggle2"
+                          data-bs-toggle="modal" data-bs-dismiss="modal">Add</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="modal fade"
-                id="add-<%= products._id %>ModalToggle2"
-                aria-hidden="true"
-                aria-labelledby="add-<%= products._id %>ModalToggleLabel2"
-                tabindex="-1"
-              >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5
-                        class="modal-title"
-                        id="add-<%= products._id %>ModalToggleLabel2"
-                      >
-                        Add
-                      </h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                      <input
-                        class="form-control"
-                        id="size-input<%= products._id %>"
-                        type="number"
-                      />
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        class="btn btn-primary"
-                        data-bs-target="#s-<%= products._id %>Modal"
-                        data-bs-toggle="modal"
-                        data-bs-dismiss="modal"
-                      >
-                        Back
-                      </button>
-                      <button
-                        class="btn btn-success"
-                        type="button"
-                        onclick="addsize('<%= products._id %>')"
-                      >
-                        Submit
-                      </button>
+                <div class="modal fade" id="add-<%= products._id %>ModalToggle2" aria-hidden="true"
+                  aria-labelledby="add-<%= products._id %>ModalToggleLabel2" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="add-<%= products._id %>ModalToggleLabel2">Add</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <input class="form-control" id="size-input<%= products._id %>" type="number">
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-primary " data-bs-target="#s-<%= products._id %>Modal"
+                          data-bs-toggle="modal" data-bs-dismiss="modal">Back</button>
+                        <button class="btn btn-success " type="button"
+                          onclick="addsize('<%= products._id %>')">Submit</button>
+                       
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <a
-                class="btn btn-sm btn-outline-info"
-                data-bs-toggle="modal"
-                href="#s-<%= products._id %>Modal"
-                role="button"
-                >Size</a
-              >
-            </td>
+                <a class="btn btn-sm btn-outline-info" data-bs-toggle="modal" href="#s-<%= products._id %>Modal"
+                  role="button">Size</a>
+              </td>
             <td>
               <button
                 type="button"
