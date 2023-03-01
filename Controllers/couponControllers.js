@@ -80,7 +80,7 @@ const editCoupon = async (req, res, next) => {
             {
                 couponName: data.couponNames,
                 discount: data.Discount / 100,
-                maxLimit: data.mMxlimit,
+                maxLimit: data.maxlimit,
                 expirationTime: data.ExpirationTime
             }
         ).then(() => {

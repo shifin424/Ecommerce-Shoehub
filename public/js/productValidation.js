@@ -7,7 +7,7 @@ const Stock = document.getElementById('stock')
 const Size = document.getElementById('size')
 const Category = document.getElementById('category-select')
 const subCategory = document.getElementById('subCategory-select')
-const Brands = doucument.getElementById('brand')
+const Brands = document.getElementById('brand')
 const errorElement = document.getElementById('alert')
 
 
@@ -20,7 +20,7 @@ function showErrorMessage(message) {
   
 }
 form.onsubmit=()=> {
-   
+   console.log("entered to product validation",1);
    if(Image.files.value === '' ||productName.value  === ''||Price.value  === ''||Description.value  === ''||Stock.value  === ''||Size.value  === ''||Category.value  === ''||subCategory.value === ''){
       showErrorMessage('Fill The Form ')
       return false;

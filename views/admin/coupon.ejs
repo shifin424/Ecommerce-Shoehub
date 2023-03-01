@@ -85,57 +85,55 @@
                       Edit
                     </button>
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModa-<%= element._id %>" tabindex="-1" aria-labelledby="exampleModalLabel"
-                      aria-hidden="true">
+                    <div class="modal fade" id="exampleModa-<%= element._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
-                          
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                              Edit
+                            </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                          <p id="alerts" class="text-danger d-flex justify-content-center"></p>
-                          <form  action="/admin/editCoupon/<%= element._id %>" onsubmit="return submitform(EventS)" id="myForm" method="post">
+                          <form id="editCouponForm" action="/admin/editCoupon/<%= element._id %>" method="post">
                             <div class="modal-body">
-                              <div class="d-flex justify-content-between" >
-  
-                                <div class="d-flex flex-column">
-                                  <label>Couponcode</label>
-                                  <input class="rounded-2"   value="<%= element.couponName%>" id="CouponNames" name="couponNames" style="width: 189px; height: 38px;"
-                                    type="text">
+      
+                              <div class="d-flex justify-content-around">
+                                <div class="d-flex flex-column w-100">
+                                  <label for="couponNameInput">Couponcode</label>
+                                  <input id="couponNameInput" class="rounded-2" required value="<%= element.couponName%>" name="couponName" style="width: 99%; height: 38px" type="text" />
+                                  <small id="editCouponNameError" class="text-danger err"></small>
                                 </div>
-  
-                                <div class="d-flex flex-column">
-                                  <label>Discount in %</label>
-                                  <input name="Discount"  value="<%=element.discount*100%>"  class="rounded-2" id="Discount" style="width: 189px; height: 38px;"
-                                    type="text">
+      
+                                <div class="d-flex flex-column w-100">
+                                  <label for="discountInput">Discount in %</label>
+                                  <input id="discountInput" name="Discount" required value="<%=element.discount*100%>" class="rounded-2" style="width: 99%; height: 38px" type="text" />
+                                  <small id="editDiscountError" class="text-danger err"></small>
                                 </div>
-  
                               </div>
-  
-                              <div class="d-flex justify-content-between" >
-                                <div class="d-flex flex-column">
-                                  <label>Maximum limit</label>
-                                  <input name="maxLimit"  value="<%= element.maxLimit%>" class="rounded-2" id="Maxlimit" style="width: 189px; height: 38px;"
-                                    type="text">
+      
+                              <div class="d-flex mt-2 justify-content-around">
+                                <div class="d-flex flex-column w-100">
+                                  <label for="maxLimitInput">Maximum limit</label>
+                                  <input id="maxLimitInput" name="maxlimit" required value="<%= element.maxLimit%>" class="rounded-2" style="width: 99%; height: 38px" type="text" />
+                                  <small id="editMaxLimitError" class="text-danger err"></small>
                                 </div>
-  
-                                <div class="d-flex flex-column">
-                                  <label>Expiry date</label>
-                                  <input type="date"  class="rounded-2" style="width: 189px; height: 38px;"
-                                    class="form-control border-secondary" value="<%= element.expirationTime%>" id="Exdate" name="ExpirationTime"
-                                    aria-describedby="emailHelp" />
+      
+                                <div class="d-flex flex-column w-100">
+                                  <label for="expirationTimeInput">Expiry date</label>
+                                  <input id="expirationTimeInput" type="date" required class="rounded-2" style="width: 99%; height: 38px" class="form-control border-secondary" value="<%= element.expirationTime%>" name="ExpirationTime" aria-describedby="emailHelp" />
+                                  <small id="editExpirationTimeError" class="text-danger err"></small>
                                 </div>
-  
                               </div>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="submit" id="submit" value="submit" class="btn btn-primary">Submit</button>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                              </button>
+                              <button type="submit" id="submit" value="submit" class="btn btn-primary">
+                                Submit
+                              </button>
                             </div>
                           </form>
-                          
-                         
                         </div>
                       </div>
                     </div>
@@ -226,7 +224,75 @@
   </div>
   </div>
   </div>
-  <script src="/js/editCouponValidation.js"></script>
+
+  <script>
+    const EditcouponNameInput = document.getElementById('couponNameInput');
+  const EditdiscountInput = document.getElementById('discountInput');
+  const EditmaxLimitInput = document.getElementById('maxLimitInput');
+  const EditexpirationTimeInput = document.getElementById('expirationTimeInput');
+  const editCouponForm = document.getElementById('editCouponForm');
+
+  editCouponForm.addEventListener('submit', (event) => {
+    let isValid = true;
+
+    // Validate couponName
+    if (EditcouponNameInput.value.trim() === '') {
+      isValid = false;
+      document.getElementById('editCouponNameError').textContent =
+        'Coupon name is required';
+    } else {
+      document.getElementById('editCouponNameError').textContent = '';
+    }
+
+    // Validate discount
+    if (EditdiscountInput.value.trim() === '' || isNaN(EditdiscountInput.value) || EditdiscountInput.value < 0 || EditdiscountInput.value > 100) {
+      isValid = false;
+      document.getElementById('editDiscountError').textContent =
+        'Discount must be a number between 0 and 100';
+    } else {
+      document.getElementById('editDiscountError').textContent = '';
+    }
+
+    // Validate maxLimit
+    if (EditmaxLimitInput.value.trim() === '' || isNaN(EditmaxLimitInput.value) || EditmaxLimitInput.value < 0) {
+      isValid = false;
+      document.getElementById('editMaxLimitError').textContent =
+        'Maximum limit must be a positive number';
+    } else {
+      document.getElementById('editMaxLimitError').textContent = '';
+    }
+
+    // Get today's date
+    const today = new Date();
+
+    // Validate expirationTime
+    const EditexpirationTimeInput = document.getElementById('expirationTimeInput');
+    if (EditexpirationTimeInput.value === '') {
+      isValid = false;
+      document.getElementById('editExpirationTimeError').textContent =
+        'Expiration time is required';
+    } else {
+      const expirationDate = new Date(EditexpirationTimeInput.value);
+      if (expirationDate < today) {
+        isValid = false;
+        document.getElementById('editExpirationTimeError').textContent =
+          'Expiration time cannot be before today';
+      } else {
+        document.getElementById('editExpirationTimeError').textContent = '';
+      }
+    }
+
+
+    if (!isValid) {
+      event.preventDefault(); // Prevent form submission if validation fails
+      document.getElementById('Error').textContent =
+        'Please fix the errors in the form';
+    } else {
+      document.getElementById('Error').textContent = '';
+    }
+  });
+  </script>
+  
   <script src="/js/couponValidation.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
