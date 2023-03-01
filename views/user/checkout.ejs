@@ -278,7 +278,7 @@
 											class="buy-now btn btn-sm btn-primary ">Place an Order</a></button>
 							
 										</div>
-												</form>
+							</form>
 				</div>
 			</div>
 		  </div>
@@ -476,7 +476,6 @@
 		async function updateAddressDetails(addressId){
 			const res = await fetch('/getAddressDetails/'+addressId)
 			const data = await res.json();
-			console.log(data,"recieved");
 			if(data.message === 'Address not found'){
 				document.querySelector('#housename').value = "";
 				document.querySelector('#area').value = "";
@@ -524,13 +523,14 @@
 
 	<script>
 		$("#placeOrder").submit((e) => {
-			console.log("hello");
+			console.log(1,"reached here");
 			e.preventDefault();
 			$.ajax({
 				url: '/placeOrder',
 				method: 'post',
 				data: $('#placeOrder').serialize(),
 				success: (response) => {
+					console.log(2,"reached here");
 					if (response.couponDeleted) {
 						Swal.fire({
 							title: "Coupon no longer exist!",
@@ -541,6 +541,7 @@
 						});
 					}
 					else if (response.coupon) {
+						console.log(3,"reached here");
 						Swal.fire({
 							title: "Coupon already used!",
 							icon: "error",
@@ -551,6 +552,7 @@
 					}
 
 					else if (response.invalid) {
+						console.log(4,"reached here");
 						Swal.fire({
 							title: "Invalid Coupon!",
 							icon: "error",
@@ -559,9 +561,10 @@
 							location.reload()
 						});
 					} else if (response.success) {
+						console.log(5,"reached here");
 						location.href = "/orderSuccess";
 					} else {
-
+						console.log(6,"reached here");
 						razorPay(response.order);
 					}
 				}
@@ -570,6 +573,7 @@
 
 
 		function razorPay(order) {
+			console.log(7,"reached here");
 			console.log(order);
 			var options = {
 				"key": 'rzp_test_olbfPbHyDJjoSe',
@@ -597,12 +601,13 @@
 			};
 			var rzp1 = new Razorpay(options);
 			rzp1.on('payment.failed', function (response) {
-
+				console.log(8,"reached here");
 				location.href = "/paymentFail";
 			});
 			rzp1.open();
 		}
 		function verifyPayment(payment, order) {
+			console.log(9,"reached here");
 			$.ajax({
 				url: "/verifyPayment",
 				data: {
@@ -612,6 +617,7 @@
 				method: "post",
 				success: (response) => {
 					if (response.success) {
+						console.log(9,'reached here');
 						location.href = "/orderSuccess";
 					} else {
 						location.href = "/paymentFail";
