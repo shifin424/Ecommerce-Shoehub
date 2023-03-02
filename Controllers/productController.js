@@ -29,18 +29,18 @@ const postProduct = async (req, res, next) => {
         let FirstImage = `productImages/${Date.now()}${ req.files[0].originalname}`;
         sharp(req.files[0].buffer)
          .toFormat("png","jpg","jpeg")
-        //    .resize(255,380)
+            .resize(255,380)
            .toFile(`public/${FirstImage}`);
         let SecondImage = `productImages/${Date.now()}${ req.files[1].originalname}`;
         sharp(req.files[1].buffer)
          .toFormat("png","jpg","jpeg")
-        //  .resize(255,380)
+          .resize(255,380)
            .toFile(`public/${SecondImage}`);
 
         let ThirdImage = `productImages/${Date.now()}${ req.files[2].originalname}`;
         sharp(req.files[2].buffer)
          .toFormat("png","jpg","jpeg")
-        // .resize(255,380)
+         .resize(255,380)
           .toFile(`public/${ThirdImage}`);
 
         const product = new products({
@@ -126,7 +126,7 @@ const changeImage1 = async (req, res) => {
   
         sharp(req.file.buffer)
          .toFormat("png","jpg","jpeg")
-        //    .resize(255,380)
+            .resize(255,380)
            .toFile(`public/${FirstImage}`);
            
         await products.updateOne({ _id: req.params.id },

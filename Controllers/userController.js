@@ -172,21 +172,15 @@ const postlogin = async (req, res, next) => {
           })
 
 
-        } else {
-          req.session.errMessage = "Invalid password";
-          console.log(req.session.errMessage);
-          res.redirect('/login')
-        }
-      } else {
-        req.session.errMessage = "You can't login!!";
-        console.log(req.session.errMessage);
-        res.redirect('/login')
+        }else{
+          res.render('user/login',{invalid:'Invalid password or email!!'})
       }
-    } else {
-      req.session.errMessage = 'Invalid password or email!!';
-      console.log(req.session.errMessage);
-      res.render('user/login')
-    }
+  }else{
+      res.render('user/login',{invalid:"You can't login!! "})
+  }
+  }else{
+      res.render('user/login',{invalid:'Invalid password or email!!'})
+  }
   } catch (err) {
     next(err)
   }
