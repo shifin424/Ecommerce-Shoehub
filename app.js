@@ -50,38 +50,24 @@ app.use('/', (userRouter));
 app.use('/admin', (adminRouter));
 
 
-// app.use(function (req, res, next) {
-//   next(createError(404))
-// })
+app.use(function (req, res, next) {
+  next(createError(404))
+})
 
 app.listen(process.env.PORT, () => {
   console.log(`server started listening to ${process.env.PORT}`.rainbow.bold);
 });
 
-// app.use(function (err, req, res, next) {
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
+app.use(function (err, req, res, next) {
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render("admin/error");
-// });
+  // render the error page
+  res.status(err.status || 500);
+  res.render("admin/error");
+});
 
-//  const sharp = require('sharp');
+
   
-//   sharp('image.png')
-//     .resize(300, 300, {
-//       kernel: sharp.kernel.nearest,
-//       fit: 'contain',
-//       position: 'center',
-//       background: { r: 255, g: 255, b: 255, alpha: 0 }
-//     })
-//     .toFile('output.png')
-//     .then(() => {
-//       // output.png is a 200 pixels wide and 300 pixels high image
-//       // containing a nearest-neighbour scaled version
-//       // contained within the north-east corner of a semi-transparent white canvas
-//       console.log("success")
-//     });
 
 
