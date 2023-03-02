@@ -133,8 +133,7 @@
 												➖
 											</button>
 											</span>
-											<p class="mt-5 ml-3" id="<%= product.productDetail._id %>" min="0" name="quantity"><%= product.productQuantity%></p></strong>
-										 <span class="input-group-btn ml-2">
+											<input id="<%= product.productDetail._id %>" type="text" class="form-control text-center" min="0" name="quantity" value="<%= product.productQuantity%>" aria-label="Example text with button addon" aria-describedby="button-addon1" /> 	 	 	 											 <span class="input-group-btn ml-2">
 											<button type="button"  onclick="changeQuantity('<%= product._id %>','<%= product.productDetail._id %>',1)" style="background-color: #dbcc8f; " class="quantity-right-plus btn" data-type="plus" data-field="">
 											 ➕
 										 </button>
@@ -359,33 +358,34 @@
 		
 
 <script>
-function changeQuantity(cartId, productId, count){
-	 event.preventDefault();
-    console.log('ajax request succussfully');
-	const inputElement = document.getElementById(productId);
+function changeQuantity(cartId, productId, count) {
+    event.preventDefault();
+    const inputElement = document.getElementById(productId);
     const quantity = inputElement.value;
     $.ajax({
-        url:"/changeQuantity",
-        data:{
-            cart:cartId,
-            product:productId,
-            count:count,
-            quantity:quantity
-        },
-        method:"post",
-        success: (response)=>{ 
-          if(response.status){
-           document.getElementById(productId).innerHTML = quantity + count;
-            document.getElementById("sum").innerHTML ="₹"+ response.productData[0].total
-            document.getElementById("netamount").innerHTML ="₹"+ response.productData[0].total
-            console.log(response);
-          } 
-          if(response.quantity){
-            location.reload()
-          }    
-           
+      url: "/changeQuantity",
+      data: {
+        cart: cartId,
+        product: productId,
+        count: count,
+        quantity: quantity,
+      },
+      method: "post",
+      success: (response) => {
+        if (response.success) {
+          // Update quantity input field
+          document.getElementById(productId).value = parseInt(quantity) + count;
+
+          // Update total amount
+          document.getElementById("sum").innerHTML = "₹" + response.productData[0].total
+          document.getElementById("netamount").innerHTML = "₹" + response.productData[0].total
+          console.log(response);
         }
-    })
+        if (response.quantity) {
+          location.reload();
+        }
+      },
+    });
   }
 </script>
 

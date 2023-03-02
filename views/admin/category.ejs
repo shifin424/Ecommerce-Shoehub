@@ -32,7 +32,7 @@
             </div>
             <div class="col-8"><br>
               <% subcategory.forEach((subcatgry)=> { %>
-              <input type="checkbox" id="myCheckbox" name="subname" value="<%=subcatgry._id %>" >
+              <input type="checkbox" id="myCheckbox" name="subname" value="<%=subcatgry._id %>"  >
               <label for="myCheckbox"><%=subcatgry.subcategory_name %></label><br>
               <% }) %>
             </div>
@@ -94,7 +94,7 @@
                 
                 <form action="/admin/editCategory/<%=catg._id%>" method="post">
                   <div class="d-flex">
-                  <input placeholder="Edit category name" name="name" type="text" id="category" class="form-control w-50"  required>                     
+                  <input placeholder="Edit category name"  name="name" type="text" id="category" class="form-control w-50"  required>                     
                   <button type="submit" class="btn btn-success">Submit</button>
                   </div>
                 </form>
