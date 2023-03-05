@@ -119,12 +119,34 @@ const editAddress = async(req,res,next)=>{
   try{
     const session = req.session.user
     const userData = await user.findOne({_id:session._id})
-    console.log(userData,5);
     res.render('user/editAddress',{userData})
   }catch(err){
     next(err)
   }
 }
+
+
+const editProfileAddress = async(req,res,next)=>{
+  try{
+    let session = req.session.user
+    const userData = await user.findOne({email:session.email})
+    const address = {
+      housename:req.body.housename,
+      area:req.body.area,
+      landMark:req.body.landmark,
+      district:req.body.district,
+      postoffice:req.body.postoffice,
+      state:req.body.state,
+      pin:req.body.pin,
+    }
+     const addressEdit= await user.updateOne({_id:userData._id},{$set:{addressDetails:address}})
+    console.log(addressEdit,3);
+    Id = req.params.id
+  }catch(err){
+    next(err)
+  }
+}
+
 
 
 module.exports = {
@@ -134,6 +156,7 @@ module.exports = {
   getPasswordPage,
   postChangePassword,
   getContactPage,
-  editAddress 
+  editAddress ,
+  editProfileAddress
 
 }

@@ -71,13 +71,20 @@ function addToWishlist(productId) {
           confirmButtonText: "continue",
         });
       }
-      if (response.productExist) {
+     else if (response.productExist) {
         Swal.fire({
           title: "Alredy Exist in wishlist",
           icon: "error",
           confirmButtonText: "continue",
         });
 
+      }else{
+        swal.fire({
+          title:"Not logged in",
+          text:"please login !",
+          icon:"error",
+          confirmButtonText:"Continue"
+        })
       }
     },
   });

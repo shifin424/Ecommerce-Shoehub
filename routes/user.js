@@ -51,19 +51,19 @@ router.get('/cart',session.userLogin,cartController.addToCart)
 
 router.post('/cart',session.userLogin,cartController.addToCart);
 
-router.get('/shop',session.userLogin,shopController.getshop)
+router.get('/shop',shopController.getshop)
 
 router.get('/sortLowToHigh',session.userLogin,shopController.sortLowToHigh)
 
 router.get('/sortHighToLow',session.userLogin,shopController.sortHighToLow)
 
-router.get('/productView/:id',session.userLogin,shopController.getProductView)
+router.get('/productView/:id',shopController.getProductView)
 
 router.post('/productView/:id',session.userLogin,shopController.reviews)
 
 router.get('/category/:id',session.userLogin,shopController.getCategoryWisePage);
 
-router.post('/searchProduct',session.userLogin,shopController.searchProduct)
+router.post('/searchProduct',session.userLogin,shopController.searchProduct);
 
 router.get('/checkout',session.userLogin,checkoutController.getCheckout)
 
@@ -105,7 +105,7 @@ router.post('/forgot-new-password', userController.forgotNewPassword)
 
 router.get('/userTwoFactor',userController.twoFactors)
 
- router.post('/twoFactorLogin',userController.usertwofactor)
+router.post('/twoFactorLogin',userController.usertwofactor)
 
 router.get('/logout', userController.userLogout)
 
@@ -114,6 +114,8 @@ router.get('/contact',profileController.getContactPage)
 router.get('/EditAddress',session.userLogin,profileController.editAddress)
 
 router.get('/getAddressDetails/:userId',session.userLogin,checkoutController.fetchAddress)
+
+router.post('/editProfileAddress/:id',session.userLogin,profileController.editProfileAddress)
 
 
 

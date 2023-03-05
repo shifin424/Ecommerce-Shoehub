@@ -8,20 +8,19 @@
   };
 
  const verifyLoginUser = (req, res, next) => {
-    if (req.session?.user) {
+    if (req.session.user) {
       res.redirect('/')
-      res.json({success:false})
     } else {
       next();
     }
   };
 
  const  userLogin = (req,res,next)=>{
-    if(req.session?.user){
+    if(req.session.user){
       next()
     }
     else{
-      res.redirect('/')
+      res.redirect('/login')
     }
   };
 

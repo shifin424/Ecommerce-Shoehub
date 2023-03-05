@@ -41,8 +41,9 @@ const sortHighToLow = async (req, res, next) => {
 const getProductView = async (req, res, next) => {
     try {
         let id = req.params.id
+        let userData = req.session.user
         let product = await products.findOne({ _id: id }).populate('category')
-        res.render('user/ProductView', { product: product })
+        res.render('user/ProductView', { product: product ,userData})
     } catch (err) {
         next(err)
     }
