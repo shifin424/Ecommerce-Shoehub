@@ -29,7 +29,10 @@ const userSchema = new mongoose.Schema({
     cancelledDate:{
         type: String,
     },
-
+     
+    profile:{
+        type:String
+    },
 
     addressDetails:[
         {

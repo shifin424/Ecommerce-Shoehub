@@ -8,6 +8,7 @@ const shopController = require('../Controllers/userShopController')
 const checkoutController = require('../Controllers/userChekoutController')
  const orderController = require('../Controllers/userOrderController')
  const wishlistController = require('../Controllers/userWishlistController')
+ const upload = require('../middlewares/uploadImage')
 
 
 
@@ -116,6 +117,12 @@ router.get('/EditAddress',session.userLogin,profileController.editAddress)
 router.get('/getAddressDetails/:userId',session.userLogin,checkoutController.fetchAddress)
 
 router.post('/editProfileAddress/:id',session.userLogin,profileController.editProfileAddress)
+
+router.post('/deleteAddress/:id',session.userLogin,profileController.deleteProfile)
+
+router.post('/addProfile',session.userLogin,upload.single('myProfile'),profileController.myProfile)
+
+router.post('/changeProfile/:id',session.userLogin,upload.single('myDP'),profileController.changeDp)
 
 
 

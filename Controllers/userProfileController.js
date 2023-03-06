@@ -1,6 +1,7 @@
 
 const user = require('../model/userSchema')
 const bcrypt = require('bcrypt');
+const sharp = require('sharp')
 
 const viewProfile = async (req, res, next) => {
   try {
@@ -126,9 +127,32 @@ const editAddress = async(req,res,next)=>{
 }
 
 
+const myProfile = async(req,res,next)=>{
+  try{
+    let session = req.session.user
+    let email = session.email
+    data = req.file
+    console.log(data,1);
+    let myImage = `myProfiles/${Date.now()}${ req.file.originalname}`;
+        sharp(req.file.buffer)
+         .toFormat("png","jpg","jpeg")
+           // .resize(255,380)
+           .toFile(`public/${myImage}`);
+
+            await user.updateOne({email:email},{$set:{profile:myImage}})
+        res.redirect('/profile')  
+
+  }catch(err){
+    console.log(err);
+    next(err)
+  }
+}
+
+
 const editProfileAddress = async(req,res,next)=>{
   try{
     let session = req.session.user
+    Id = req.params.id
     const userData = await user.findOne({email:session.email})
     const address = {
       housename:req.body.housename,
@@ -139,10 +163,50 @@ const editProfileAddress = async(req,res,next)=>{
       state:req.body.state,
       pin:req.body.pin,
     }
-     const addressEdit= await user.updateOne({_id:userData._id},{$set:{addressDetails:address}})
-    console.log(addressEdit,3);
-    Id = req.params.id
+     const addressEdit= await user.updateOne({_id:userData._id,"addressDetails._id":Id},{$set:{"addressDetails.$":address}})
+    res.redirect('/profile')
   }catch(err){
+    next(err)
+  }
+}
+
+const deleteProfile = async (req, res, next) => {
+  try {
+    const session = req.session.user;
+    const addressId = req.params.id;
+    const userData = await user.findOne({ email: session.email });
+    const deleteAddress = await user.updateOne(
+      { _id: userData._id },
+      { $pull: { addressDetails: { _id:addressId } } }
+    );
+    res.redirect('/EditAddress');
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+
+const changeDp = async(req,res,next)=>{
+  try{
+    let changeImage = `myProfiles/${Date.now()}${ req.file.originalname}`;
+    sharp(req.file.buffer)
+     .toFormat("png","jpg","jpeg")
+        //.resize(255,380)
+       .toFile(`public/${changeImage}`);
+       
+    await user.updateOne({ _id: req.params.id },
+         {
+             $set:
+             {
+                 profile:changeImage,
+             }
+         })
+
+    
+    res.redirect('/profile');
+  }catch(err){
+    console.log(err);
     next(err)
   }
 }
@@ -157,6 +221,11 @@ module.exports = {
   postChangePassword,
   getContactPage,
   editAddress ,
-  editProfileAddress
+  editProfileAddress,
+  myProfile,
+  changeDp,
+  deleteProfile
+  
+
 
 }
