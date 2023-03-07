@@ -295,6 +295,15 @@
 											</div>
 										</div>
 
+										<div class="form-group">
+											<div class="col-md-12">
+												<div class="radio">
+													<label><input type="radio" value="Wallet" name="paymentMethod"
+															class="mr-2" checked required>Wallet</label>
+												</div>
+											</div>
+										</div>
+
 
 										<button style="border: none;background: none;" type="submit" value="submit"><a
 												style="width: 10rem;height: 2rem;color: #000;"
@@ -533,17 +542,9 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	// <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	// <script>
-	// 	var myModalEl = document.getElementById('myModal')
-	// 	myModalEl.addEventListener('hidden.bs.modal', function (event) {
-
-	// 	})
-	// </script>
 
 	<script>
 		$("#placeOrder").submit((e) => {
-			console.log(1, "reached here");
 			e.preventDefault();
 			$.ajax({
 				url: '/placeOrder',
@@ -572,7 +573,6 @@
 					}
 
 					else if (response.invalid) {
-						console.log(1, "reached here");
 						Swal.fire({
 							title: "Invalid Coupon!",
 							icon: "error",
@@ -580,6 +580,12 @@
 						}).then(function () {
 							location.reload()
 						});
+					}else if (response.Wallet){
+						Swal.fire({
+							title: "insufficient Balance",
+							icon: "error",
+							confirmButtonText: "ok",
+						})
 					} else if (response.success) {
 						location.href = "/orderSuccess";
 					} else {

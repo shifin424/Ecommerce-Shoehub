@@ -18,7 +18,7 @@ const getHome = async (req, res, next) => {
   try {
     let loging = req.session.user
     let product = await products.find({ delete: false }).populate('category')
-    let bannerData = await banner.find()
+    let bannerData = await banner.find({isDeleted:false})
     res.render('user/home', { loging, product, bannerData })
   } catch (err) {
 

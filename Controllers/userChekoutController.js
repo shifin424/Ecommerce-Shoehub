@@ -236,7 +236,7 @@ const placeOrder = async (req, res, next) => {
             }
           }
 
-          const orderData = await order.create({
+          const orderData = new  order({
 
             userId: userData._id,
             name: userData.username,
@@ -255,12 +255,10 @@ const placeOrder = async (req, res, next) => {
             deliveryDate: moment().add(3, "days").format("MMM Do YY")
 
           })
-          const amount = orderData.totalAmount * 100
-          const orderId = orderData._id
-          console.log(orderId + "hey this is my order id");
-          await cart.deleteOne({ userId: userData._id });
-
+         
           if (req.body.paymentMethod === "COD") {
+            const orderDatas = await orderData.save()
+              const orderId = orderDatas._id
             await order.updateOne({ _id: orderId }, { $set: { orderStatus: 'placed' } })
 
             res.json({ success: true });
@@ -272,13 +270,59 @@ const placeOrder = async (req, res, next) => {
             });
 
 
-          } else {
+          }else if (req.body.paymentMethod === "Wallet") {
+
+            if (userData.walletTotal < orderData.totalAmount) {
+
+              res.json({ wallet: true })
+
+            } else {
+
+              const orderDatas = await orderData.save()
+              const orderId = orderDatas._id
+
+              order.updateOne({ _id: orderId }, { $set: { paymentStatus: "Paid", orderStatus: 'Placed' } }).then( async() => {
+
+                const updatedWalletTotal = userData.walletTotal - orderDatas.totalAmount;
+                const updatedWalletDetails = userData.walletDetails.concat({
+                  transactionType: 'Purchase',
+                  amount: orderDatas.totalAmount,
+                  orderDetails: orderData._id,
+                  date: new Date()
+                });
+
+                await users.updateOne(
+                  { _id: userData._id },
+                  { $set: { walletTotal: updatedWalletTotal, walletDetails: updatedWalletDetails } }
+                );
+
+                res.json({ success: true });
+                coupon.updateOne(
+                  { couponName: data.coupon },
+                  { $push: { users: { userId: objId } } }
+                )
+
+              }).catch((err) => {
+                console.log(err);
+                res.json({ status: false, err_message: "Payment failed" });
+                order.deleteOne({ _id: orderId })
+              })
+
+            }
+
+          }
+          
+          else {
+           
+            const orderDatas = await orderData.save()
+            const orderId = orderDatas._id
+            const amount = orderDatas.totalAmount * 100
 
             let options = {
               amount: amount,
               currency: "INR",
               receipt: "" + orderId,
-            };
+            }; 
             instance.orders.create(options, function (err, order) {
 
               if (err) {
