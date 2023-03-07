@@ -54,17 +54,17 @@ router.post('/cart',session.userLogin,cartController.addToCart);
 
 router.get('/shop',shopController.getshop)
 
-router.get('/sortLowToHigh',session.userLogin,shopController.sortLowToHigh)
+router.get('/sortLowToHigh',shopController.sortLowToHigh)
 
-router.get('/sortHighToLow',session.userLogin,shopController.sortHighToLow)
+router.get('/sortHighToLow',shopController.sortHighToLow)
 
 router.get('/productView/:id',shopController.getProductView)
 
 router.post('/productView/:id',session.userLogin,shopController.reviews)
 
-router.get('/category/:id',session.userLogin,shopController.getCategoryWisePage);
+router.get('/category/:id',shopController.getCategoryWisePage);
 
-router.post('/searchProduct',session.userLogin,shopController.searchProduct);
+router.post('/searchProduct',shopController.searchProduct);
 
 router.get('/checkout',session.userLogin,checkoutController.getCheckout)
 
