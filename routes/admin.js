@@ -10,6 +10,7 @@ const categoryController = require('../Controllers/categoryControllers')
 const upload = require('../middlewares/uploadImage')
 const bannerController = require('../Controllers/bannerController')
 const orderController = require('../Controllers/orderController')
+const uploadImage = require('../middlewares/Cloudinary')
 
 
 
@@ -97,7 +98,7 @@ adminRouter.post('/editCoupon/:id',adminSession,couponController.editCoupon);
 
 adminRouter.get('/getBanner',adminSession,bannerController.getBannerPage);
 
-adminRouter.post('/addBanner',upload.single('bannerImage'),adminSession,bannerController.addBanner);
+adminRouter.post('/addBanner',adminSession,uploadImage,bannerController.addBanner);
 
 adminRouter.post('/editBanner/:id',adminSession,bannerController.editBanner);
 

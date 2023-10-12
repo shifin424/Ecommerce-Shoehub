@@ -14,16 +14,15 @@ const getBannerPage = async (req, res, next) => {
 
 const addBanner = async (req, res, next) => {
     try {
-        let BannerImage = `productImages/${Date.now()}${ req.file.bannerImage}`;
-        sharp(req.file.buffer)
-         .toFormat("png","jpg","jpeg")
-        //    .resize(255,380)
-           .toFile(`public/${FirstImage}`);
+        console.log(req.body)
+        console.log(req.file)
+        const {path,filename} = req.file
+        
         await banner.create({
             offerType: req.body.offerType,
             bannerText: req.body.bannerText,
             couponName: req.body.couponName,
-            bannerImage: BannerImage,
+            bannerImage: path,
         }).then((data) => {
             res.redirect('/admin/getBanner')
         })

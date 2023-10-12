@@ -43,31 +43,31 @@ const postAdminLogin = async (req, res, next) => {
             console.log(OTP);
             const botp = await bcrypt.hash(OTP, 10)
 
-            const mailDetail = {
-                from: process.env.MAILER_EMAIL,
-                to: adminEmail,
-                subject: 'Otp for SHOEHUB ',
-                html: `<p>Your OTP for registering in SHOEHUB  is ${OTP}</p>`
+            // const mailDetail = {
+            //     from: process.env.MAILER_EMAIL,
+            //     to: adminEmail,
+            //     subject: 'Otp for SHOEHUB ',
+            //     html: `<p>Your OTP for registering in SHOEHUB  is ${OTP}</p>`
 
-            }
-            mailer.mailTransporter.sendMail(mailDetail, async function (err) {
+            // }
+            // mailer.mailTransporter.sendMail(mailDetail, async function (err) {
 
-                twoFactor.deleteOne({ email: adminEmail }).then(() => {
+            //     twoFactor.deleteOne({ email: adminEmail }).then(() => {
 
-                    twoFactor.create({
-                        email: adminEmail,
-                        otp: botp
-                    }).then(() => {
+            //         twoFactor.create({
+            //             email: adminEmail,
+            //             otp: botp
+            //         }).then(() => {
 
-                        res.redirect(`/admin/twoFactorAdmin?email=${adminEmail}`);
+            //             res.redirect(`/admin/twoFactorAdmin?email=${adminEmail}`);
 
-                    })
+            //         })
 
-                })
+            //     })
 
-            })
-
-
+            // })
+            
+            res.redirect('/admin/dashBoard')
 
 
         } else {

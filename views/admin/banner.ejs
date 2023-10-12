@@ -12,7 +12,7 @@
                 <h5 class="text-decoration-underline">Add banner</h5>
             </div>
 
-            <form class="mt-3 mb-3" action="/admin/addBanner" method="post">
+            <form class="mt-3 mb-3" action="/admin/addBanner" method="post" enctype="multipart/form-data">
                 <div class="d-flex flex-wrap justify-content-between">
 
                     <div class="d-flex flex-column">
@@ -35,8 +35,8 @@
 
                     <div class="d-flex flex-column">
                       <label>Image</label>
-                      <input name="bannerImage" required class="rounded-2" style="width:190px; height: 38px;"
-                          type="file" >
+                      <input name="image" required class="rounded-2" style="width:190px; height: 38px;"
+                          type="file"  >
                   </div>
                     <button class="btn btn-success mt-4" style="width: 75px; height: 38px;"
                         type="submit">Submit</button>
